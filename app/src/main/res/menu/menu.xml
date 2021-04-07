@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/mercadona_searcher"
-        android:title="Busca Productos En Mercadona" />
+        android:title="Busca Tus Productos En Mercadona" />
     <item android:id="@+id/ahorramas_searcher"
-        android:title="Busca Productos En Ahorramas" />
+        android:title="Busca Tus Productos En Ahorramas" />
 </menu>

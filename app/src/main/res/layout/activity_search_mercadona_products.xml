@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".searchMercadonaProducts">
+    <TextView
+        android:id="@+id/title"
+        android:textColor="#FF5722"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/tommybold"
+        android:text="Lista De Productos Encontrados"
+        android:layout_alignParentBottom="false"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:textSize="25sp"/>
     <ProgressBar
         android:id="@+id/prograss"
         android:layout_centerInParent="true"
@@ -29,6 +41,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@id/title">
     </androidx.recyclerview.widget.RecyclerView>
 </RelativeLayout>
