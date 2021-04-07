@@ -26,7 +26,7 @@ public class AdapterMercadona extends RecyclerView.Adapter<AdapterMercadona.MyVi
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.itemdercadona, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.itemmercadona, parent, false);
         return new MyViewHolder(view);
     }
 

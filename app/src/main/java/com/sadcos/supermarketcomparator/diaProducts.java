@@ -6,7 +6,7 @@ public class diaProducts {
     @SerializedName("id") private int id;
     @SerializedName("product_name") private String product_name;
     @SerializedName("link") private String link;
-    @SerializedName("price") private Double price;
+    @SerializedName("price") private String price;
     @SerializedName("price_per_kg") private String price_per_kg;
 
     public int getId() {
@@ -21,7 +21,7 @@ public class diaProducts {
         return link;
     }
 
-    public Double getPrice() {
+    public String getPrice() {
         return price;
     }
 

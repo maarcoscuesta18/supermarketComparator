@@ -24,12 +24,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
+        Intent intent;
         switch (item.getItemId()) {
             case R.id.mercadona_searcher:
-                Intent intent = new Intent(this, searchMercadonaProducts.class);
+                intent = new Intent(this, searchMercadonaProducts.class);
                 startActivity(intent);
                 return true;
             case R.id.ahorramas_searcher:
+                return true;
+            case R.id.dia_searcher:
+                intent = new Intent(this, searchDiaProducts.class);
+                startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
