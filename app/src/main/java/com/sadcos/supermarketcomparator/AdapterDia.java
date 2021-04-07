@@ -26,7 +26,7 @@ public class AdapterDia extends RecyclerView.Adapter<AdapterDia.MyViewHolder> {
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.itemMercadona, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.itemdia, parent, false);
         return new MyViewHolder(view);
     }
 
