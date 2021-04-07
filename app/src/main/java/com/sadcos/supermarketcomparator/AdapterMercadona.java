@@ -14,19 +14,19 @@ import java.util.List;
  * Created by haerul on 17/03/18.
  */
 
-public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
+public class AdapterMercadona extends RecyclerView.Adapter<AdapterMercadona.MyViewHolder> {
 
     private List<mercadonaProducts> product;
     private Context context;
 
-    public Adapter(List<mercadonaProducts> products, Context context) {
+    public AdapterMercadona(List<mercadonaProducts> products, Context context) {
         this.product = products;
         this.context = context;
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.itemMercadona, parent, false);
         return new MyViewHolder(view);
     }
 
@@ -34,7 +34,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     public void onBindViewHolder(MyViewHolder holder, int position) {
         holder.product_name.setText(product.get(position).getProduct_name());
         holder.link.setText(product.get(position).getLink());
-        holder.price.setText(product.get(position).getPrice());
+        holder.price.setText("Price: "+product.get(position).getPrice()+" €");
     }
     @Override
     public int getItemCount() {

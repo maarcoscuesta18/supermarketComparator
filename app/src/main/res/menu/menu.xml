@@ -4,4 +4,6 @@
         android:title="Busca Tus Productos En Mercadona" />
     <item android:id="@+id/ahorramas_searcher"
         android:title="Busca Tus Productos En Ahorramas" />
+    <item android:id="@+id/dia_searcher"
+        android:title="Busca Tus Productos En Dia" />
 </menu>
