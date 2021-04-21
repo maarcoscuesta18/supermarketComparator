@@ -30,7 +30,9 @@ public class MainActivity extends AppCompatActivity {
                 intent = new Intent(this, searchMercadonaProducts.class);
                 startActivity(intent);
                 return true;
-            case R.id.ahorramas_searcher:
+            case R.id.carrefour_searcher:
+                intent = new Intent(this, searchCarrefourProducts.class);
+                startActivity(intent);
                 return true;
             case R.id.dia_searcher:
                 intent = new Intent(this, searchDiaProducts.class);
