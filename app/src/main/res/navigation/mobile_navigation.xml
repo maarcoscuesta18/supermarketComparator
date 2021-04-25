@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.sadcos.supermarketcomparator.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <activity
+        android:id="@+id/nav_mercadona"
+        android:name="com.sadcos.supermarketcomparator.searchers.searchMercadonaProducts"
+        android:label="@string/productos_mercadona"
+        tools:layout="@layout/activity_search_mercadona_products" />
+    <activity
+        android:id="@+id/nav_dia"
+        android:name="com.sadcos.supermarketcomparator.searchers.searchDiaProducts"
+        android:label="@string/productos_dia"
+        tools:layout="@layout/activity_search_dia_products" />
+    <activity
+        android:id="@+id/nav_carrefour"
+        android:name="com.sadcos.supermarketcomparator.searchers.searchCarrefourProducts"
+        android:label="@string/productos_carrefour"
+        tools:layout="@layout/activity_search_carrefour_products" />
+
+
+</navigation>

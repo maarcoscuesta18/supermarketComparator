@@ -1,4 +1,4 @@
-package com.sadcos.supermarketcomparator;
+package com.sadcos.supermarketcomparator.searchers;
 
 
 
@@ -17,19 +17,25 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.sadcos.supermarketcomparator.adapters.AdapterDia;
+import com.sadcos.supermarketcomparator.apis.ApiClient;
+import com.sadcos.supermarketcomparator.apis.ApiInterfaceDia;
+import com.sadcos.supermarketcomparator.R;
+import com.sadcos.supermarketcomparator.diaProducts;
+
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class searchCarrefourProducts extends AppCompatActivity {
+public class searchDiaProducts extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    private List<carrefourProducts> carrefourProducts;
-    private AdapterCarrefour adapterCarrefour;
-    private ApiInterfaceCarrefour apiInterfaceCarrefour;
+    private List<com.sadcos.supermarketcomparator.diaProducts> diaProducts;
+    private AdapterDia adapterDia;
+    private ApiInterfaceDia apiInterfaceDia;
     ProgressBar progressBar;
     TextView search;
     String[] item;
@@ -44,29 +50,29 @@ public class searchCarrefourProducts extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-        fetchContact("carrefour_products", "");
+        fetchContact("dia_products", "");
 
     }
 
     public void fetchContact(String type, String key){
 
-        apiInterfaceCarrefour = ApiClient.getApiClient().create(ApiInterfaceCarrefour.class);
+        apiInterfaceDia = ApiClient.getApiClient().create(ApiInterfaceDia.class);
 
-        Call<List<carrefourProducts>> call = apiInterfaceCarrefour.getProduct(type, key);
-        call.enqueue(new Callback<List<carrefourProducts>>() {
+        Call<List<diaProducts>> call = apiInterfaceDia.getProduct(type, key);
+        call.enqueue(new Callback<List<diaProducts>>() {
             @Override
-            public void onResponse(Call<List<carrefourProducts>> call, Response<List<carrefourProducts>> response) {
+            public void onResponse(Call<List<diaProducts>> call, Response<List<diaProducts>> response) {
                 progressBar.setVisibility(View.GONE);
-                carrefourProducts = response.body();
-                adapterCarrefour = new AdapterCarrefour(carrefourProducts, searchCarrefourProducts.this);
-                recyclerView.setAdapter(adapterCarrefour);
-                adapterCarrefour.notifyDataSetChanged();
+                diaProducts = response.body();
+                adapterDia = new AdapterDia(diaProducts, searchDiaProducts.this);
+                recyclerView.setAdapter(adapterDia);
+                adapterDia.notifyDataSetChanged();
             }
 
             @Override
-            public void onFailure(Call<List<carrefourProducts>> call, Throwable t) {
+            public void onFailure(Call<List<diaProducts>> call, Throwable t) {
                 progressBar.setVisibility(View.GONE);
-                Toast.makeText(searchCarrefourProducts.this, "Error\n"+t.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(searchDiaProducts.this, "Error\n"+t.toString(), Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -74,7 +80,7 @@ public class searchCarrefourProducts extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.carrefour_menu, menu);
+        inflater.inflate(R.menu.dia_menu, menu);
 
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
@@ -83,13 +89,13 @@ public class searchCarrefourProducts extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                fetchContact("carrefour_products", query);
+                fetchContact("dia_products", query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                fetchContact("carrefour_products", newText);
+                fetchContact("dia_products", newText);
                 return false;
             }
         });

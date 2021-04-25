@@ -1,4 +1,4 @@
-package com.sadcos.supermarketcomparator;
+package com.sadcos.supermarketcomparator.apis;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

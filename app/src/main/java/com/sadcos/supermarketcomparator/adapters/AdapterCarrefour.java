@@ -1,4 +1,4 @@
-package com.sadcos.supermarketcomparator;
+package com.sadcos.supermarketcomparator.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,25 +8,28 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.sadcos.supermarketcomparator.R;
+import com.sadcos.supermarketcomparator.carrefourProducts;
+
 import java.util.List;
 
 /**
  * Created by haerul on 17/03/18.
  */
 
-public class AdapterDia extends RecyclerView.Adapter<AdapterDia.MyViewHolder> {
+public class AdapterCarrefour extends RecyclerView.Adapter<AdapterCarrefour.MyViewHolder> {
 
-    private List<diaProducts> product;
+    private List<carrefourProducts> product;
     private Context context;
 
-    public AdapterDia(List<diaProducts> products, Context context) {
+    public AdapterCarrefour(List<carrefourProducts> products, Context context) {
         this.product = products;
         this.context = context;
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.itemdia, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.itemcarrefour, parent, false);
         return new MyViewHolder(view);
     }
 

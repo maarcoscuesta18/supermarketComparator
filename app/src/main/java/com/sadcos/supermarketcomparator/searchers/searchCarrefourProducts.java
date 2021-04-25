@@ -1,6 +1,4 @@
-package com.sadcos.supermarketcomparator;
-
-
+package com.sadcos.supermarketcomparator.searchers;
 
 import android.app.SearchManager;
 import android.content.Context;
@@ -17,19 +15,25 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.sadcos.supermarketcomparator.adapters.AdapterCarrefour;
+import com.sadcos.supermarketcomparator.apis.ApiClient;
+import com.sadcos.supermarketcomparator.apis.ApiInterfaceCarrefour;
+import com.sadcos.supermarketcomparator.R;
+import com.sadcos.supermarketcomparator.carrefourProducts;
+
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class searchMercadonaProducts extends AppCompatActivity {
+public class searchCarrefourProducts extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    private List<mercadonaProducts> mercadonaProducts;
-    private AdapterMercadona adapterMercadona;
-    private ApiInterfaceMercadona apiInterfaceMercadona;
+    private List<com.sadcos.supermarketcomparator.carrefourProducts> carrefourProducts;
+    private AdapterCarrefour adapterCarrefour;
+    private ApiInterfaceCarrefour apiInterfaceCarrefour;
     ProgressBar progressBar;
     TextView search;
     String[] item;
@@ -37,36 +41,36 @@ public class searchMercadonaProducts extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_mercadona_products);
+        setContentView(R.layout.activity_search_dia_products);
 
         progressBar = findViewById(R.id.prograss);
         recyclerView = findViewById(R.id.recyclerView);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-        fetchContact("mercadona_products", "");
+        fetchContact("carrefour_products", "");
 
     }
 
     public void fetchContact(String type, String key){
 
-        apiInterfaceMercadona = ApiClient.getApiClient().create(ApiInterfaceMercadona.class);
+        apiInterfaceCarrefour = ApiClient.getApiClient().create(ApiInterfaceCarrefour.class);
 
-        Call<List<mercadonaProducts>> call = apiInterfaceMercadona.getProduct(type, key);
-        call.enqueue(new Callback<List<mercadonaProducts>>() {
+        Call<List<carrefourProducts>> call = apiInterfaceCarrefour.getProduct(type, key);
+        call.enqueue(new Callback<List<carrefourProducts>>() {
             @Override
-            public void onResponse(Call<List<mercadonaProducts>> call, Response<List<mercadonaProducts>> response) {
+            public void onResponse(Call<List<carrefourProducts>> call, Response<List<carrefourProducts>> response) {
                 progressBar.setVisibility(View.GONE);
-                mercadonaProducts = response.body();
-                adapterMercadona = new AdapterMercadona(mercadonaProducts, searchMercadonaProducts.this);
-                recyclerView.setAdapter(adapterMercadona);
-                adapterMercadona.notifyDataSetChanged();
+                carrefourProducts = response.body();
+                adapterCarrefour = new AdapterCarrefour(carrefourProducts, searchCarrefourProducts.this);
+                recyclerView.setAdapter(adapterCarrefour);
+                adapterCarrefour.notifyDataSetChanged();
             }
 
             @Override
-            public void onFailure(Call<List<mercadonaProducts>> call, Throwable t) {
+            public void onFailure(Call<List<carrefourProducts>> call, Throwable t) {
                 progressBar.setVisibility(View.GONE);
-                Toast.makeText(searchMercadonaProducts.this, "Error\n"+t.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(searchCarrefourProducts.this, "Error\n"+t.toString(), Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -74,7 +78,7 @@ public class searchMercadonaProducts extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.mercadona_menu, menu);
+        inflater.inflate(R.menu.carrefour_menu, menu);
 
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
@@ -83,13 +87,13 @@ public class searchMercadonaProducts extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                fetchContact("mercadona_products", query);
+                fetchContact("carrefour_products", query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                fetchContact("mercadona_products", newText);
+                fetchContact("carrefour_products", newText);
                 return false;
             }
         });

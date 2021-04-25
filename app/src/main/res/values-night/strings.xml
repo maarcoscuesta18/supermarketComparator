@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="productos_mercadona">Productos Mercadona</string>
+    <string name="productos_dia">Productos Dia</string>
+    <string name="productos_carrefour">Productos Carrefour</string>
+</resources>

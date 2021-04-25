@@ -12,11 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SupermarketComparator"
         android:usesCleartextTraffic="true">
-
-        <meta-data
-            android:name="android.app.default_searchable"
-            android:value=".MainActivity" />
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/Theme.SupermarketComparator.NoActionBar">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".gestionActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,12 +29,19 @@
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
         </activity>
+        <activity android:name=".LoginActivity">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+        </activity>
         <activity
-            android:name=".searchMercadonaProducts"
+            android:name=".searchers.searchMercadonaProducts"
             android:launchMode="singleTop">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
+
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
 
@@ -39,11 +50,11 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity
-            android:name=".searchDiaProducts"
+            android:name=".searchers.searchDiaProducts"
             android:launchMode="singleTop">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
+
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
 
@@ -52,11 +63,11 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity
-            android:name=".searchCarrefourProducts"
+            android:name=".searchers.searchCarrefourProducts"
             android:launchMode="singleTop">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
+
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
 

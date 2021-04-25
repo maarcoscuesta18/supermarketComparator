@@ -1,4 +1,6 @@
-package com.sadcos.supermarketcomparator;
+package com.sadcos.supermarketcomparator.apis;
+
+import com.sadcos.supermarketcomparator.carrefourProducts;
 
 import java.util.List;
 

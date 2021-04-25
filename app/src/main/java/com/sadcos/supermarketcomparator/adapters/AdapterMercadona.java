@@ -1,4 +1,4 @@
-package com.sadcos.supermarketcomparator;
+package com.sadcos.supermarketcomparator.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.sadcos.supermarketcomparator.R;
+import com.sadcos.supermarketcomparator.mercadonaProducts;
 
 import java.util.List;
 

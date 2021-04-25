@@ -1,4 +1,6 @@
-package com.sadcos.supermarketcomparator;
+package com.sadcos.supermarketcomparator.apis;
+
+import com.sadcos.supermarketcomparator.diaProducts;
 
 import java.util.List;
 
@@ -10,10 +12,10 @@ import retrofit2.http.Query;
  * Created by haerul on 17/03/18.
  */
 
-public interface ApiInterfaceMercadona {
+public interface ApiInterfaceDia {
 
-    @GET("getproductsMercadona.php")
-    Call<List<mercadonaProducts>> getProduct(
+    @GET("getproductsDia.php")
+    Call<List<diaProducts>> getProduct(
             @Query("item_type") String item_type,
             @Query("key") String keyword
     );
