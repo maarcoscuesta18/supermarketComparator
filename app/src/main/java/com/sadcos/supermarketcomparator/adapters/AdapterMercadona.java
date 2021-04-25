@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sadcos.supermarketcomparator.R;
-import com.sadcos.supermarketcomparator.mercadonaProducts;
+import com.sadcos.supermarketcomparator.products.mercadonaProducts;
 
 import java.util.List;
 

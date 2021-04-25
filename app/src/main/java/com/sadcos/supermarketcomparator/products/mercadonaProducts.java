@@ -1,13 +1,11 @@
-package com.sadcos.supermarketcomparator;
+package com.sadcos.supermarketcomparator.products;
 
 import com.google.gson.annotations.SerializedName;
-
-public class diaProducts {
+public class mercadonaProducts {
     @SerializedName("id") private int id;
     @SerializedName("product_name") private String product_name;
     @SerializedName("link") private String link;
-    @SerializedName("price") private String price;
-    @SerializedName("price_per_kg") private String price_per_kg;
+    @SerializedName("price") private Double price;
 
     public int getId() {
         return id;
@@ -21,11 +19,7 @@ public class diaProducts {
         return link;
     }
 
-    public String getPrice() {
+    public Double getPrice() {
         return price;
-    }
-
-    public String getPrice_per_kg() {
-        return price_per_kg;
     }
 }

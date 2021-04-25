@@ -1,8 +1,8 @@
-package com.sadcos.supermarketcomparator;
+package com.sadcos.supermarketcomparator.products;
 
 import com.google.gson.annotations.SerializedName;
 
-public class carrefourProducts {
+public class diaProducts {
     @SerializedName("id") private int id;
     @SerializedName("product_name") private String product_name;
     @SerializedName("link") private String link;

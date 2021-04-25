@@ -21,7 +21,7 @@ import com.sadcos.supermarketcomparator.adapters.AdapterMercadona;
 import com.sadcos.supermarketcomparator.apis.ApiClient;
 import com.sadcos.supermarketcomparator.apis.ApiInterfaceMercadona;
 import com.sadcos.supermarketcomparator.R;
-import com.sadcos.supermarketcomparator.mercadonaProducts;
+import com.sadcos.supermarketcomparator.products.mercadonaProducts;
 
 import java.util.List;
 
@@ -33,7 +33,7 @@ public class searchMercadonaProducts extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    private List<com.sadcos.supermarketcomparator.mercadonaProducts> mercadonaProducts;
+    private List<com.sadcos.supermarketcomparator.products.mercadonaProducts> mercadonaProducts;
     private AdapterMercadona adapterMercadona;
     private ApiInterfaceMercadona apiInterfaceMercadona;
     ProgressBar progressBar;

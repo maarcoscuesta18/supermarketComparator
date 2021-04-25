@@ -21,7 +21,7 @@ import com.sadcos.supermarketcomparator.adapters.AdapterDia;
 import com.sadcos.supermarketcomparator.apis.ApiClient;
 import com.sadcos.supermarketcomparator.apis.ApiInterfaceDia;
 import com.sadcos.supermarketcomparator.R;
-import com.sadcos.supermarketcomparator.diaProducts;
+import com.sadcos.supermarketcomparator.products.diaProducts;
 
 import java.util.List;
 
@@ -33,7 +33,7 @@ public class searchDiaProducts extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    private List<com.sadcos.supermarketcomparator.diaProducts> diaProducts;
+    private List<com.sadcos.supermarketcomparator.products.diaProducts> diaProducts;
     private AdapterDia adapterDia;
     private ApiInterfaceDia apiInterfaceDia;
     ProgressBar progressBar;

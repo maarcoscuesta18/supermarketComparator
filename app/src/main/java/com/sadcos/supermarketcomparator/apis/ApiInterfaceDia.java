@@ -1,6 +1,6 @@
 package com.sadcos.supermarketcomparator.apis;
 
-import com.sadcos.supermarketcomparator.diaProducts;
+import com.sadcos.supermarketcomparator.products.diaProducts;
 
 import java.util.List;
 
