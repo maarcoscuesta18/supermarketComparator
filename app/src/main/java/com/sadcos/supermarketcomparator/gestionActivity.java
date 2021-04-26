@@ -27,11 +27,11 @@ public class gestionActivity extends AppCompatActivity {
                 SharedPreferences preferences = getSharedPreferences("loginPreferences", Context.MODE_PRIVATE);
                 boolean session=preferences.getBoolean("session",false);
                 if(session){
-                    Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                    Intent intent = new Intent(gestionActivity.this,MainActivity.class);
                     startActivity(intent);
                     finish();
                 }else{
-                    Intent intent=new Intent(getApplicationContext(),LoginActivity.class);
+                    Intent intent=new Intent(gestionActivity.this,LoginActivity.class);
                     startActivity(intent);
                     finish();
                 }
