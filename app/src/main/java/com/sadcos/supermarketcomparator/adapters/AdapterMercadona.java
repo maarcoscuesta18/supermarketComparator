@@ -4,7 +4,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,7 +31,7 @@ public class AdapterMercadona extends RecyclerView.Adapter<AdapterMercadona.MyVi
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.itemmercadona, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false);
         return new MyViewHolder(view);
     }
 
@@ -51,6 +53,13 @@ public class AdapterMercadona extends RecyclerView.Adapter<AdapterMercadona.MyVi
             product_name = itemView.findViewById(R.id.product_name);
             link = itemView.findViewById(R.id.link);
             price = itemView.findViewById(R.id.price);
+            Button addtocart = itemView.findViewById(R.id.addtocart);
+            addtocart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(v.getContext(),product_name.getText().toString(),Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 }

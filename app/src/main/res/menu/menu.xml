@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/mercadona_searcher"
-        android:title="Buscar Productos En Mercadona" />
-    <item android:id="@+id/carrefour_searcher"
-        android:title="Buscar Productos En Carrefour" />
-    <item android:id="@+id/dia_searcher"
-        android:title="Buscar Productos En Dia" />
-</menu>

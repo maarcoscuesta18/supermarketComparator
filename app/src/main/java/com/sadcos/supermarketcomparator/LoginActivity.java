@@ -70,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(LoginActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this,"Error to connect into the database",Toast.LENGTH_SHORT).show();
             }
         }){
             @Override
@@ -90,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
         editor.putString("username",username);
         editor.putString("password",password);
         editor.putBoolean("session",true);
-        editor.commit();
+        editor.apply();
     }
     private void getLogin(){
         SharedPreferences preferences=getSharedPreferences("loginPreferences", Context.MODE_PRIVATE);

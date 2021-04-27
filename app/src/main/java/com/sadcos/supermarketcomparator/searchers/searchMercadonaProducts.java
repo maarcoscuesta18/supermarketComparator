@@ -43,8 +43,8 @@ public class searchMercadonaProducts extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_mercadona_products);
-
+        setContentView(R.layout.activity_search_products);
+        this.setTitle("Supermercado Mercadona");
         progressBar = findViewById(R.id.prograss);
         recyclerView = findViewById(R.id.recyclerView);
         layoutManager = new LinearLayoutManager(this);
@@ -80,7 +80,7 @@ public class searchMercadonaProducts extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.mercadona_menu, menu);
+        inflater.inflate(R.menu.searcher_menu, menu);
 
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();

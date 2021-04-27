@@ -3,28 +3,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/abc_vector_test"
-            android:title="@string/menu_home" />
-        <item
-            android:id="@+id/nav_mercadona"
-            android:icon="@android:drawable/ic_menu_search"
-            android:title="@string/productos_mercadona" />
-        <item
-            android:id="@+id/nav_dia"
-            android:icon="@android:drawable/ic_menu_search"
-            android:title="@string/productos_dia" />
-        <item
-            android:id="@+id/nav_carrefour"
-            android:icon="@android:drawable/ic_menu_search"
-            android:title="@string/productos_carrefour" />
-    </group>
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_logout"
-            android:icon="@android:drawable/ic_delete"
-            android:title="Log out" />
-    </group>
+    <item android:title="Operaciones">
+        <menu>
+            <item
+                android:id="@+id/nav_home"
+                android:icon="@drawable/abc_vector_test"
+                android:title="@string/menu_home" />
+            <item
+                android:id="@+id/nav_mercadona"
+                android:icon="@android:drawable/ic_menu_search"
+                android:title="@string/productos_mercadona" />
+            <item
+                android:id="@+id/nav_dia"
+                android:icon="@android:drawable/ic_menu_search"
+                android:title="@string/productos_dia" />
+            <item
+                android:id="@+id/nav_carrefour"
+                android:icon="@android:drawable/ic_menu_search"
+                android:title="@string/productos_carrefour" />
+        </menu>
+    </item>
+    <item android:title="Cerrar Sesion">
+        <menu>
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@android:drawable/ic_delete"
+                android:title="Log out" />
+        </menu>
+    </item>
 </menu>

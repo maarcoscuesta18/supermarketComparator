@@ -15,17 +15,20 @@
         android:id="@+id/nav_mercadona"
         android:name="com.sadcos.supermarketcomparator.searchers.searchMercadonaProducts"
         android:label="@string/productos_mercadona"
-        tools:layout="@layout/activity_search_mercadona_products" />
+        tools:layout="@layout/activity_search_products" />
     <activity
         android:id="@+id/nav_dia"
         android:name="com.sadcos.supermarketcomparator.searchers.searchDiaProducts"
         android:label="@string/productos_dia"
-        tools:layout="@layout/activity_search_dia_products" />
+        tools:layout="@layout/activity_search_products" />
     <activity
         android:id="@+id/nav_carrefour"
         android:name="com.sadcos.supermarketcomparator.searchers.searchCarrefourProducts"
         android:label="@string/productos_carrefour"
-        tools:layout="@layout/activity_search_carrefour_products" />
+        tools:layout="@layout/activity_search_products" />
 
-
+    <activity
+        android:id="@+id/nav_logout"
+        android:name="com.sadcos.supermarketcomparator.LogoutActivity"
+        android:label="Logout" />
 </navigation>
