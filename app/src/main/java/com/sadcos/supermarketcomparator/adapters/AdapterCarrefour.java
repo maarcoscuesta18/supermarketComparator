@@ -47,13 +47,14 @@ public class AdapterCarrefour extends RecyclerView.Adapter<AdapterCarrefour.MyVi
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView product_name,link,price,price_per_kg;
+        TextView product_name,link,price,price_per_kg,qty;
         public MyViewHolder(View itemView) {
             super(itemView);
             product_name = itemView.findViewById(R.id.product_name);
             link = itemView.findViewById(R.id.link);
             price = itemView.findViewById(R.id.price);
             price_per_kg = itemView.findViewById(R.id.priceperkg);
+
         }
     }
 }

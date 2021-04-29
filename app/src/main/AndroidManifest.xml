@@ -12,7 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SupermarketComparator"
         android:usesCleartextTraffic="true">
-        <activity android:name=".LogoutActivity"></activity>
+        <activity
+            android:name=".Cart"
+            android:label="@string/title_activity_cart"
+            android:theme="@style/Theme.SupermarketComparator.NoActionBar"></activity>
+        <activity android:name=".LogoutActivity" />
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"

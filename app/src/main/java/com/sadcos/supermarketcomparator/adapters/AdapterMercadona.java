@@ -54,10 +54,33 @@ public class AdapterMercadona extends RecyclerView.Adapter<AdapterMercadona.MyVi
             link = itemView.findViewById(R.id.link);
             price = itemView.findViewById(R.id.price);
             Button addtocart = itemView.findViewById(R.id.addtocart);
+            final int[] count = {1};
+            TextView txtCount =(TextView) itemView.findViewById(R.id.qty);
+            Button buttonInc= (Button) itemView.findViewById(R.id.qtyplus);
+            Button buttonDec= (Button) itemView.findViewById(R.id.qtyless);
+            buttonInc.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    count[0]++;
+                    txtCount.setText(String.valueOf(count[0]));
+                }
+            });
+            buttonDec.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(count[0] == 1){
+                        count[0] = 1;
+                        txtCount.setText(String.valueOf(count[0]));
+                    } else{
+                        count[0]--;
+                        txtCount.setText(String.valueOf(count[0]));
+                    }
+                }
+            });
             addtocart.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(v.getContext(),product_name.getText().toString(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(v.getContext(),"Producto añadido correctamente",Toast.LENGTH_SHORT).show();
                 }
             });
         }

@@ -21,4 +21,10 @@
     <string name="productos_carrefour">Productos Carrefour</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_scrolling">ScrollingActivity</string>
+    <string name="title_activity_cart">Cart</string>
+    <string name="tab_text_1">Mercadona</string>
+    <string name="tab_text_2">Carrefour</string>
+    <string name="tab_text_3">Dia</string>
+
 </resources>

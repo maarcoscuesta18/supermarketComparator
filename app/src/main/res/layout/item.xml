@@ -50,16 +50,50 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <Button android:id="@+id/addtocart"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:fontFamily="@font/samsungsharpsansbold"
-        android:text="Añadir al carrito"
-        android:textColor="@color/white" />
+        android:orientation="horizontal">
 
+        <Button android:id="@+id/qtyless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/samsungsharpsansbold"
+            android:text="-"
+            android:minHeight="25dp"
+            android:minWidth="20dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="5dp"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/qty"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            android:text="1"
+            android:textSize="20dp" />
+        <Button android:id="@+id/qtyplus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/samsungsharpsansbold"
+            android:text="+"
+            android:layout_marginEnd="50dp"
+            android:minHeight="25dp"
+            android:minWidth="20dp"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/addtocart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/samsungsharpsansbold"
+            android:text="Añadir al carrito"
+            android:textColor="@color/white" />
+    </LinearLayout>
     <View
         android:layout_width="match_parent"
-        android:layout_height="0.1dp"/>
+        android:background="#BABABA"
+        android:layout_height="1dp"/>
 
 </LinearLayout>

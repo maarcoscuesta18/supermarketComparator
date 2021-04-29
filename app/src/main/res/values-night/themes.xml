@@ -2,13 +2,13 @@
     <!-- Base application theme. -->
     <style name="Theme.SupermarketComparator" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#8BC34A</item>
-        <item name="colorPrimaryVariant">#4CAF50</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimary">#7A89DD</item>
+        <item name="colorPrimaryVariant">#7098DA</item>
+        <item name="colorOnPrimary">#71BDDF</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">#CDDC39</item>
-        <item name="colorSecondaryVariant">#FFC107</item>
-        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSecondary">#8191E8</item>
+        <item name="colorSecondaryVariant">#739DE1</item>
+        <item name="colorOnSecondary">#FFFFFF</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
