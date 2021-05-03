@@ -1,6 +1,7 @@
 package com.sadcos.supermarketcomparator;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -15,8 +16,9 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.sadcos.supermarketcomparator.ui.main.SectionsPagerAdapter;
+import com.sadcos.supermarketcomparator.ui.main.mercadonaFragmentCart;
 
-public class Cart extends AppCompatActivity {
+public class Cart extends AppCompatActivity implements mercadonaFragmentCart.OnFragmentInteractionListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,5 +38,10 @@ public class Cart extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }

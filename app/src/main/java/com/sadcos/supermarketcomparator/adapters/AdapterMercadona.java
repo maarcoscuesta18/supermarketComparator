@@ -1,26 +1,28 @@
 package com.sadcos.supermarketcomparator.adapters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.content.SharedPreferences;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.sadcos.supermarketcomparator.R;
 import com.sadcos.supermarketcomparator.products.mercadonaProducts;
 
+import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * Created by haerul on 17/03/18.
  */
 
 public class AdapterMercadona extends RecyclerView.Adapter<AdapterMercadona.MyViewHolder> {
-
+    public static ArrayList<mercadonaProducts> mercadonaCartProducts = new ArrayList<>();
     private List<mercadonaProducts> product;
     private Context context;
 
@@ -81,6 +83,7 @@ public class AdapterMercadona extends RecyclerView.Adapter<AdapterMercadona.MyVi
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(v.getContext(),"Producto añadido correctamente",Toast.LENGTH_SHORT).show();
+                    mercadonaCartProducts.add(new mercadonaProducts(product_name.getText().toString(),price.getText().toString().substring(7,11),String.valueOf(count[0])));
                 }
             });
         }
