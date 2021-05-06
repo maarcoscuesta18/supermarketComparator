@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,6 +19,7 @@ import com.sadcos.supermarketcomparator.adapters.cartAdapter;
 import com.sadcos.supermarketcomparator.products.mercadonaProducts;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -31,11 +33,10 @@ public class mercadonaFragmentCart extends Fragment  {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
     private OnFragmentInteractionListener mListener;
 
     RecyclerView recyclerCartMercadona;
-    ArrayList<mercadonaProducts> listCartMercadona;
+    public static ArrayList<mercadonaProducts> listCartMercadona;
 
     public mercadonaFragmentCart() {
         // Required empty public constructor
@@ -77,17 +78,22 @@ public class mercadonaFragmentCart extends Fragment  {
         recyclerCartMercadona= (RecyclerView) vista.findViewById(R.id.recyclerId);
         recyclerCartMercadona.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        llenarLista();
-
-        cartAdapter adapter=new cartAdapter(listCartMercadona);
+        TextView totalprice =(TextView) vista.findViewById(R.id.totalprice);
+        double cartprice=0;
+        if(!AdapterMercadona.mercadonaCartProducts.isEmpty()){
+            for(mercadonaProducts product : AdapterMercadona.mercadonaCartProducts){
+                cartprice+=product.getCartprice();
+            }
+            totalprice.setText(String.format("Precio Total: %.2f €",cartprice));
+        }else{
+            totalprice.setText(String.format("Precio Total: %.2f €",cartprice));
+        }
+        cartAdapter adapter=new cartAdapter(AdapterMercadona.mercadonaCartProducts);
         recyclerCartMercadona.setAdapter(adapter);
 
         return vista;
     }
 
-    private void llenarLista() {
-        listCartMercadona.addAll(AdapterMercadona.mercadonaCartProducts);
-    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

@@ -1,4 +1,4 @@
-package com.sadcos.supermarketcomparator;
+package com.sadcos.supermarketcomparator.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +10,9 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.sadcos.supermarketcomparator.MainActivity;
+import com.sadcos.supermarketcomparator.R;
 
 public class gestionActivity extends AppCompatActivity {
     ProgressBar progressBar;
@@ -27,7 +30,7 @@ public class gestionActivity extends AppCompatActivity {
                 SharedPreferences preferences = getSharedPreferences("loginPreferences", Context.MODE_PRIVATE);
                 boolean session=preferences.getBoolean("session",false);
                 if(session){
-                    Intent intent = new Intent(gestionActivity.this,MainActivity.class);
+                    Intent intent = new Intent(gestionActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
                 }else{

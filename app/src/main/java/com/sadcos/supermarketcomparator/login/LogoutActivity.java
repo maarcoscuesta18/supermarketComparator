@@ -1,4 +1,4 @@
-package com.sadcos.supermarketcomparator;
+package com.sadcos.supermarketcomparator.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 

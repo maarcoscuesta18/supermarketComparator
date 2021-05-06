@@ -80,15 +80,4 @@
         android:layout_width="match_parent"
         android:background="#BABABA"
         android:layout_height="1dp"/>
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center_horizontal">
-
-        <TextView android:id="@+id/totalprice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Precio Total: "
-            android:gravity="bottom"/>
-    </RelativeLayout>
 </LinearLayout>

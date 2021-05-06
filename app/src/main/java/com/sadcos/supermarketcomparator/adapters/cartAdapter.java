@@ -6,19 +6,23 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sadcos.supermarketcomparator.R;
 import com.sadcos.supermarketcomparator.products.mercadonaProducts;
+import com.sadcos.supermarketcomparator.ui.main.mercadonaFragmentCart;
 
 import java.util.ArrayList;
 
 public class cartAdapter extends RecyclerView.Adapter<cartAdapter.PersonajeViewHolder>{
-    ArrayList<mercadonaProducts> listCartMercadona;
-    Integer posicion;
+    public static ArrayList<mercadonaProducts> listCartMercadona;
+
     public cartAdapter(ArrayList<mercadonaProducts> listCartMercadona) {
-        this.listCartMercadona=listCartMercadona;
+        cartAdapter.listCartMercadona =listCartMercadona;
     }
 
     @Override
@@ -29,10 +33,19 @@ public class cartAdapter extends RecyclerView.Adapter<cartAdapter.PersonajeViewH
 
     @Override
     public void onBindViewHolder(PersonajeViewHolder holder, int position) {
-        holder.product_name.setText(listCartMercadona.get(position).getCartproduct_name());
-        holder.price.setText("Price: "+listCartMercadona.get(position).getCartprice()+" €");
-        holder.txtCount.setText(listCartMercadona.get(position).getQty());
-        posicion=position;
+        holder.product_name.setText(AdapterMercadona.mercadonaCartProducts.get(position).getCartproduct_name());
+        holder.price.setText("Price: "+AdapterMercadona.mercadonaCartProducts.get(position).getCartprice()+" €");
+        holder.txtCount.setText(AdapterMercadona.mercadonaCartProducts.get(position).getQty());
+        holder.remove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(AdapterMercadona.mercadonaCartProducts.get(position).getCartproduct_name() == holder.product_name.getText().toString()){
+                    AdapterMercadona.mercadonaCartProducts.remove(position);
+                    notifyItemRemoved(position);
+                    notifyDataSetChanged();
+                }
+            }
+        });
     }
 
     @Override
@@ -42,6 +55,7 @@ public class cartAdapter extends RecyclerView.Adapter<cartAdapter.PersonajeViewH
 
     public class PersonajeViewHolder extends RecyclerView.ViewHolder {
         TextView product_name,price,txtCount;
+        Button remove;
 
         public PersonajeViewHolder(View itemView) {
             super(itemView);
@@ -50,13 +64,7 @@ public class cartAdapter extends RecyclerView.Adapter<cartAdapter.PersonajeViewH
             txtCount =(TextView) itemView.findViewById(R.id.qty);
             Button buttonInc= (Button) itemView.findViewById(R.id.qtyplus);
             Button buttonDec= (Button) itemView.findViewById(R.id.qtyless);
-            Button remove = (Button) itemView.findViewById(R.id.removefromcart);
-            remove.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listCartMercadona.remove(posicion);
-                }
-            });
+            remove = (Button) itemView.findViewById(R.id.removefromcart);
             final int[] count = {1};
             buttonInc.setOnClickListener(new View.OnClickListener() {
                 @Override

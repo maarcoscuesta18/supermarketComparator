@@ -29,6 +29,6 @@
 
     <activity
         android:id="@+id/nav_logout"
-        android:name="com.sadcos.supermarketcomparator.LogoutActivity"
+        android:name="com.sadcos.supermarketcomparator.login.LogoutActivity"
         android:label="Logout" />
 </navigation>
