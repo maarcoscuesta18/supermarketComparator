@@ -65,6 +65,7 @@ public class searchCarrefourProducts extends AppCompatActivity {
                 adapterCarrefour = new AdapterCarrefour(carrefourProducts, searchCarrefourProducts.this);
                 recyclerView.setAdapter(adapterCarrefour);
                 adapterCarrefour.notifyDataSetChanged();
+
             }
 
             @Override

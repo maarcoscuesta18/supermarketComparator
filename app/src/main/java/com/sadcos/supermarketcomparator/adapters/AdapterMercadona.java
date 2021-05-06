@@ -10,6 +10,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.content.SharedPreferences;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.gson.Gson;
 import com.sadcos.supermarketcomparator.R;
 import com.sadcos.supermarketcomparator.products.mercadonaProducts;
 
@@ -83,9 +85,18 @@ public class AdapterMercadona extends RecyclerView.Adapter<AdapterMercadona.MyVi
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(v.getContext(),"Producto añadido correctamente",Toast.LENGTH_SHORT).show();
-                    mercadonaCartProducts.add(new mercadonaProducts(product_name.getText().toString(),price.getText().toString().substring(7,11),String.valueOf(count[0])));
+                    mercadonaCartProducts.add(new mercadonaProducts(product_name.getText().toString(),price.getText().toString().substring(7,11),String.valueOf(count[0]),String.valueOf(Double.parseDouble(price.getText().toString().substring(7,11))*count[0])));
+                    saveCart(v);
                 }
             });
+        }
+        public void saveCart(View v){
+            SharedPreferences cartPreferences=v.getContext().getSharedPreferences("cartPreferences", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = cartPreferences.edit();
+            Gson gson = new Gson();
+            String json = gson.toJson(AdapterMercadona.mercadonaCartProducts);
+            editor.putString("cartMercadona", json);
+            editor.apply();
         }
     }
 }

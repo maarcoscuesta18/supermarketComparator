@@ -17,6 +17,7 @@ import com.sadcos.supermarketcomparator.R;
 import com.sadcos.supermarketcomparator.adapters.AdapterMercadona;
 import com.sadcos.supermarketcomparator.adapters.cartAdapter;
 import com.sadcos.supermarketcomparator.products.mercadonaProducts;
+import com.sadcos.supermarketcomparator.searchers.searchMercadonaProducts;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -73,7 +74,6 @@ public class mercadonaFragmentCart extends Fragment  {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View vista=inflater.inflate(R.layout.fragment_cart, container, false);
-
         listCartMercadona=new ArrayList<>();
         recyclerCartMercadona= (RecyclerView) vista.findViewById(R.id.recyclerId);
         recyclerCartMercadona.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -82,7 +82,7 @@ public class mercadonaFragmentCart extends Fragment  {
         double cartprice=0;
         if(!AdapterMercadona.mercadonaCartProducts.isEmpty()){
             for(mercadonaProducts product : AdapterMercadona.mercadonaCartProducts){
-                cartprice+=product.getCartprice();
+                cartprice+=product.getTotalprice();
             }
             totalprice.setText(String.format("Precio Total: %.2f €",cartprice));
         }else{
@@ -111,6 +111,7 @@ public class mercadonaFragmentCart extends Fragment  {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+
     }
 
     @Override

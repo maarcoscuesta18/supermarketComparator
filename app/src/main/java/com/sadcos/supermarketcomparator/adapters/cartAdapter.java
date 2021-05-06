@@ -1,5 +1,7 @@
 package com.sadcos.supermarketcomparator.adapters;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
 import com.sadcos.supermarketcomparator.R;
 import com.sadcos.supermarketcomparator.products.mercadonaProducts;
 import com.sadcos.supermarketcomparator.ui.main.mercadonaFragmentCart;
@@ -35,7 +38,37 @@ public class cartAdapter extends RecyclerView.Adapter<cartAdapter.PersonajeViewH
     public void onBindViewHolder(PersonajeViewHolder holder, int position) {
         holder.product_name.setText(AdapterMercadona.mercadonaCartProducts.get(position).getCartproduct_name());
         holder.price.setText("Price: "+AdapterMercadona.mercadonaCartProducts.get(position).getCartprice()+" €");
-        holder.txtCount.setText(AdapterMercadona.mercadonaCartProducts.get(position).getQty());
+        holder.txtqty.setText(AdapterMercadona.mercadonaCartProducts.get(position).getQty());
+        final int[] count = {Integer.parseInt(AdapterMercadona.mercadonaCartProducts.get(position).getQty())};
+        holder.buttonInc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                count[0]++;
+                AdapterMercadona.mercadonaCartProducts.get(position).setQty(String.valueOf(count[0]));
+                AdapterMercadona.mercadonaCartProducts.get(position).setTotalprice(AdapterMercadona.mercadonaCartProducts.get(position).getCartprice()*count[0]);
+                notifyDataSetChanged();
+                saveCart(v);
+            }
+        });
+        holder.buttonDec.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(count[0] == 1){
+                    count[0] = 1;
+                    AdapterMercadona.mercadonaCartProducts.get(position).setQty(String.valueOf(count[0]));
+                    AdapterMercadona.mercadonaCartProducts.get(position).setTotalprice(AdapterMercadona.mercadonaCartProducts.get(position).getCartprice()*count[0]);
+                    notifyDataSetChanged();
+                    notifyItemChanged(position);
+                    saveCart(v);
+                } else{
+                    count[0]--;
+                    AdapterMercadona.mercadonaCartProducts.get(position).setQty(String.valueOf(count[0]));
+                    AdapterMercadona.mercadonaCartProducts.get(position).setTotalprice(AdapterMercadona.mercadonaCartProducts.get(position).getCartprice()*count[0]);
+                    notifyDataSetChanged();
+                    saveCart(v);
+                }
+            }
+        });
         holder.remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,6 +76,7 @@ public class cartAdapter extends RecyclerView.Adapter<cartAdapter.PersonajeViewH
                     AdapterMercadona.mercadonaCartProducts.remove(position);
                     notifyItemRemoved(position);
                     notifyDataSetChanged();
+                    saveCart(v);
                 }
             }
         });
@@ -54,37 +88,25 @@ public class cartAdapter extends RecyclerView.Adapter<cartAdapter.PersonajeViewH
     }
 
     public class PersonajeViewHolder extends RecyclerView.ViewHolder {
-        TextView product_name,price,txtCount;
-        Button remove;
+        TextView product_name,price,txtqty;
+        Button remove,buttonInc,buttonDec;
 
         public PersonajeViewHolder(View itemView) {
             super(itemView);
             product_name = itemView.findViewById(R.id.product_name);
             price = itemView.findViewById(R.id.price);
-            txtCount =(TextView) itemView.findViewById(R.id.qty);
-            Button buttonInc= (Button) itemView.findViewById(R.id.qtyplus);
-            Button buttonDec= (Button) itemView.findViewById(R.id.qtyless);
+            txtqty =(TextView) itemView.findViewById(R.id.qty);
+            buttonInc= (Button) itemView.findViewById(R.id.qtyplus);
+            buttonDec= (Button) itemView.findViewById(R.id.qtyless);
             remove = (Button) itemView.findViewById(R.id.removefromcart);
-            final int[] count = {1};
-            buttonInc.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    count[0]++;
-                    txtCount.setText(String.valueOf(count[0]));
-                }
-            });
-            buttonDec.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(count[0] == 1){
-                        count[0] = 1;
-                        txtCount.setText(String.valueOf(count[0]));
-                    } else{
-                        count[0]--;
-                        txtCount.setText(String.valueOf(count[0]));
-                    }
-                }
-            });
         }
+    }
+    public void saveCart(View v){
+        SharedPreferences cartPreferences=v.getContext().getSharedPreferences("cartPreferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = cartPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(AdapterMercadona.mercadonaCartProducts);
+        editor.putString("cartMercadona", json);
+        editor.apply();
     }
 }

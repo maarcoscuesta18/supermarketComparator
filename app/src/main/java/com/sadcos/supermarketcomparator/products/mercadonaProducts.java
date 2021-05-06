@@ -9,10 +9,12 @@ public class mercadonaProducts {
     private String qty;
     private String cartproduct_name;
     private Double cartprice;
-    public mercadonaProducts(String product_name, String price,String qty) {
+    private double totalprice;
+    public mercadonaProducts(String product_name, String price,String qty,String totalprice) {
         this.cartproduct_name = product_name;
         this.cartprice = Double.parseDouble(price);
         this.qty=qty;
+        this.totalprice = Double.parseDouble(totalprice);
     }
 
     public int getId() {
@@ -41,5 +43,17 @@ public class mercadonaProducts {
 
     public Double getCartprice() {
         return cartprice;
+    }
+
+    public void setQty(String qty) {
+        this.qty = qty;
+    }
+
+    public double getTotalprice() {
+        return totalprice;
+    }
+
+    public void setTotalprice(double totalprice) {
+        this.totalprice = totalprice;
     }
 }
