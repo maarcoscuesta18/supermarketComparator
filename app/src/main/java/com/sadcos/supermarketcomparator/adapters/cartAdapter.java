@@ -11,6 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,7 +25,6 @@ import java.util.ArrayList;
 
 public class cartAdapter extends RecyclerView.Adapter<cartAdapter.PersonajeViewHolder>{
     public static ArrayList<mercadonaProducts> listCartMercadona;
-
     public cartAdapter(ArrayList<mercadonaProducts> listCartMercadona) {
         cartAdapter.listCartMercadona =listCartMercadona;
     }
@@ -46,6 +47,7 @@ public class cartAdapter extends RecyclerView.Adapter<cartAdapter.PersonajeViewH
                 count[0]++;
                 AdapterMercadona.mercadonaCartProducts.get(position).setQty(String.valueOf(count[0]));
                 AdapterMercadona.mercadonaCartProducts.get(position).setTotalprice(AdapterMercadona.mercadonaCartProducts.get(position).getCartprice()*count[0]);
+                notifyItemChanged(position);
                 notifyDataSetChanged();
                 saveCart(v);
             }
@@ -65,6 +67,7 @@ public class cartAdapter extends RecyclerView.Adapter<cartAdapter.PersonajeViewH
                     AdapterMercadona.mercadonaCartProducts.get(position).setQty(String.valueOf(count[0]));
                     AdapterMercadona.mercadonaCartProducts.get(position).setTotalprice(AdapterMercadona.mercadonaCartProducts.get(position).getCartprice()*count[0]);
                     notifyDataSetChanged();
+                    notifyItemChanged(position);
                     saveCart(v);
                 }
             }

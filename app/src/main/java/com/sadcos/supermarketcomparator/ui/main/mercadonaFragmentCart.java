@@ -3,7 +3,9 @@ package com.sadcos.supermarketcomparator.ui.main;
 
 import android.content.Context;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.sadcos.supermarketcomparator.R;
 import com.sadcos.supermarketcomparator.adapters.AdapterMercadona;
@@ -30,7 +33,6 @@ public class mercadonaFragmentCart extends Fragment  {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -38,6 +40,9 @@ public class mercadonaFragmentCart extends Fragment  {
 
     RecyclerView recyclerCartMercadona;
     public static ArrayList<mercadonaProducts> listCartMercadona;
+    TextView totalprice;
+    double cartprice=0;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     public mercadonaFragmentCart() {
         // Required empty public constructor
@@ -71,29 +76,66 @@ public class mercadonaFragmentCart extends Fragment  {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         View vista=inflater.inflate(R.layout.fragment_cart, container, false);
         listCartMercadona=new ArrayList<>();
         recyclerCartMercadona= (RecyclerView) vista.findViewById(R.id.recyclerId);
         recyclerCartMercadona.setLayoutManager(new LinearLayoutManager(getContext()));
+        cartAdapter adapter=new cartAdapter(AdapterMercadona.mercadonaCartProducts);
+        recyclerCartMercadona.setAdapter(adapter);
 
-        TextView totalprice =(TextView) vista.findViewById(R.id.totalprice);
-        double cartprice=0;
+        //set cart totalprice
+        totalprice =(TextView) vista.findViewById(R.id.totalprice);
+        cartprice=0;
         if(!AdapterMercadona.mercadonaCartProducts.isEmpty()){
             for(mercadonaProducts product : AdapterMercadona.mercadonaCartProducts){
                 cartprice+=product.getTotalprice();
             }
             totalprice.setText(String.format("Precio Total: %.2f €",cartprice));
+
         }else{
             totalprice.setText(String.format("Precio Total: %.2f €",cartprice));
         }
-        cartAdapter adapter=new cartAdapter(AdapterMercadona.mercadonaCartProducts);
-        recyclerCartMercadona.setAdapter(adapter);
 
+        //refresh the cart price
+        swipeRefreshLayout = vista.findViewById(R.id.fragmentLayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                double cartprice=0;
+                new UnaTarea().execute();
+            }
+        });
         return vista;
     }
+    private class UnaTarea extends AsyncTask<Void, Void, Void> {
 
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            swipeRefreshLayout.setRefreshing(false);
+            cartprice=0;
+            if(!AdapterMercadona.mercadonaCartProducts.isEmpty()){
+                for(mercadonaProducts product : AdapterMercadona.mercadonaCartProducts){
+                    cartprice+=product.getTotalprice();
+                }
+                totalprice.setText(String.format("Precio Total: %.2f €",cartprice));
+
+            }else{
+                totalprice.setText(String.format("Precio Total: %.2f €",cartprice));
+            }
+        }
+    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
