@@ -85,8 +85,21 @@ public class AdapterMercadona extends RecyclerView.Adapter<AdapterMercadona.MyVi
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(v.getContext(),"Producto añadido correctamente",Toast.LENGTH_SHORT).show();
-                    mercadonaCartProducts.add(new mercadonaProducts(product_name.getText().toString(),price.getText().toString().substring(7,11),String.valueOf(count[0]),String.valueOf(Double.parseDouble(price.getText().toString().substring(7,11))*count[0])));
-                    saveCart(v);
+                    if(mercadonaCartProducts.isEmpty()){
+                        mercadonaCartProducts.add(new mercadonaProducts(product_name.getText().toString(),price.getText().toString().substring(7,11),String.valueOf(count[0]),String.valueOf(Double.parseDouble(price.getText().toString().substring(7,11))*count[0])));
+                        saveCart(v);
+                    }else{
+                        for(mercadonaProducts product : mercadonaCartProducts){
+                            if(product.getCartproduct_name().equals(product_name.getText().toString())){
+                                product.setQty(String.valueOf(Integer.parseInt(product.getQty())+count[0]));
+                                product.setTotalprice(Double.parseDouble(product.getQty())*product.getCartprice());
+                                saveCart(v);
+                            }else{
+                                mercadonaCartProducts.add(new mercadonaProducts(product_name.getText().toString(),price.getText().toString().substring(7,11),String.valueOf(count[0]),String.valueOf(Double.parseDouble(price.getText().toString().substring(7,11))*count[0])));
+                                saveCart(v);
+                            }
+                        }
+                    }
                 }
             });
         }

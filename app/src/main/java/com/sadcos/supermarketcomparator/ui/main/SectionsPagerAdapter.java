@@ -34,10 +34,10 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter  implements merca
                fragment = new mercadonaFragmentCart();
                break;
            case 1:
-               fragment = new mercadonaFragmentCart();
+               fragment = new carrefourFragmentCart();
                break;
            case 2:
-               fragment = new mercadonaFragmentCart();
+               fragment = new diaFragmentCart();
                break;
        }
        return fragment;
@@ -51,7 +51,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter  implements merca
 
     @Override
     public int getCount() {
-        // Show 2 total pages.
+        // Show 3 total pages.
         return 3;
     }
 

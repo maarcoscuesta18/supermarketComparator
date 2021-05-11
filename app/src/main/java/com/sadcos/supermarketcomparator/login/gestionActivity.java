@@ -15,7 +15,11 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.sadcos.supermarketcomparator.MainActivity;
 import com.sadcos.supermarketcomparator.R;
+import com.sadcos.supermarketcomparator.adapters.AdapterCarrefour;
+import com.sadcos.supermarketcomparator.adapters.AdapterDia;
 import com.sadcos.supermarketcomparator.adapters.AdapterMercadona;
+import com.sadcos.supermarketcomparator.products.carrefourProducts;
+import com.sadcos.supermarketcomparator.products.diaProducts;
 import com.sadcos.supermarketcomparator.products.mercadonaProducts;
 
 import java.lang.reflect.Type;
@@ -52,12 +56,24 @@ public class gestionActivity extends AppCompatActivity {
     public void getCart(){
         SharedPreferences cartPreferences=getSharedPreferences("cartPreferences", Context.MODE_PRIVATE);
         Gson gson = new Gson();
-        String json = cartPreferences.getString("cartMercadona",null);
-        Type type = new TypeToken<ArrayList<mercadonaProducts>>() {}.getType();
-        AdapterMercadona.mercadonaCartProducts=gson.fromJson(json,type);
+        String jsonCarrefour = cartPreferences.getString("cartCarrefour",null);
+        String jsonDia = cartPreferences.getString("cartDia",null);
+        String jsonMercadona = cartPreferences.getString("cartMercadona",null);
+
+        Type typeCarrefour = new TypeToken<ArrayList<carrefourProducts>>() {}.getType();
+        Type typeDia = new TypeToken<ArrayList<diaProducts>>() {}.getType();
+        Type typeMercadona = new TypeToken<ArrayList<mercadonaProducts>>() {}.getType();
+
+        AdapterCarrefour.carrefourCartProducts=gson.fromJson(jsonCarrefour,typeCarrefour);
+        AdapterDia.diaCartProducts=gson.fromJson(jsonDia,typeDia);
+        AdapterMercadona.mercadonaCartProducts=gson.fromJson(jsonMercadona,typeMercadona);
 
         if(AdapterMercadona.mercadonaCartProducts==null){
             AdapterMercadona.mercadonaCartProducts=new ArrayList<mercadonaProducts>();
+        }else if(AdapterDia.diaCartProducts==null){
+            AdapterDia.diaCartProducts=new ArrayList<diaProducts>();
+        }else if(AdapterCarrefour.carrefourCartProducts==null){
+            AdapterCarrefour.carrefourCartProducts=new ArrayList<carrefourProducts>();
         }
     }
 }

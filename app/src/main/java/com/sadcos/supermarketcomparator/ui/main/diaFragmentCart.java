@@ -17,16 +17,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.sadcos.supermarketcomparator.R;
-import com.sadcos.supermarketcomparator.adapters.AdapterMercadona;
-import com.sadcos.supermarketcomparator.adapters.mercadonaCartAdapter;
-import com.sadcos.supermarketcomparator.products.mercadonaProducts;
+import com.sadcos.supermarketcomparator.adapters.AdapterDia;
+import com.sadcos.supermarketcomparator.adapters.diaCartAdapter;
+import com.sadcos.supermarketcomparator.products.diaProducts;
 
 import java.util.ArrayList;
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class mercadonaFragmentCart extends Fragment  {
+public class diaFragmentCart extends Fragment  {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -36,13 +36,13 @@ public class mercadonaFragmentCart extends Fragment  {
     private String mParam2;
     private OnFragmentInteractionListener mListener;
 
-    RecyclerView recyclerCartMercadona;
-    public static ArrayList<mercadonaProducts> listCartMercadona;
+    RecyclerView recyclerCartDia;
+    public static ArrayList<diaProducts> listCartDia;
     TextView totalprice;
     double cartprice=0;
     public SwipeRefreshLayout swipeRefreshLayout;
 
-    public mercadonaFragmentCart() {
+    public diaFragmentCart() {
         // Required empty public constructor
     }
 
@@ -55,8 +55,8 @@ public class mercadonaFragmentCart extends Fragment  {
      * @return A new instance of fragment ListaPersonajesFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static mercadonaFragmentCart newInstance(String param1, String param2) {
-        mercadonaFragmentCart fragment = new mercadonaFragmentCart();
+    public static diaFragmentCart newInstance(String param1, String param2) {
+        diaFragmentCart fragment = new diaFragmentCart();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -76,17 +76,17 @@ public class mercadonaFragmentCart extends Fragment  {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         View vista=inflater.inflate(R.layout.fragment_cart, container, false);
-        listCartMercadona=new ArrayList<>();
-        recyclerCartMercadona= (RecyclerView) vista.findViewById(R.id.recyclerId);
-        recyclerCartMercadona.setLayoutManager(new LinearLayoutManager(getContext()));
-        mercadonaCartAdapter adapter=new mercadonaCartAdapter(AdapterMercadona.mercadonaCartProducts);
-        recyclerCartMercadona.setAdapter(adapter);
+        listCartDia=new ArrayList<>();
+        recyclerCartDia= (RecyclerView) vista.findViewById(R.id.recyclerId);
+        recyclerCartDia.setLayoutManager(new LinearLayoutManager(getContext()));
+        diaCartAdapter adapter=new diaCartAdapter(AdapterDia.diaCartProducts);
+        recyclerCartDia.setAdapter(adapter);
 
         //set cart totalprice
         totalprice =vista.findViewById(R.id.totalprice);
         cartprice=0;
-        if(!AdapterMercadona.mercadonaCartProducts.isEmpty()){
-            for(mercadonaProducts product : AdapterMercadona.mercadonaCartProducts){
+        if(!AdapterDia.diaCartProducts.isEmpty()){
+            for(diaProducts product : AdapterDia.diaCartProducts){
                 cartprice+=product.getTotalprice();
             }
             totalprice.setText(String.format("Precio Total: %.2f €",cartprice));
@@ -122,8 +122,8 @@ public class mercadonaFragmentCart extends Fragment  {
             super.onPostExecute(aVoid);
             swipeRefreshLayout.setRefreshing(false);
             cartprice=0;
-            if(!AdapterMercadona.mercadonaCartProducts.isEmpty()){
-                for(mercadonaProducts product : AdapterMercadona.mercadonaCartProducts){
+            if(!AdapterDia.diaCartProducts.isEmpty()){
+                for(diaProducts product : AdapterDia.diaCartProducts){
                     cartprice+=product.getTotalprice();
                 }
                 totalprice.setText(String.format("Precio Total: %.2f €",cartprice));

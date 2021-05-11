@@ -6,27 +6,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.sadcos.supermarketcomparator.R;
-import com.sadcos.supermarketcomparator.products.mercadonaProducts;
-import com.sadcos.supermarketcomparator.ui.main.mercadonaFragmentCart;
+import com.sadcos.supermarketcomparator.products.carrefourProducts;
+import com.sadcos.supermarketcomparator.products.diaProducts;
 
 import java.util.ArrayList;
 
-public class cartAdapter extends RecyclerView.Adapter<cartAdapter.PersonajeViewHolder>{
-    public static ArrayList<mercadonaProducts> listCartMercadona;
-    public cartAdapter(ArrayList<mercadonaProducts> listCartMercadona) {
-        cartAdapter.listCartMercadona =listCartMercadona;
+public class carrefourCartAdapter extends RecyclerView.Adapter<carrefourCartAdapter.PersonajeViewHolder>{
+    public static ArrayList<carrefourProducts> listCartCarrefour;
+
+    public carrefourCartAdapter(ArrayList<carrefourProducts> listCartCarrefour) {
+        carrefourCartAdapter.listCartCarrefour =listCartCarrefour;
     }
 
     @Override
@@ -37,16 +32,17 @@ public class cartAdapter extends RecyclerView.Adapter<cartAdapter.PersonajeViewH
 
     @Override
     public void onBindViewHolder(PersonajeViewHolder holder, int position) {
-        holder.product_name.setText(AdapterMercadona.mercadonaCartProducts.get(position).getCartproduct_name());
-        holder.price.setText("Price: "+AdapterMercadona.mercadonaCartProducts.get(position).getCartprice()+" €");
-        holder.txtqty.setText(AdapterMercadona.mercadonaCartProducts.get(position).getQty());
-        final int[] count = {Integer.parseInt(AdapterMercadona.mercadonaCartProducts.get(position).getQty())};
+        holder.product_name.setText(AdapterCarrefour.carrefourCartProducts.get(position).getCartproduct_name());
+        holder.price.setText("Price: "+AdapterCarrefour.carrefourCartProducts.get(position).getCartprice()+" €");
+        holder.price_per_kg.setText("Price per kg/l/unit: "+AdapterCarrefour.carrefourCartProducts.get(position).getPrice_per_kg());
+        holder.txtqty.setText(AdapterCarrefour.carrefourCartProducts.get(position).getQty());
+        final int[] count = {Integer.parseInt(AdapterCarrefour.carrefourCartProducts.get(position).getQty())};
         holder.buttonInc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 count[0]++;
-                AdapterMercadona.mercadonaCartProducts.get(position).setQty(String.valueOf(count[0]));
-                AdapterMercadona.mercadonaCartProducts.get(position).setTotalprice(AdapterMercadona.mercadonaCartProducts.get(position).getCartprice()*count[0]);
+                AdapterCarrefour.carrefourCartProducts.get(position).setQty(String.valueOf(count[0]));
+                AdapterCarrefour.carrefourCartProducts.get(position).setTotalprice(AdapterCarrefour.carrefourCartProducts.get(position).getCartprice()*count[0]);
                 notifyItemChanged(position);
                 notifyDataSetChanged();
                 saveCart(v);
@@ -57,15 +53,15 @@ public class cartAdapter extends RecyclerView.Adapter<cartAdapter.PersonajeViewH
             public void onClick(View v) {
                 if(count[0] == 1){
                     count[0] = 1;
-                    AdapterMercadona.mercadonaCartProducts.get(position).setQty(String.valueOf(count[0]));
-                    AdapterMercadona.mercadonaCartProducts.get(position).setTotalprice(AdapterMercadona.mercadonaCartProducts.get(position).getCartprice()*count[0]);
+                    AdapterCarrefour.carrefourCartProducts.get(position).setQty(String.valueOf(count[0]));
+                    AdapterCarrefour.carrefourCartProducts.get(position).setTotalprice(AdapterCarrefour.carrefourCartProducts.get(position).getCartprice()*count[0]);
                     notifyDataSetChanged();
                     notifyItemChanged(position);
                     saveCart(v);
                 } else{
                     count[0]--;
-                    AdapterMercadona.mercadonaCartProducts.get(position).setQty(String.valueOf(count[0]));
-                    AdapterMercadona.mercadonaCartProducts.get(position).setTotalprice(AdapterMercadona.mercadonaCartProducts.get(position).getCartprice()*count[0]);
+                    AdapterCarrefour.carrefourCartProducts.get(position).setQty(String.valueOf(count[0]));
+                    AdapterCarrefour.carrefourCartProducts.get(position).setTotalprice(AdapterCarrefour.carrefourCartProducts.get(position).getCartprice()*count[0]);
                     notifyDataSetChanged();
                     notifyItemChanged(position);
                     saveCart(v);
@@ -75,8 +71,8 @@ public class cartAdapter extends RecyclerView.Adapter<cartAdapter.PersonajeViewH
         holder.remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(AdapterMercadona.mercadonaCartProducts.get(position).getCartproduct_name() == holder.product_name.getText().toString()){
-                    AdapterMercadona.mercadonaCartProducts.remove(position);
+                if(AdapterCarrefour.carrefourCartProducts.get(position).getCartproduct_name() == holder.product_name.getText().toString()){
+                    AdapterCarrefour.carrefourCartProducts.remove(position);
                     notifyItemRemoved(position);
                     notifyDataSetChanged();
                     saveCart(v);
@@ -87,17 +83,18 @@ public class cartAdapter extends RecyclerView.Adapter<cartAdapter.PersonajeViewH
 
     @Override
     public int getItemCount() {
-        return listCartMercadona.size();
+        return listCartCarrefour.size();
     }
 
     public class PersonajeViewHolder extends RecyclerView.ViewHolder {
-        TextView product_name,price,txtqty;
+        TextView product_name,price,price_per_kg,txtqty;
         Button remove,buttonInc,buttonDec;
 
         public PersonajeViewHolder(View itemView) {
             super(itemView);
             product_name = itemView.findViewById(R.id.product_name);
             price = itemView.findViewById(R.id.price);
+            price_per_kg = itemView.findViewById(R.id.priceperkg);
             txtqty =(TextView) itemView.findViewById(R.id.qty);
             buttonInc= (Button) itemView.findViewById(R.id.qtyplus);
             buttonDec= (Button) itemView.findViewById(R.id.qtyless);
@@ -108,8 +105,8 @@ public class cartAdapter extends RecyclerView.Adapter<cartAdapter.PersonajeViewH
         SharedPreferences cartPreferences=v.getContext().getSharedPreferences("cartPreferences", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = cartPreferences.edit();
         Gson gson = new Gson();
-        String json = gson.toJson(AdapterMercadona.mercadonaCartProducts);
-        editor.putString("cartMercadona", json);
+        String json = gson.toJson(AdapterCarrefour.carrefourCartProducts);
+        editor.putString("cartCarrefour", json);
         editor.apply();
     }
 }

@@ -1,16 +1,22 @@
 package com.sadcos.supermarketcomparator.adapters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
 import com.sadcos.supermarketcomparator.R;
 import com.sadcos.supermarketcomparator.products.diaProducts;
+import com.sadcos.supermarketcomparator.products.mercadonaProducts;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,6 +24,7 @@ import java.util.List;
  */
 
 public class AdapterDia extends RecyclerView.Adapter<AdapterDia.MyViewHolder> {
+    public static ArrayList<diaProducts> diaCartProducts = new ArrayList<>();
 
     private List<diaProducts> product;
     private Context context;
@@ -54,6 +61,59 @@ public class AdapterDia extends RecyclerView.Adapter<AdapterDia.MyViewHolder> {
             link = itemView.findViewById(R.id.link);
             price = itemView.findViewById(R.id.price);
             price_per_kg = itemView.findViewById(R.id.priceperkg);
+            Button addtocart = itemView.findViewById(R.id.addtocart);
+            final int[] count = {1};
+            TextView txtCount =(TextView) itemView.findViewById(R.id.qty);
+            Button buttonInc= (Button) itemView.findViewById(R.id.qtyplus);
+            Button buttonDec= (Button) itemView.findViewById(R.id.qtyless);
+            buttonInc.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    count[0]++;
+                    txtCount.setText(String.valueOf(count[0]));
+                }
+            });
+            buttonDec.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(count[0] == 1){
+                        count[0] = 1;
+                        txtCount.setText(String.valueOf(count[0]));
+                    } else{
+                        count[0]--;
+                        txtCount.setText(String.valueOf(count[0]));
+                    }
+                }
+            });
+            addtocart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(v.getContext(),"Producto añadido correctamente",Toast.LENGTH_SHORT).show();
+                    if(diaCartProducts.isEmpty()){
+                        diaCartProducts.add(new diaProducts(product_name.getText().toString(),price.getText().toString().substring(7,11),price_per_kg.getText().toString(),String.valueOf(count[0]),String.valueOf(Double.parseDouble(price.getText().toString().substring(7,11))*count[0])));
+                        saveCart(v);
+                    }else{
+                        for(diaProducts product : diaCartProducts){
+                            if(product.getCartproduct_name().equals(product_name.getText().toString())){
+                                product.setQty(String.valueOf(Integer.parseInt(product.getQty())+count[0]));
+                                product.setTotalprice(Double.parseDouble(product.getQty())*product.getCartprice());
+                                saveCart(v);
+                            }else{
+                                diaCartProducts.add(new diaProducts(product_name.getText().toString(),price.getText().toString().substring(7,11),price_per_kg.getText().toString(),String.valueOf(count[0]),String.valueOf(Double.parseDouble(price.getText().toString().substring(7,11))*count[0])));
+                                saveCart(v);
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        public void saveCart(View v){
+            SharedPreferences cartPreferences=v.getContext().getSharedPreferences("cartPreferences", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = cartPreferences.edit();
+            Gson gson = new Gson();
+            String json = gson.toJson(AdapterDia.diaCartProducts);
+            editor.putString("cartDia", json);
+            editor.apply();
         }
     }
 }

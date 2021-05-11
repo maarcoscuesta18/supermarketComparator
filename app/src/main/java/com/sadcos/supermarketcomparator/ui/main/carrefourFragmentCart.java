@@ -17,8 +17,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.sadcos.supermarketcomparator.R;
+import com.sadcos.supermarketcomparator.adapters.AdapterCarrefour;
 import com.sadcos.supermarketcomparator.adapters.AdapterMercadona;
-import com.sadcos.supermarketcomparator.adapters.mercadonaCartAdapter;
+import com.sadcos.supermarketcomparator.adapters.carrefourCartAdapter;
+import com.sadcos.supermarketcomparator.products.carrefourProducts;
 import com.sadcos.supermarketcomparator.products.mercadonaProducts;
 
 import java.util.ArrayList;
@@ -26,7 +28,7 @@ import java.util.ArrayList;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class mercadonaFragmentCart extends Fragment  {
+public class carrefourFragmentCart extends Fragment  {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -36,13 +38,13 @@ public class mercadonaFragmentCart extends Fragment  {
     private String mParam2;
     private OnFragmentInteractionListener mListener;
 
-    RecyclerView recyclerCartMercadona;
-    public static ArrayList<mercadonaProducts> listCartMercadona;
+    RecyclerView recyclerCartCarrefour;
+    public static ArrayList<carrefourProducts> listCartCarrefour;
     TextView totalprice;
     double cartprice=0;
     public SwipeRefreshLayout swipeRefreshLayout;
 
-    public mercadonaFragmentCart() {
+    public carrefourFragmentCart() {
         // Required empty public constructor
     }
 
@@ -55,8 +57,8 @@ public class mercadonaFragmentCart extends Fragment  {
      * @return A new instance of fragment ListaPersonajesFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static mercadonaFragmentCart newInstance(String param1, String param2) {
-        mercadonaFragmentCart fragment = new mercadonaFragmentCart();
+    public static carrefourFragmentCart newInstance(String param1, String param2) {
+        carrefourFragmentCart fragment = new carrefourFragmentCart();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -76,17 +78,17 @@ public class mercadonaFragmentCart extends Fragment  {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         View vista=inflater.inflate(R.layout.fragment_cart, container, false);
-        listCartMercadona=new ArrayList<>();
-        recyclerCartMercadona= (RecyclerView) vista.findViewById(R.id.recyclerId);
-        recyclerCartMercadona.setLayoutManager(new LinearLayoutManager(getContext()));
-        mercadonaCartAdapter adapter=new mercadonaCartAdapter(AdapterMercadona.mercadonaCartProducts);
-        recyclerCartMercadona.setAdapter(adapter);
+        listCartCarrefour=new ArrayList<>();
+        recyclerCartCarrefour= (RecyclerView) vista.findViewById(R.id.recyclerId);
+        recyclerCartCarrefour.setLayoutManager(new LinearLayoutManager(getContext()));
+        carrefourCartAdapter adapter=new carrefourCartAdapter(AdapterCarrefour.carrefourCartProducts);
+        recyclerCartCarrefour.setAdapter(adapter);
 
         //set cart totalprice
         totalprice =vista.findViewById(R.id.totalprice);
         cartprice=0;
-        if(!AdapterMercadona.mercadonaCartProducts.isEmpty()){
-            for(mercadonaProducts product : AdapterMercadona.mercadonaCartProducts){
+        if(!AdapterCarrefour.carrefourCartProducts.isEmpty()){
+            for(carrefourProducts product : AdapterCarrefour.carrefourCartProducts){
                 cartprice+=product.getTotalprice();
             }
             totalprice.setText(String.format("Precio Total: %.2f €",cartprice));
@@ -122,8 +124,8 @@ public class mercadonaFragmentCart extends Fragment  {
             super.onPostExecute(aVoid);
             swipeRefreshLayout.setRefreshing(false);
             cartprice=0;
-            if(!AdapterMercadona.mercadonaCartProducts.isEmpty()){
-                for(mercadonaProducts product : AdapterMercadona.mercadonaCartProducts){
+            if(!AdapterCarrefour.carrefourCartProducts.isEmpty()){
+                for(carrefourProducts product : AdapterCarrefour.carrefourCartProducts){
                     cartprice+=product.getTotalprice();
                 }
                 totalprice.setText(String.format("Precio Total: %.2f €",cartprice));
