@@ -15,7 +15,7 @@
         <activity
             android:name=".Cart"
             android:label="@string/title_activity_cart"
-            android:theme="@style/Theme.SupermarketComparator.NoActionBar"></activity>
+            android:theme="@style/Theme.SupermarketComparator.NoActionBar" />
         <activity android:name=".login.LogoutActivity" />
         <activity
             android:name=".MainActivity"
@@ -25,20 +25,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".login.gestionActivity">
+        <activity
+            android:name=".login.gestionActivity"
+            android:theme="@style/Theme.SupermarketComparator.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-
-                <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
         </activity>
-        <activity android:name=".login.LoginActivity">
+        <activity
+            android:name=".login.LoginActivity"
+            android:theme="@style/Theme.SupermarketComparator.NoActionBar">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
-
-                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".login.SignUpActivity"
+            android:theme="@style/Theme.SupermarketComparator.NoActionBar">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity

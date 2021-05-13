@@ -21,77 +21,74 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.sadcos.supermarketcomparator.MainActivity;
 import com.sadcos.supermarketcomparator.R;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class LoginActivity extends AppCompatActivity {
+public class SignUpActivity extends AppCompatActivity {
 
     Toolbar toolbar;
     EditText editUser,editPassword;
     CheckBox checkBox;
-    ImageButton signin;
-    Button signup;
+    ImageButton signup;
+    Button signin;
 
     private static String username;
     String password;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_sign_up);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
 
-        editUser = (EditText)findViewById(R.id.username);
-        editPassword = (EditText)findViewById(R.id.password);
+        editUser = findViewById(R.id.username);
+        editPassword = findViewById(R.id.password);
 
-        checkBox = (CheckBox)findViewById(R.id.checkbox);
-        signin =(ImageButton)findViewById(R.id.signin);
-        signup = (Button) findViewById(R.id.signup);
-        getLogin();
+        checkBox = findViewById(R.id.checkbox);
+        signin =findViewById(R.id.signin);
+        signup = findViewById(R.id.signup);
         signup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-        signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 username = editUser.getText().toString();
                 password = editPassword.getText().toString();
                 if(!username.isEmpty() && !password.isEmpty()) {
-                    login("http://192.168.1.60/supermarketcomparator/GET/login.php");
+                    register("http://192.168.1.60/supermarketcomparator/GET/register.php");
                 }else{
-                    Toast.makeText(LoginActivity.this,"Empty blanks not allowed",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUpActivity.this,"Empty blanks not allowed",Toast.LENGTH_SHORT).show();
                 }
             }
         });
+        signin.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(SignUpActivity.this,LoginActivity.class);
+                startActivity(i);
+            }
+        });
     }
-    private void login(String URL){
+    private void register(String URL){
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 if(!response.isEmpty()){
                     if(checkBox.isChecked()){
-                        saveLogin();
+                        Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                        Toast.makeText(SignUpActivity.this,"Register successfully",Toast.LENGTH_SHORT).show();
+                        startActivity(intent);
+                        finish();
                     }
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
                 }else{
-                    Toast.makeText(LoginActivity.this,"Username or password incorrect",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUpActivity.this,"Username or password incorrect",Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(LoginActivity.this,"Error to connect into the database",Toast.LENGTH_SHORT).show();
+                Toast.makeText(SignUpActivity.this,"Error to connect into the database",Toast.LENGTH_SHORT).show();
             }
         }){
             @Override
@@ -104,18 +101,5 @@ public class LoginActivity extends AppCompatActivity {
         };
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
-    }
-    private void saveLogin(){
-        SharedPreferences preferences=getSharedPreferences("loginPreferences", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("username",username);
-        editor.putString("password",password);
-        editor.putBoolean("session",true);
-        editor.apply();
-    }
-    private void getLogin(){
-        SharedPreferences preferences=getSharedPreferences("loginPreferences", Context.MODE_PRIVATE);
-        editUser.setText(preferences.getString("username",username));
-        editPassword.setText(preferences.getString("password",password));
     }
 }
