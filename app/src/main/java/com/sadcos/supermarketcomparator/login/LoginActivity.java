@@ -3,6 +3,7 @@ package com.sadcos.supermarketcomparator.login;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -34,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     CheckBox checkBox;
     ImageButton signin;
     Button signup;
-
+    ProgressDialog pdDialog;
     private static String username;
     String password;
     @Override
@@ -52,6 +53,9 @@ public class LoginActivity extends AppCompatActivity {
         signin =(ImageButton)findViewById(R.id.signin);
         signup = (Button) findViewById(R.id.signup);
         getLogin();
+        pdDialog= new ProgressDialog(LoginActivity.this);
+        pdDialog.setTitle("Logging in please wait...");
+        pdDialog.setCancelable(false);
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
                 username = editUser.getText().toString();
                 password = editPassword.getText().toString();
                 if(!username.isEmpty() && !password.isEmpty()) {
-                    login("http://192.168.1.60/supermarketcomparator/GET/login.php");
+                    login("https://supermarketcomparator.000webhostapp.com/login.php");
                 }else{
                     Toast.makeText(LoginActivity.this,"Empty blanks not allowed",Toast.LENGTH_SHORT).show();
                 }
@@ -74,6 +78,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
     private void login(String URL){
+        pdDialog.show();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -82,16 +87,19 @@ public class LoginActivity extends AppCompatActivity {
                         saveLogin();
                     }
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    pdDialog.dismiss();
                     startActivity(intent);
                     finish();
                 }else{
                     Toast.makeText(LoginActivity.this,"Username or password incorrect",Toast.LENGTH_SHORT).show();
+                    pdDialog.dismiss();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(LoginActivity.this,"Error to connect into the database",Toast.LENGTH_SHORT).show();
+                pdDialog.dismiss();
             }
         }){
             @Override
