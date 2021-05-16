@@ -1,6 +1,12 @@
 package com.sadcos.supermarketcomparator.products;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.Nullable;
+
 import com.google.gson.annotations.SerializedName;
+
 public class mercadonaProducts {
     @SerializedName("id") private int id;
     @SerializedName("product_name") private String product_name;
@@ -10,13 +16,13 @@ public class mercadonaProducts {
     private String cartproduct_name;
     private Double cartprice;
     private double totalprice;
+    
     public mercadonaProducts(String product_name, String price,String qty,String totalprice) {
         this.cartproduct_name = product_name;
         this.cartprice = Double.parseDouble(price);
         this.qty=qty;
         this.totalprice = Double.parseDouble(totalprice);
     }
-
     public int getId() {
         return id;
     }
@@ -56,4 +62,5 @@ public class mercadonaProducts {
     public void setTotalprice(double totalprice) {
         this.totalprice = totalprice;
     }
+
 }

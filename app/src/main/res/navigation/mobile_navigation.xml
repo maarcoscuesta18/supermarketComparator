@@ -11,17 +11,17 @@
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
 
-    <activity
+    <fragment
         android:id="@+id/nav_mercadona"
         android:name="com.sadcos.supermarketcomparator.searchers.searchMercadonaProducts"
         android:label="@string/productos_mercadona"
         tools:layout="@layout/activity_search_products" />
-    <activity
+    <fragment
         android:id="@+id/nav_dia"
         android:name="com.sadcos.supermarketcomparator.searchers.searchDiaProducts"
         android:label="@string/productos_dia"
         tools:layout="@layout/activity_search_products" />
-    <activity
+    <fragment
         android:id="@+id/nav_carrefour"
         android:name="com.sadcos.supermarketcomparator.searchers.searchCarrefourProducts"
         android:label="@string/productos_carrefour"

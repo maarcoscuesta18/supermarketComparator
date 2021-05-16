@@ -89,19 +89,22 @@ public class AdapterDia extends RecyclerView.Adapter<AdapterDia.MyViewHolder> {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(v.getContext(),"Producto añadido correctamente",Toast.LENGTH_SHORT).show();
+                    diaProducts newproduct = new diaProducts(product_name.getText().toString(),price.getText().toString().substring(7,11),price_per_kg.getText().toString(),String.valueOf(count[0]),String.valueOf(Double.parseDouble(price.getText().toString().substring(7,11))*count[0]));
                     if(diaCartProducts.isEmpty()){
-                        diaCartProducts.add(new diaProducts(product_name.getText().toString(),price.getText().toString().substring(7,11),price_per_kg.getText().toString(),String.valueOf(count[0]),String.valueOf(Double.parseDouble(price.getText().toString().substring(7,11))*count[0])));
+                        diaCartProducts.add(newproduct);
                         saveCart(v);
                     }else{
-                        for(diaProducts product : diaCartProducts){
-                            if(product.getCartproduct_name().equals(product_name.getText().toString())){
-                                product.setQty(String.valueOf(Integer.parseInt(product.getQty())+count[0]));
-                                product.setTotalprice(Double.parseDouble(product.getQty())*product.getCartprice());
-                                saveCart(v);
-                            }else{
-                                diaCartProducts.add(new diaProducts(product_name.getText().toString(),price.getText().toString().substring(7,11),price_per_kg.getText().toString(),String.valueOf(count[0]),String.valueOf(Double.parseDouble(price.getText().toString().substring(7,11))*count[0])));
-                                saveCart(v);
+                        if(isAlreadyInCart(newproduct)){
+                            for (diaProducts product : diaCartProducts){
+                                if(product.getCartproduct_name().equals(newproduct.getCartproduct_name())){
+                                    product.setQty(String.valueOf(Integer.parseInt(product.getQty())+Integer.parseInt(newproduct.getQty())));
+                                    product.setTotalprice(Double.parseDouble(String.valueOf(product.getTotalprice()+newproduct.getTotalprice())));
+                                    saveCart(v);
+                                }
                             }
+                        }else{
+                            diaCartProducts.add(newproduct);
+                            saveCart(v);
                         }
                     }
                 }
@@ -114,6 +117,16 @@ public class AdapterDia extends RecyclerView.Adapter<AdapterDia.MyViewHolder> {
             String json = gson.toJson(AdapterDia.diaCartProducts);
             editor.putString("cartDia", json);
             editor.apply();
+        }
+        public boolean isAlreadyInCart(diaProducts product){
+            boolean isInCart=false;
+            for(int i=0;i<diaCartProducts.size();i++){
+                if(product.getCartproduct_name().equals(diaCartProducts.get(i).getCartproduct_name())){
+                    isInCart=true;
+                    break;
+                }
+            }
+            return isInCart;
         }
     }
 }

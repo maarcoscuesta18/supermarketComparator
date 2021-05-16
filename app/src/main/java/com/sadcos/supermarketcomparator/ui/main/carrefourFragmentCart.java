@@ -87,15 +87,19 @@ public class carrefourFragmentCart extends Fragment  {
         //set cart totalprice
         totalprice =vista.findViewById(R.id.totalprice);
         cartprice=0;
-        if(!AdapterCarrefour.carrefourCartProducts.isEmpty()){
-            for(carrefourProducts product : AdapterCarrefour.carrefourCartProducts){
-                cartprice+=product.getTotalprice();
+        try{
+            if(!AdapterCarrefour.carrefourCartProducts.isEmpty()){
+                for(carrefourProducts product : AdapterCarrefour.carrefourCartProducts){
+                    cartprice+=product.getTotalprice();
+                }
+                totalprice.setText(String.format("Precio Total: %.2f €",cartprice));
+            }else{
+                totalprice.setText(String.format("Precio Total: %.2f €",cartprice));
             }
-            totalprice.setText(String.format("Precio Total: %.2f €",cartprice));
+        }catch (Exception e){
 
-        }else{
-            totalprice.setText(String.format("Precio Total: %.2f €",cartprice));
         }
+
 
         //refresh the cart price
         swipeRefreshLayout = vista.findViewById(R.id.fragmentLayout);

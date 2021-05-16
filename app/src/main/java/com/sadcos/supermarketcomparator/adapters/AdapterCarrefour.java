@@ -89,19 +89,22 @@ public class AdapterCarrefour extends RecyclerView.Adapter<AdapterCarrefour.MyVi
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(v.getContext(),"Producto añadido correctamente",Toast.LENGTH_SHORT).show();
+                    carrefourProducts newproduct = new carrefourProducts(product_name.getText().toString(),price.getText().toString().substring(7,11),price_per_kg.getText().toString(),String.valueOf(count[0]),String.valueOf(Double.parseDouble(price.getText().toString().substring(7,11))*count[0]));
                     if(carrefourCartProducts.isEmpty()){
-                        carrefourCartProducts.add(new carrefourProducts(product_name.getText().toString(),price.getText().toString().substring(7,11),price_per_kg.getText().toString(),String.valueOf(count[0]),String.valueOf(Double.parseDouble(price.getText().toString().substring(7,11))*count[0])));
+                        carrefourCartProducts.add(newproduct);
                         saveCart(v);
                     }else{
-                        for(carrefourProducts product : carrefourCartProducts){
-                            if(product.getCartproduct_name().equals(product_name.getText().toString())){
-                                product.setQty(String.valueOf(Integer.parseInt(product.getQty())+count[0]));
-                                product.setTotalprice(Double.parseDouble(product.getQty())*product.getCartprice());
-                                saveCart(v);
-                            }else{
-                                carrefourCartProducts.add(new carrefourProducts(product_name.getText().toString(),price.getText().toString().substring(7,11),price_per_kg.getText().toString(),String.valueOf(count[0]),String.valueOf(Double.parseDouble(price.getText().toString().substring(7,11))*count[0])));
-                                saveCart(v);
+                        if(isAlreadyInCart(newproduct)){
+                            for (carrefourProducts product : carrefourCartProducts){
+                                if(product.getCartproduct_name().equals(newproduct.getCartproduct_name())){
+                                    product.setQty(String.valueOf(Integer.parseInt(product.getQty())+Integer.parseInt(newproduct.getQty())));
+                                    product.setTotalprice(Double.parseDouble(String.valueOf(product.getTotalprice()+newproduct.getTotalprice())));
+                                    saveCart(v);
+                                }
                             }
+                        }else{
+                            carrefourCartProducts.add(newproduct);
+                            saveCart(v);
                         }
                     }
                 }
@@ -114,6 +117,16 @@ public class AdapterCarrefour extends RecyclerView.Adapter<AdapterCarrefour.MyVi
             String json = gson.toJson(AdapterCarrefour.carrefourCartProducts);
             editor.putString("cartCarrefour", json);
             editor.apply();
+        }
+        public boolean isAlreadyInCart(carrefourProducts product){
+            boolean isInCart=false;
+            for(int i=0;i<carrefourCartProducts.size();i++){
+                if(product.getCartproduct_name().equals(carrefourCartProducts.get(i).getCartproduct_name())){
+                    isInCart=true;
+                    break;
+                }
+            }
+            return isInCart;
         }
     }
 }

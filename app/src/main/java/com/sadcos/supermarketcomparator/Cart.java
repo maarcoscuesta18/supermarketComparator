@@ -32,9 +32,7 @@ public class Cart extends AppCompatActivity implements mercadonaFragmentCart.OnF
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Cart.this,MainActivity.class);
-                startActivity(intent);
-                finish();
+                onBackPressed();
             }
         });
     }

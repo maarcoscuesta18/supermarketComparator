@@ -83,7 +83,12 @@ public class carrefourCartAdapter extends RecyclerView.Adapter<carrefourCartAdap
 
     @Override
     public int getItemCount() {
-        return listCartCarrefour.size();
+        try{
+            return listCartCarrefour.size();
+        }catch (Exception e){
+           return 0;
+        }
+
     }
 
     public class PersonajeViewHolder extends RecyclerView.ViewHolder {

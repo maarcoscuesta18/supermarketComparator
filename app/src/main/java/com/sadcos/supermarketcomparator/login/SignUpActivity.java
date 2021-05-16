@@ -71,7 +71,7 @@ public class SignUpActivity extends AppCompatActivity {
                 password = editPassword.getText().toString();
                 if(!firstname.isEmpty() && !lastname.isEmpty() && !email.isEmpty() && !username.isEmpty() && !password.isEmpty()) {
                     if(checkBox.isChecked()) {
-                        register("http://192.168.1.60/supermarketcomparator/GET/register.php");
+                        register("https://supermarketcomparator.000webhostapp.com/register.php");
                     }else{
                         Toast.makeText(SignUpActivity.this,"You must Accept Our Terms And Conditions",Toast.LENGTH_SHORT).show();
                     }

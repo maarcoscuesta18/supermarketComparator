@@ -6,15 +6,18 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,7 +37,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class searchMercadonaProducts extends AppCompatActivity {
+public class searchMercadonaProducts extends Fragment {
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
@@ -46,19 +49,21 @@ public class searchMercadonaProducts extends AppCompatActivity {
     String[] item;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_products);
-        this.setTitle("Supermercado Mercadona");
-        progressBar = findViewById(R.id.prograss);
-        recyclerView = findViewById(R.id.recyclerView);
-        layoutManager = new LinearLayoutManager(this);
+        setHasOptionsMenu(true);
+    }
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View vista=inflater.inflate(R.layout.activity_search_products, container, false);
+        progressBar = vista.findViewById(R.id.prograss);
+        recyclerView = vista.findViewById(R.id.recyclerView);
+        layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         fetchContact("mercadona_products", "");
-
+        return vista;
     }
-
     public void fetchContact(String type, String key){
 
         apiInterfaceMercadona = ApiClient.getApiClient().create(ApiInterfaceMercadona.class);
@@ -69,7 +74,7 @@ public class searchMercadonaProducts extends AppCompatActivity {
             public void onResponse(Call<List<mercadonaProducts>> call, Response<List<mercadonaProducts>> response) {
                 progressBar.setVisibility(View.GONE);
                 mercadonaProducts = response.body();
-                adapterMercadona = new AdapterMercadona(mercadonaProducts, searchMercadonaProducts.this);
+                adapterMercadona = new AdapterMercadona(mercadonaProducts, getContext());
                 recyclerView.setAdapter(adapterMercadona);
                 adapterMercadona.notifyDataSetChanged();
             }
@@ -77,19 +82,18 @@ public class searchMercadonaProducts extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<mercadonaProducts>> call, Throwable t) {
                 progressBar.setVisibility(View.GONE);
-                Toast.makeText(searchMercadonaProducts.this, "Error\n"+t.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Error\n"+t.toString(), Toast.LENGTH_LONG).show();
             }
         });
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
+    public void onCreateOptionsMenu(Menu menu,MenuInflater inflater) {
         inflater.inflate(R.menu.searcher_menu, menu);
 
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
         searchView.setIconifiedByDefault(false);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -104,6 +108,6 @@ public class searchMercadonaProducts extends AppCompatActivity {
                 return false;
             }
         });
-        return true;
+        super.onCreateOptionsMenu(menu,inflater);
     }
 }

@@ -100,7 +100,11 @@ public class mercadonaFragmentCart extends Fragment  {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                new UnaTarea().execute();
+                try {
+                    new UnaTarea().execute();
+                }catch(Exception e){
+
+                }
             }
         });
         return vista;

@@ -1,7 +1,9 @@
 package com.sadcos.supermarketcomparator.adapters;
 
+import android.content.ClipData;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +18,9 @@ import com.sadcos.supermarketcomparator.R;
 import com.sadcos.supermarketcomparator.products.mercadonaProducts;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -27,7 +31,7 @@ public class AdapterMercadona extends RecyclerView.Adapter<AdapterMercadona.MyVi
     public static ArrayList<mercadonaProducts> mercadonaCartProducts = new ArrayList<>();
     private List<mercadonaProducts> product;
     private Context context;
-
+    public static int[] count = {1};
     public AdapterMercadona(List<mercadonaProducts> products, Context context) {
         this.product = products;
         this.context = context;
@@ -58,7 +62,6 @@ public class AdapterMercadona extends RecyclerView.Adapter<AdapterMercadona.MyVi
             link = itemView.findViewById(R.id.link);
             price = itemView.findViewById(R.id.price);
             Button addtocart = itemView.findViewById(R.id.addtocart);
-            final int[] count = {1};
             TextView txtCount =(TextView) itemView.findViewById(R.id.qty);
             Button buttonInc= (Button) itemView.findViewById(R.id.qtyplus);
             Button buttonDec= (Button) itemView.findViewById(R.id.qtyless);
@@ -85,19 +88,22 @@ public class AdapterMercadona extends RecyclerView.Adapter<AdapterMercadona.MyVi
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(v.getContext(),"Producto añadido correctamente",Toast.LENGTH_SHORT).show();
+                    mercadonaProducts newproduct = new mercadonaProducts(product_name.getText().toString(),price.getText().toString().substring(7,11),String.valueOf(count[0]),String.valueOf(Double.parseDouble(price.getText().toString().substring(7,11))*count[0]));
                     if(mercadonaCartProducts.isEmpty()){
-                        mercadonaCartProducts.add(new mercadonaProducts(product_name.getText().toString(),price.getText().toString().substring(7,11),String.valueOf(count[0]),String.valueOf(Double.parseDouble(price.getText().toString().substring(7,11))*count[0])));
+                        mercadonaCartProducts.add(newproduct);
                         saveCart(v);
                     }else{
-                        for(mercadonaProducts product : mercadonaCartProducts){
-                            if(product.getCartproduct_name().equals(product_name.getText().toString())){
-                                product.setQty(String.valueOf(Integer.parseInt(product.getQty())+count[0]));
-                                product.setTotalprice(Double.parseDouble(product.getQty())*product.getCartprice());
-                                saveCart(v);
-                            }else{
-                                mercadonaCartProducts.add(new mercadonaProducts(product_name.getText().toString(),price.getText().toString().substring(7,11),String.valueOf(count[0]),String.valueOf(Double.parseDouble(price.getText().toString().substring(7,11))*count[0])));
-                                saveCart(v);
+                        if(isAlreadyInCart(newproduct)){
+                            for (mercadonaProducts product : mercadonaCartProducts){
+                                if(product.getCartproduct_name().equals(newproduct.getCartproduct_name())){
+                                    product.setQty(String.valueOf(Integer.parseInt(product.getQty())+Integer.parseInt(newproduct.getQty())));
+                                    product.setTotalprice(Double.parseDouble(String.valueOf(product.getTotalprice()+newproduct.getTotalprice())));
+                                    saveCart(v);
+                                }
                             }
+                        }else{
+                            mercadonaCartProducts.add(newproduct);
+                            saveCart(v);
                         }
                     }
                 }
@@ -110,6 +116,16 @@ public class AdapterMercadona extends RecyclerView.Adapter<AdapterMercadona.MyVi
             String json = gson.toJson(AdapterMercadona.mercadonaCartProducts);
             editor.putString("cartMercadona", json);
             editor.apply();
+        }
+        public boolean isAlreadyInCart(mercadonaProducts product){
+            boolean isInCart=false;
+            for(int i=0;i<mercadonaCartProducts.size();i++){
+                if(product.getCartproduct_name().equals(mercadonaCartProducts.get(i).getCartproduct_name())){
+                    isInCart=true;
+                    break;
+                }
+            }
+            return isInCart;
         }
     }
 }
