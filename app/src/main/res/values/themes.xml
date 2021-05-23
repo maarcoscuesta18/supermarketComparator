@@ -1,29 +1,46 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.SupermarketComparator" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.SupermarketComparator" parent="Theme.MaterialComponents.DayNight">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#8C9EFF</item>
-        <item name="colorPrimaryVariant">#82B1FF</item>
-        <item name="colorOnPrimary">#80D8FF</item>
+        <item name="colorPrimary">#5d4037</item>
+        <item name="colorPrimaryVariant">#4E362E</item>
+        <item name="colorOnPrimary">#5f4339</item>
+
+        <item name="tabStyle">@style/Widget.MaterialComponents.TabLayout</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">#8C9EFF</item>
-        <item name="colorSecondaryVariant">#80D8FF</item>
-        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSecondary">#ff8a65</item>
+        <item name="colorSecondaryVariant">#6a4f4b</item>
+        <item name="colorOnSecondary">#250A01</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:textColor">@color/black</item>
         <!-- Customize your theme here. -->
+    </style>
+
+    <!-- TAB ACTIVITY. -->
+    <style name="Widget.App.TabLayout" parent="Widget.MaterialComponents.TabLayout">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.TabLayout</item>
+        <item name="tabTextAppearance">@style/TextAppearance.AppCompat.Button</item>
+    </style>
+    <style name="ThemeOverlay.App.TabLayout" parent="">
+        <item name="colorSurface">#5d4037</item>
+        <item name="colorPrimary">#ff8a65</item>
+        <item name="colorOnSurface">#fff</item>
+        <item name="tabSelectedTextColor">#fff</item>
+    </style>
+
+    <!-- toolbar arriba. -->
+    <style name="Theme.SupermarketComparator.AppBarOverlay" parent="ThemeOverlay.AppCompat.DayNight">
+        <item name="android:textColorPrimary">#FFFFFF</item>
+        <item name="android:textColorSecondary">#BA9386</item>
     </style>
 
     <style name="Theme.SupermarketComparator.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-
     <style name="samsungfontdrawer" parent="android:Widget.TextView">
         <item name="android:fontFamily">@font/samsungsansmedium</item>
     </style>
-
-    <style name="Theme.SupermarketComparator.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="Theme.SupermarketComparator.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="Theme.SupermarketComparator.PopupOverlay" parent="ThemeOverlay.AppCompat.DayNight" />
 </resources>

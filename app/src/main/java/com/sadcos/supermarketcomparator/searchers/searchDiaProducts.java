@@ -56,7 +56,7 @@ public class searchDiaProducts extends Fragment {
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-        fetchContact("carrefour_products", "");
+        fetchContact("dia_products", "");
         return vista;
     }
 

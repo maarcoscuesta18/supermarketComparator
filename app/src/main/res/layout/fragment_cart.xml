@@ -11,6 +11,12 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <TextView android:id="@+id/cartempty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="NO HAY NINGUN ELEMENTO EN EL CARRITO."
+            android:gravity="center_vertical"
+            android:layout_margin="60dp" />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerId"
             android:layout_width="match_parent"
@@ -28,6 +34,8 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:gravity="center"
+                android:fontFamily="@font/samsungsharpsansbold"
+                android:textSize="16dp"
                 android:text="Precio Total:"/>
         </LinearLayout>
     </RelativeLayout>

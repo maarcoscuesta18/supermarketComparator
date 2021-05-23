@@ -106,6 +106,8 @@ public class AdapterMercadona extends RecyclerView.Adapter<AdapterMercadona.MyVi
                             saveCart(v);
                         }
                     }
+                    count[0]=1;
+                    txtCount.setText("1");
                 }
             });
         }

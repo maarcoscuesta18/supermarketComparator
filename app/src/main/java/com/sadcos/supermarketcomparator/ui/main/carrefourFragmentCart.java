@@ -40,7 +40,7 @@ public class carrefourFragmentCart extends Fragment  {
 
     RecyclerView recyclerCartCarrefour;
     public static ArrayList<carrefourProducts> listCartCarrefour;
-    TextView totalprice;
+    TextView totalprice,cartempty;
     double cartprice=0;
     public SwipeRefreshLayout swipeRefreshLayout;
 
@@ -87,13 +87,16 @@ public class carrefourFragmentCart extends Fragment  {
         //set cart totalprice
         totalprice =vista.findViewById(R.id.totalprice);
         cartprice=0;
+        cartempty = vista.findViewById(R.id.cartempty);
         try{
             if(!AdapterCarrefour.carrefourCartProducts.isEmpty()){
+                cartempty.setVisibility(View.INVISIBLE);
                 for(carrefourProducts product : AdapterCarrefour.carrefourCartProducts){
                     cartprice+=product.getTotalprice();
                 }
                 totalprice.setText(String.format("Precio Total: %.2f €",cartprice));
             }else{
+                cartempty.setVisibility(View.VISIBLE);
                 totalprice.setText(String.format("Precio Total: %.2f €",cartprice));
             }
         }catch (Exception e){
@@ -128,14 +131,19 @@ public class carrefourFragmentCart extends Fragment  {
             super.onPostExecute(aVoid);
             swipeRefreshLayout.setRefreshing(false);
             cartprice=0;
-            if(!AdapterCarrefour.carrefourCartProducts.isEmpty()){
-                for(carrefourProducts product : AdapterCarrefour.carrefourCartProducts){
-                    cartprice+=product.getTotalprice();
+            try{
+                if(!AdapterCarrefour.carrefourCartProducts.isEmpty()){
+                    cartempty.setVisibility(View.INVISIBLE);
+                    for(carrefourProducts product : AdapterCarrefour.carrefourCartProducts){
+                        cartprice+=product.getTotalprice();
+                    }
+                    totalprice.setText(String.format("Precio Total: %.2f €",cartprice));
+                }else{
+                    cartempty.setVisibility(View.VISIBLE);
+                    totalprice.setText(String.format("Precio Total: %.2f €",cartprice));
                 }
-                totalprice.setText(String.format("Precio Total: %.2f €",cartprice));
+            }catch (Exception e){
 
-            }else{
-                totalprice.setText(String.format("Precio Total: %.2f €",cartprice));
             }
             Toast.makeText(getContext(),"Carrito de Compra Acutalizado",Toast.LENGTH_SHORT).show();
         }
@@ -157,7 +165,6 @@ public class carrefourFragmentCart extends Fragment  {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
-
     }
 
     @Override

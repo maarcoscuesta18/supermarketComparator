@@ -51,6 +51,7 @@
                 android:text="Welcome!"
                 android:textStyle="bold"
                 android:textSize="20sp"
+                android:textColor="?android:attr/textColorPrimary"
                 android:textAlignment="center" />
             <LinearLayout
                 android:layout_width="match_parent"
@@ -69,7 +70,6 @@
                     android:hint="Username"
                     android:inputType="text"
                     android:padding="20dp"
-                    android:textColorHint="#606060"
                     android:textSize="14sp" />
 
                 <EditText
@@ -84,7 +84,6 @@
                     android:hint="Password"
                     android:inputType="textPassword"
                     android:padding="20dp"
-                    android:textColorHint="#606060"
                     android:textSize="14sp" />
 
                 <CheckBox
@@ -93,6 +92,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
                     android:layout_marginTop="20dp"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:text="REMEMBER ME" />
 
                 <ImageButton
@@ -118,7 +118,6 @@
                     android:layout_gravity="center"
                     android:text="Don't have an Account?"
                     android:textAlignment="center"
-                    android:textColor="@android:color/black"
                     android:textStyle="bold" />
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/signup"

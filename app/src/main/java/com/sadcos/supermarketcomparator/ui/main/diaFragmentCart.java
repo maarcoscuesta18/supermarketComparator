@@ -17,8 +17,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.sadcos.supermarketcomparator.R;
+import com.sadcos.supermarketcomparator.adapters.AdapterCarrefour;
 import com.sadcos.supermarketcomparator.adapters.AdapterDia;
 import com.sadcos.supermarketcomparator.adapters.diaCartAdapter;
+import com.sadcos.supermarketcomparator.products.carrefourProducts;
 import com.sadcos.supermarketcomparator.products.diaProducts;
 
 import java.util.ArrayList;
@@ -38,7 +40,7 @@ public class diaFragmentCart extends Fragment  {
 
     RecyclerView recyclerCartDia;
     public static ArrayList<diaProducts> listCartDia;
-    TextView totalprice;
+    TextView totalprice,cartempty;
     double cartprice=0;
     public SwipeRefreshLayout swipeRefreshLayout;
 
@@ -85,15 +87,23 @@ public class diaFragmentCart extends Fragment  {
         //set cart totalprice
         totalprice =vista.findViewById(R.id.totalprice);
         cartprice=0;
-        if(!AdapterDia.diaCartProducts.isEmpty()){
-            for(diaProducts product : AdapterDia.diaCartProducts){
-                cartprice+=product.getTotalprice();
-            }
-            totalprice.setText(String.format("Precio Total: %.2f €",cartprice));
+        cartempty = vista.findViewById(R.id.cartempty);
+        try{
+            if(!AdapterDia.diaCartProducts.isEmpty()){
+                cartempty.setVisibility(View.INVISIBLE);
+                for(diaProducts product : AdapterDia.diaCartProducts){
+                    cartprice+=product.getTotalprice();
+                }
+                totalprice.setText(String.format("Precio Total: %.2f €",cartprice));
 
-        }else{
-            totalprice.setText(String.format("Precio Total: %.2f €",cartprice));
+            }else{
+                cartempty.setVisibility(View.VISIBLE);
+                totalprice.setText(String.format("Precio Total: %.2f €",cartprice));
+            }
+        }catch (Exception e){
+
         }
+
 
         //refresh the cart price
         swipeRefreshLayout = vista.findViewById(R.id.fragmentLayout);
@@ -123,12 +133,13 @@ public class diaFragmentCart extends Fragment  {
             swipeRefreshLayout.setRefreshing(false);
             cartprice=0;
             if(!AdapterDia.diaCartProducts.isEmpty()){
+                cartempty.setVisibility(View.INVISIBLE);
                 for(diaProducts product : AdapterDia.diaCartProducts){
                     cartprice+=product.getTotalprice();
                 }
                 totalprice.setText(String.format("Precio Total: %.2f €",cartprice));
-
             }else{
+                cartempty.setVisibility(View.VISIBLE);
                 totalprice.setText(String.format("Precio Total: %.2f €",cartprice));
             }
             Toast.makeText(getContext(),"Carrito de Compra Acutalizado",Toast.LENGTH_SHORT).show();

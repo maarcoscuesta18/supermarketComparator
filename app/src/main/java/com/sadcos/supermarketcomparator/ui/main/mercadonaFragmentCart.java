@@ -38,7 +38,7 @@ public class mercadonaFragmentCart extends Fragment  {
 
     RecyclerView recyclerCartMercadona;
     public static ArrayList<mercadonaProducts> listCartMercadona;
-    TextView totalprice;
+    TextView totalprice,cartempty;
     double cartprice=0;
     public SwipeRefreshLayout swipeRefreshLayout;
 
@@ -85,13 +85,16 @@ public class mercadonaFragmentCart extends Fragment  {
         //set cart totalprice
         totalprice =vista.findViewById(R.id.totalprice);
         cartprice=0;
+        cartempty = vista.findViewById(R.id.cartempty);
         if(!AdapterMercadona.mercadonaCartProducts.isEmpty()){
+            cartempty.setVisibility(View.INVISIBLE);
             for(mercadonaProducts product : AdapterMercadona.mercadonaCartProducts){
                 cartprice+=product.getTotalprice();
             }
             totalprice.setText(String.format("Precio Total: %.2f €",cartprice));
 
         }else{
+            cartempty.setVisibility(View.VISIBLE);
             totalprice.setText(String.format("Precio Total: %.2f €",cartprice));
         }
 
@@ -127,15 +130,17 @@ public class mercadonaFragmentCart extends Fragment  {
             swipeRefreshLayout.setRefreshing(false);
             cartprice=0;
             if(!AdapterMercadona.mercadonaCartProducts.isEmpty()){
+                cartempty.setVisibility(View.INVISIBLE);
                 for(mercadonaProducts product : AdapterMercadona.mercadonaCartProducts){
                     cartprice+=product.getTotalprice();
                 }
                 totalprice.setText(String.format("Precio Total: %.2f €",cartprice));
 
             }else{
+                cartempty.setVisibility(View.VISIBLE);
                 totalprice.setText(String.format("Precio Total: %.2f €",cartprice));
             }
-            Toast.makeText(getContext(),"Carrito de Compra Acutalizado",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(),"Carrito de Compra Acutalizado",Toast.LENGTH_SHORT).show();
         }
     }
 

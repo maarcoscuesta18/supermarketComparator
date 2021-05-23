@@ -22,7 +22,7 @@
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:id="@+id/link"
-        android:fontFamily="@font/samsungone400"
+        android:fontFamily="@font/samsungsansmedium"
         android:text="Link"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -35,7 +35,6 @@
         android:paddingRight="15dp"
         android:id="@+id/price"
         android:text="Price"
-
         android:fontFamily="@font/samsungone700"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

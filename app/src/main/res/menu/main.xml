@@ -5,4 +5,10 @@
         android:title="@string/action_settings"
         android:orderInCategory="100"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_cart"
+        android:icon="@drawable/ic_carrito"
+        android:title="Cart"
+        app:actionLayout="@layout/custom_action_item_layout"
+        app:showAsAction="always"/>
 </menu>

@@ -107,6 +107,8 @@ public class AdapterDia extends RecyclerView.Adapter<AdapterDia.MyViewHolder> {
                             saveCart(v);
                         }
                     }
+                    count[0]=1;
+                    txtCount.setText("1");
                 }
             });
         }

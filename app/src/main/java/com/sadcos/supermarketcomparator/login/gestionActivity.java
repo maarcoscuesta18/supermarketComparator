@@ -70,9 +70,11 @@ public class gestionActivity extends AppCompatActivity {
 
         if(AdapterMercadona.mercadonaCartProducts==null){
             AdapterMercadona.mercadonaCartProducts=new ArrayList<mercadonaProducts>();
-        }else if(AdapterDia.diaCartProducts==null){
+        }
+        if(AdapterDia.diaCartProducts==null){
             AdapterDia.diaCartProducts=new ArrayList<diaProducts>();
-        }else if(AdapterCarrefour.carrefourCartProducts==null){
+        }
+        if(AdapterCarrefour.carrefourCartProducts==null){
             AdapterCarrefour.carrefourCartProducts=new ArrayList<carrefourProducts>();
         }
     }

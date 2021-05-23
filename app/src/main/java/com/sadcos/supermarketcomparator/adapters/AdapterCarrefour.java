@@ -28,7 +28,7 @@ public class AdapterCarrefour extends RecyclerView.Adapter<AdapterCarrefour.MyVi
     public static ArrayList<carrefourProducts> carrefourCartProducts = new ArrayList<>();
     private List<carrefourProducts> product;
     private Context context;
-
+    public static int[] count = {1};
     public AdapterCarrefour(List<carrefourProducts> products, Context context) {
         this.product = products;
         this.context = context;
@@ -46,7 +46,6 @@ public class AdapterCarrefour extends RecyclerView.Adapter<AdapterCarrefour.MyVi
         holder.link.setText(product.get(position).getLink());
         holder.price.setText("Price: "+product.get(position).getPrice()+" €");
         holder.price_per_kg.setText("Price per kg/l/unit: "+product.get(position).getPrice_per_kg());
-
     }
     @Override
     public int getItemCount() {
@@ -54,7 +53,7 @@ public class AdapterCarrefour extends RecyclerView.Adapter<AdapterCarrefour.MyVi
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView product_name,link,price,price_per_kg,qty;
+        TextView product_name,link,price,price_per_kg;
         public MyViewHolder(View itemView) {
             super(itemView);
             product_name = itemView.findViewById(R.id.product_name);
@@ -62,7 +61,7 @@ public class AdapterCarrefour extends RecyclerView.Adapter<AdapterCarrefour.MyVi
             price = itemView.findViewById(R.id.price);
             price_per_kg = itemView.findViewById(R.id.priceperkg);
             Button addtocart = itemView.findViewById(R.id.addtocart);
-            final int[] count = {1};
+            count[0] = 1;
             TextView txtCount =(TextView) itemView.findViewById(R.id.qty);
             Button buttonInc= (Button) itemView.findViewById(R.id.qtyplus);
             Button buttonDec= (Button) itemView.findViewById(R.id.qtyless);
@@ -107,6 +106,8 @@ public class AdapterCarrefour extends RecyclerView.Adapter<AdapterCarrefour.MyVi
                             saveCart(v);
                         }
                     }
+                    count[0]=1;
+                    txtCount.setText("1");
                 }
             });
         }

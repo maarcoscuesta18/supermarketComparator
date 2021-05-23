@@ -29,6 +29,7 @@ public class Cart extends AppCompatActivity implements mercadonaFragmentCart.OnF
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
         FloatingActionButton fab = findViewById(R.id.fab);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

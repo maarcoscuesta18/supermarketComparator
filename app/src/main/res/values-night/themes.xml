@@ -1,16 +1,38 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.SupermarketComparator" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.SupermarketComparator" parent="Theme.MaterialComponents.DayNight">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#7A89DD</item>
-        <item name="colorPrimaryVariant">#7098DA</item>
-        <item name="colorOnPrimary">#71BDDF</item>
+        <item name="colorPrimary">#403D3D</item>
+        <item name="colorPrimaryVariant">#2B2B2B</item>
+        <item name="colorOnPrimary">#5f4339</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">#FFFFFF</item>
-        <item name="colorSecondaryVariant">#DFDFDF</item>
-        <item name="colorOnSecondary">#000000</item>
+        <item name="colorSecondary">#8C8B8B</item>
+        <item name="colorSecondaryVariant">#6a4f4b</item>
+        <item name="colorOnSecondary">#FFFFFF</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:colorBackground" tools:targetApi="1">#2B2B2B</item>
+        <item name="android:textColor">#FFFFFF</item>
+
+        <item name="tabStyle">@style/Widget.MaterialComponents.TabLayout</item>
         <!-- Customize your theme here. -->
+    </style>
+
+    <!-- TAB ACTIVITY. -->
+    <style name="Widget.App.TabLayout" parent="Widget.MaterialComponents.TabLayout">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.TabLayout</item>
+        <item name="tabTextAppearance">@style/TextAppearance.AppCompat.Button</item>
+    </style>
+    <style name="ThemeOverlay.App.TabLayout" parent="">
+        <item name="colorSurface">#292828</item>
+        <item name="colorPrimary">#ff8a65</item>
+        <item name="colorOnSurface">#fff</item>
+        <item name="tabSelectedTextColor">#fff</item>
+    </style>
+
+    <!-- toolbar arriba. -->
+    <style name="Theme.SupermarketComparator.AppBarOverlay" parent="ThemeOverlay.AppCompat.DayNight">
+        <item name="android:textColorPrimary">#DADADA</item>
+        <item name="android:textColorSecondary">#F6F6F6</item>
     </style>
 </resources>
