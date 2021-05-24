@@ -1,17 +1,20 @@
 package com.sadcos.supermarketcomparator.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
+import com.sadcos.supermarketcomparator.ItemDetail;
 import com.sadcos.supermarketcomparator.R;
 import com.sadcos.supermarketcomparator.products.carrefourProducts;
 import com.sadcos.supermarketcomparator.products.diaProducts;
@@ -29,9 +32,14 @@ public class AdapterCarrefour extends RecyclerView.Adapter<AdapterCarrefour.MyVi
     private List<carrefourProducts> product;
     private Context context;
     public static int[] count = {1};
-    public AdapterCarrefour(List<carrefourProducts> products, Context context) {
+    public static AdapterCarrefour.OnItemClickListener listener;
+    public interface OnItemClickListener{
+        void onItemClick(carrefourProducts item);
+    }
+    public AdapterCarrefour(List<carrefourProducts> products, Context context, AdapterCarrefour.OnItemClickListener listener) {
         this.product = products;
         this.context = context;
+        this.listener = listener;
     }
 
     @Override
@@ -52,7 +60,7 @@ public class AdapterCarrefour extends RecyclerView.Adapter<AdapterCarrefour.MyVi
         return product.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView product_name,link,price,price_per_kg;
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -108,6 +116,12 @@ public class AdapterCarrefour extends RecyclerView.Adapter<AdapterCarrefour.MyVi
                     }
                     count[0]=1;
                     txtCount.setText("1");
+                }
+            });
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onItemClick(new carrefourProducts(product_name.getText().toString(),price.getText().toString().substring(7,11),price_per_kg.getText().toString(),String.valueOf(count[0]),String.valueOf(Double.parseDouble(price.getText().toString().substring(7,11))*count[0])));
                 }
             });
         }

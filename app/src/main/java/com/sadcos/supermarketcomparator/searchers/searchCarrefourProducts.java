@@ -2,6 +2,7 @@ package com.sadcos.supermarketcomparator.searchers;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -18,6 +19,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.sadcos.supermarketcomparator.ItemDetail;
 import com.sadcos.supermarketcomparator.adapters.AdapterCarrefour;
 import com.sadcos.supermarketcomparator.apis.ApiClient;
 import com.sadcos.supermarketcomparator.apis.ApiInterfaceCarrefour;
@@ -67,7 +69,12 @@ public class searchCarrefourProducts extends Fragment {
             public void onResponse(Call<List<carrefourProducts>> call, Response<List<carrefourProducts>> response) {
                 progressBar.setVisibility(View.GONE);
                 carrefourProducts = response.body();
-                adapterCarrefour = new AdapterCarrefour(carrefourProducts, getContext());
+                adapterCarrefour = new AdapterCarrefour(carrefourProducts, getContext(), new AdapterCarrefour.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(com.sadcos.supermarketcomparator.products.carrefourProducts item) {
+                        moveToDescription(item);
+                    }
+                });
                 recyclerView.setAdapter(adapterCarrefour);
                 adapterCarrefour.notifyDataSetChanged();
 
@@ -103,5 +110,13 @@ public class searchCarrefourProducts extends Fragment {
             }
         });
         super.onCreateOptionsMenu(menu,inflater);
+    }
+    public void moveToDescription(carrefourProducts item){
+        Intent intent = new Intent(getActivity(), ItemDetail.class);
+        intent.putExtra("itemName",item.getProduct_name());
+        intent.putExtra("itemPrice",item.getPrice());
+        intent.putExtra("itemLink",item.getLink());
+        intent.putExtra("itemPricePerKg",item.getPrice_per_kg());
+        startActivity(intent);
     }
 }

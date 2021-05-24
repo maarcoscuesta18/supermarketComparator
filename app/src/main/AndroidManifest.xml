@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SupermarketComparator"
         android:usesCleartextTraffic="true">
+        <activity android:name=".ItemDetail"></activity>
         <activity
             android:name=".Cart"
             android:label="@string/title_activity_cart"
