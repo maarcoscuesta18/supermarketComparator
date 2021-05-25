@@ -13,10 +13,12 @@ public class carrefourProducts {
     private String cartpriceperkg;
     private double cartprice;
     private double totalprice;
+    private String cartlink;
 
-    public carrefourProducts(String product_name, String price,String price_per_kg,String qty,String totalprice) {
+    public carrefourProducts(String product_name,String link, String price,String price_per_kg,String qty,String totalprice) {
         this.cartproduct_name = product_name;
         this.cartprice = Double.parseDouble(price);
+        this.cartlink=link;
         this.cartpriceperkg=price_per_kg;
         this.qty=qty;
         this.totalprice = Double.parseDouble(totalprice);
@@ -64,5 +66,12 @@ public class carrefourProducts {
 
     public String getCartpriceperkg() {
         return cartpriceperkg;
+    }
+
+    public String getCartlink() {
+        return cartlink;
+    }
+    public void setCartlink(String cartlink) {
+        this.cartlink = cartlink;
     }
 }

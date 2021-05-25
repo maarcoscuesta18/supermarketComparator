@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.sadcos.supermarketcomparator.R;
+import com.sadcos.supermarketcomparator.products.carrefourProducts;
 import com.sadcos.supermarketcomparator.products.diaProducts;
 import com.sadcos.supermarketcomparator.products.mercadonaProducts;
 
@@ -25,13 +26,16 @@ import java.util.List;
 
 public class AdapterDia extends RecyclerView.Adapter<AdapterDia.MyViewHolder> {
     public static ArrayList<diaProducts> diaCartProducts = new ArrayList<>();
-
     private List<diaProducts> product;
     private Context context;
-
-    public AdapterDia(List<diaProducts> products, Context context) {
+    public static AdapterDia.OnItemClickListener listener;
+    public interface OnItemClickListener{
+        void onItemClick(diaProducts item);
+    }
+    public AdapterDia(List<diaProducts> products, Context context,AdapterDia.OnItemClickListener listener) {
         this.product = products;
         this.context = context;
+        this.listener = listener;
     }
 
     @Override
@@ -89,7 +93,7 @@ public class AdapterDia extends RecyclerView.Adapter<AdapterDia.MyViewHolder> {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(v.getContext(),"Producto añadido correctamente",Toast.LENGTH_SHORT).show();
-                    diaProducts newproduct = new diaProducts(product_name.getText().toString(),price.getText().toString().substring(7,11),price_per_kg.getText().toString(),String.valueOf(count[0]),String.valueOf(Double.parseDouble(price.getText().toString().substring(7,11))*count[0]));
+                    diaProducts newproduct = new diaProducts(product_name.getText().toString(),link.getText().toString(),price.getText().toString().substring(7,11),price_per_kg.getText().toString(),String.valueOf(count[0]),String.valueOf(Double.parseDouble(price.getText().toString().substring(7,11))*count[0]));
                     if(diaCartProducts.isEmpty()){
                         diaCartProducts.add(newproduct);
                         saveCart(v);
@@ -109,6 +113,12 @@ public class AdapterDia extends RecyclerView.Adapter<AdapterDia.MyViewHolder> {
                     }
                     count[0]=1;
                     txtCount.setText("1");
+                }
+            });
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onItemClick(new diaProducts(product_name.getText().toString(),link.getText().toString(),price.getText().toString().substring(7,11),price_per_kg.getText().toString(),String.valueOf(count[0]),String.valueOf(Double.parseDouble(price.getText().toString().substring(7,11))*count[0])));
                 }
             });
         }

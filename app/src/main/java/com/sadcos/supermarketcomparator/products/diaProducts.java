@@ -14,10 +14,12 @@ public class diaProducts {
     private String cartpriceperkg;
     private Double cartprice;
     private Double totalprice;
+    private String cartlink;
 
-    public diaProducts(String product_name, String price,String price_per_kg,String qty,String totalprice) {
+    public diaProducts(String product_name, String link,String price,String price_per_kg,String qty,String totalprice) {
         this.cartproduct_name = product_name;
         this.cartprice = Double.parseDouble(price);
+        this.cartlink=link;
         this.cartpriceperkg=price_per_kg;
         this.qty=qty;
         this.totalprice = Double.parseDouble(totalprice);
@@ -70,5 +72,12 @@ public class diaProducts {
     }
     public void setCartpriceperkg(String cartpriceperkg) {
         this.cartpriceperkg = cartpriceperkg;
+    }
+
+    public String getCartlink() {
+        return cartlink;
+    }
+    public void setCartlink(String cartlink) {
+        this.cartlink = cartlink;
     }
 }

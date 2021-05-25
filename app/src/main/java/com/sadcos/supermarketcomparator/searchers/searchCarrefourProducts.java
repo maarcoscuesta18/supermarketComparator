@@ -71,7 +71,7 @@ public class searchCarrefourProducts extends Fragment {
                 carrefourProducts = response.body();
                 adapterCarrefour = new AdapterCarrefour(carrefourProducts, getContext(), new AdapterCarrefour.OnItemClickListener() {
                     @Override
-                    public void onItemClick(com.sadcos.supermarketcomparator.products.carrefourProducts item) {
+                    public void onItemClick(carrefourProducts item) {
                         moveToDescription(item);
                     }
                 });
@@ -112,11 +112,14 @@ public class searchCarrefourProducts extends Fragment {
         super.onCreateOptionsMenu(menu,inflater);
     }
     public void moveToDescription(carrefourProducts item){
-        Intent intent = new Intent(getActivity(), ItemDetail.class);
-        intent.putExtra("itemName",item.getProduct_name());
-        intent.putExtra("itemPrice",item.getPrice());
-        intent.putExtra("itemLink",item.getLink());
-        intent.putExtra("itemPricePerKg",item.getPrice_per_kg());
+        Bundle bundle = new Bundle();
+        Intent intent = new Intent(getContext(), ItemDetail.class);
+        bundle.putString("itemName", item.getCartproduct_name());
+        bundle.putString("itemPrice", item.getCartprice().toString());
+        bundle.putString("itemLink", item.getCartlink());
+        bundle.putString("itemPricePerKg", item.getCartpriceperkg());
+        bundle.putString("supermarketType","carrefour");
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 }

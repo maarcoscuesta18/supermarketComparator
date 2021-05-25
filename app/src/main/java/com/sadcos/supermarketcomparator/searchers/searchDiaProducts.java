@@ -4,6 +4,7 @@ package com.sadcos.supermarketcomparator.searchers;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,10 +21,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.sadcos.supermarketcomparator.ItemDetail;
+import com.sadcos.supermarketcomparator.adapters.AdapterCarrefour;
 import com.sadcos.supermarketcomparator.adapters.AdapterDia;
 import com.sadcos.supermarketcomparator.apis.ApiClient;
 import com.sadcos.supermarketcomparator.apis.ApiInterfaceDia;
 import com.sadcos.supermarketcomparator.R;
+import com.sadcos.supermarketcomparator.products.carrefourProducts;
 import com.sadcos.supermarketcomparator.products.diaProducts;
 
 import java.util.List;
@@ -70,7 +74,12 @@ public class searchDiaProducts extends Fragment {
             public void onResponse(Call<List<diaProducts>> call, Response<List<diaProducts>> response) {
                 progressBar.setVisibility(View.GONE);
                 diaProducts = response.body();
-                adapterDia = new AdapterDia(diaProducts, getContext());
+                adapterDia = new AdapterDia(diaProducts, getContext(),new AdapterDia.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(diaProducts item) {
+                        moveToDescription(item);
+                    }
+                });
                 recyclerView.setAdapter(adapterDia);
                 adapterDia.notifyDataSetChanged();
             }
@@ -105,5 +114,16 @@ public class searchDiaProducts extends Fragment {
             }
         });
         super.onCreateOptionsMenu(menu,inflater);
+    }
+    public void moveToDescription(diaProducts item){
+        Bundle bundle = new Bundle();
+        Intent intent = new Intent(getContext(), ItemDetail.class);
+        bundle.putString("itemName", item.getCartproduct_name());
+        bundle.putString("itemPrice", item.getCartprice().toString());
+        bundle.putString("itemLink", item.getCartlink());
+        bundle.putString("itemPricePerKg", item.getCartpriceperkg());
+        bundle.putString("supermarketType","dia");
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }

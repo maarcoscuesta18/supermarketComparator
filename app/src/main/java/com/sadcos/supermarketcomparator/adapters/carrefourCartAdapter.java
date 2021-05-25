@@ -19,9 +19,13 @@ import java.util.ArrayList;
 
 public class carrefourCartAdapter extends RecyclerView.Adapter<carrefourCartAdapter.PersonajeViewHolder>{
     public static ArrayList<carrefourProducts> listCartCarrefour;
-
-    public carrefourCartAdapter(ArrayList<carrefourProducts> listCartCarrefour) {
+    public static carrefourCartAdapter.OnItemClickListener listener;
+    public interface OnItemClickListener{
+        void onItemClick(carrefourProducts item);
+    }
+    public carrefourCartAdapter(ArrayList<carrefourProducts> listCartCarrefour,carrefourCartAdapter.OnItemClickListener listener) {
         carrefourCartAdapter.listCartCarrefour =listCartCarrefour;
+        this.listener = listener;
     }
 
     @Override
@@ -77,6 +81,12 @@ public class carrefourCartAdapter extends RecyclerView.Adapter<carrefourCartAdap
                     notifyDataSetChanged();
                     saveCart(v);
                 }
+            }
+        });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onItemClick(new carrefourProducts(holder.product_name.getText().toString(),AdapterCarrefour.carrefourCartProducts.get(position).getCartlink(),holder.price.getText().toString().substring(7,11),holder.price_per_kg.getText().toString(),String.valueOf(count[0]),String.valueOf(Double.parseDouble(holder.price.getText().toString().substring(7,11))*count[0])));
             }
         });
     }

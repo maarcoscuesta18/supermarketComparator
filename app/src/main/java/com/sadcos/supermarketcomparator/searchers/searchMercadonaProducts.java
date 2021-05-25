@@ -4,6 +4,7 @@ package com.sadcos.supermarketcomparator.searchers;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -24,10 +25,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.sadcos.supermarketcomparator.ItemDetail;
+import com.sadcos.supermarketcomparator.adapters.AdapterCarrefour;
 import com.sadcos.supermarketcomparator.adapters.AdapterMercadona;
 import com.sadcos.supermarketcomparator.apis.ApiClient;
 import com.sadcos.supermarketcomparator.apis.ApiInterfaceMercadona;
 import com.sadcos.supermarketcomparator.R;
+import com.sadcos.supermarketcomparator.products.carrefourProducts;
+import com.sadcos.supermarketcomparator.products.diaProducts;
 import com.sadcos.supermarketcomparator.products.mercadonaProducts;
 
 import java.io.InputStream;
@@ -77,7 +82,12 @@ public class searchMercadonaProducts extends Fragment {
             public void onResponse(Call<List<mercadonaProducts>> call, Response<List<mercadonaProducts>> response) {
                 progressBar.setVisibility(View.GONE);
                 mercadonaProducts = response.body();
-                adapterMercadona = new AdapterMercadona(mercadonaProducts, getContext());
+                adapterMercadona = new AdapterMercadona(mercadonaProducts, getContext(),new AdapterMercadona.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(mercadonaProducts item) {
+                        moveToDescription(item);
+                    }
+                });
                 recyclerView.setAdapter(adapterMercadona);
                 adapterMercadona.notifyDataSetChanged();
             }
@@ -112,5 +122,16 @@ public class searchMercadonaProducts extends Fragment {
             }
         });
         super.onCreateOptionsMenu(menu,inflater);
+    }
+    public void moveToDescription(mercadonaProducts item){
+        Bundle bundle = new Bundle();
+        Intent intent = new Intent(getContext(), ItemDetail.class);
+        bundle.putString("itemName", item.getCartproduct_name());
+        bundle.putString("itemPrice", item.getCartprice().toString());
+        bundle.putString("itemLink", item.getCartlink());
+        bundle.putString("itemPricePerKg", "Price per kg/unit/lb: no data");
+        bundle.putString("supermarketType","mercadona");
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }

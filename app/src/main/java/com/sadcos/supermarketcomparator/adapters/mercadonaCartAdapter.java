@@ -13,14 +13,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.gson.Gson;
 import com.sadcos.supermarketcomparator.R;
 import com.sadcos.supermarketcomparator.products.mercadonaProducts;
+import com.sadcos.supermarketcomparator.ui.main.mercadonaFragmentCart;
 
 import java.util.ArrayList;
 
 public class mercadonaCartAdapter extends RecyclerView.Adapter<mercadonaCartAdapter.PersonajeViewHolder>{
     public static ArrayList<mercadonaProducts> listCartMercadona;
-
-    public mercadonaCartAdapter(ArrayList<mercadonaProducts> listCartMercadona) {
+    public static mercadonaCartAdapter.OnItemClickListener listener;
+    public interface OnItemClickListener{
+        void onItemClick(mercadonaProducts item);
+    }
+    public mercadonaCartAdapter(ArrayList<mercadonaProducts> listCartMercadona, mercadonaCartAdapter.OnItemClickListener listener) {
         mercadonaCartAdapter.listCartMercadona =listCartMercadona;
+        this.listener = listener;
     }
 
     @Override
@@ -75,6 +80,12 @@ public class mercadonaCartAdapter extends RecyclerView.Adapter<mercadonaCartAdap
                     notifyDataSetChanged();
                     saveCart(v);
                 }
+            }
+        });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onItemClick(new mercadonaProducts(holder.product_name.getText().toString(),AdapterMercadona.mercadonaCartProducts.get(position).getCartlink(),holder.price.getText().toString().substring(7,11),String.valueOf(count[0]),String.valueOf(Double.parseDouble(holder.price.getText().toString().substring(7,11))*count[0])));
             }
         });
     }

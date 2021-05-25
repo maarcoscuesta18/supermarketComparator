@@ -19,9 +19,13 @@ import java.util.ArrayList;
 
 public class diaCartAdapter extends RecyclerView.Adapter<diaCartAdapter.PersonajeViewHolder>{
     public static ArrayList<diaProducts> listCartDia;
-
-    public diaCartAdapter(ArrayList<diaProducts> listCartDia) {
+    public static diaCartAdapter.OnItemClickListener listener;
+    public interface OnItemClickListener{
+        void onItemClick(diaProducts item);
+    }
+    public diaCartAdapter(ArrayList<diaProducts> listCartDia,diaCartAdapter.OnItemClickListener listener) {
         diaCartAdapter.listCartDia =listCartDia;
+        this.listener = listener;
     }
 
     @Override
@@ -77,6 +81,12 @@ public class diaCartAdapter extends RecyclerView.Adapter<diaCartAdapter.Personaj
                     notifyDataSetChanged();
                     saveCart(v);
                 }
+            }
+        });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onItemClick(new diaProducts(holder.product_name.getText().toString(),AdapterDia.diaCartProducts.get(position).getCartlink(),holder.price.getText().toString().substring(7,11),holder.price_per_kg.getText().toString(),String.valueOf(count[0]),String.valueOf(Double.parseDouble(holder.price.getText().toString().substring(7,11))*count[0])));
             }
         });
     }

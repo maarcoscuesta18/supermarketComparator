@@ -2,6 +2,7 @@ package com.sadcos.supermarketcomparator.ui.main;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.sadcos.supermarketcomparator.ItemDetail;
 import com.sadcos.supermarketcomparator.R;
 import com.sadcos.supermarketcomparator.adapters.AdapterMercadona;
 import com.sadcos.supermarketcomparator.adapters.mercadonaCartAdapter;
@@ -79,7 +81,12 @@ public class mercadonaFragmentCart extends Fragment  {
         listCartMercadona=new ArrayList<>();
         recyclerCartMercadona= (RecyclerView) vista.findViewById(R.id.recyclerId);
         recyclerCartMercadona.setLayoutManager(new LinearLayoutManager(getContext()));
-        mercadonaCartAdapter adapter=new mercadonaCartAdapter(AdapterMercadona.mercadonaCartProducts);
+        mercadonaCartAdapter adapter=new mercadonaCartAdapter(AdapterMercadona.mercadonaCartProducts,new mercadonaCartAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(mercadonaProducts item) {
+                moveToDescription(item);
+            }
+        });
         recyclerCartMercadona.setAdapter(adapter);
 
         //set cart totalprice
@@ -100,6 +107,7 @@ public class mercadonaFragmentCart extends Fragment  {
 
         //refresh the cart price
         swipeRefreshLayout = vista.findViewById(R.id.fragmentLayout);
+
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -182,5 +190,16 @@ public class mercadonaFragmentCart extends Fragment  {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+    public void moveToDescription(mercadonaProducts item){
+        Bundle bundle = new Bundle();
+        Intent intent = new Intent(getContext(), ItemDetail.class);
+        bundle.putString("itemName", item.getCartproduct_name());
+        bundle.putString("itemPrice", item.getCartprice().toString());
+        bundle.putString("itemLink", item.getCartlink());
+        bundle.putString("itemPricePerKg", "Price per kg/unit/lb: no data");
+        bundle.putString("supermarketType","mercadona");
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }

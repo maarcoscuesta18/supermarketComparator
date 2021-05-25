@@ -96,7 +96,7 @@ public class AdapterCarrefour extends RecyclerView.Adapter<AdapterCarrefour.MyVi
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(v.getContext(),"Producto añadido correctamente",Toast.LENGTH_SHORT).show();
-                    carrefourProducts newproduct = new carrefourProducts(product_name.getText().toString(),price.getText().toString().substring(7,11),price_per_kg.getText().toString(),String.valueOf(count[0]),String.valueOf(Double.parseDouble(price.getText().toString().substring(7,11))*count[0]));
+                    carrefourProducts newproduct = new carrefourProducts(product_name.getText().toString(),link.getText().toString(),price.getText().toString().substring(7,11),price_per_kg.getText().toString(),String.valueOf(count[0]),String.valueOf(Double.parseDouble(price.getText().toString().substring(7,11))*count[0]));
                     if(carrefourCartProducts.isEmpty()){
                         carrefourCartProducts.add(newproduct);
                         saveCart(v);
@@ -121,7 +121,7 @@ public class AdapterCarrefour extends RecyclerView.Adapter<AdapterCarrefour.MyVi
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onItemClick(new carrefourProducts(product_name.getText().toString(),price.getText().toString().substring(7,11),price_per_kg.getText().toString(),String.valueOf(count[0]),String.valueOf(Double.parseDouble(price.getText().toString().substring(7,11))*count[0])));
+                    listener.onItemClick(new carrefourProducts(product_name.getText().toString(),link.getText().toString(),price.getText().toString().substring(7,11),price_per_kg.getText().toString(),String.valueOf(count[0]),String.valueOf(Double.parseDouble(price.getText().toString().substring(7,11))*count[0])));
                 }
             });
         }

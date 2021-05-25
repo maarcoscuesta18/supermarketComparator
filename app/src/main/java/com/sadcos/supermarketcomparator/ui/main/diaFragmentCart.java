@@ -2,6 +2,7 @@ package com.sadcos.supermarketcomparator.ui.main;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.sadcos.supermarketcomparator.ItemDetail;
 import com.sadcos.supermarketcomparator.R;
 import com.sadcos.supermarketcomparator.adapters.AdapterCarrefour;
 import com.sadcos.supermarketcomparator.adapters.AdapterDia;
@@ -81,7 +83,12 @@ public class diaFragmentCart extends Fragment  {
         listCartDia=new ArrayList<>();
         recyclerCartDia= (RecyclerView) vista.findViewById(R.id.recyclerId);
         recyclerCartDia.setLayoutManager(new LinearLayoutManager(getContext()));
-        diaCartAdapter adapter=new diaCartAdapter(AdapterDia.diaCartProducts);
+        diaCartAdapter adapter=new diaCartAdapter(AdapterDia.diaCartProducts,new diaCartAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(diaProducts item) {
+                moveToDescription(item);
+            }
+        });
         recyclerCartDia.setAdapter(adapter);
 
         //set cart totalprice
@@ -184,5 +191,16 @@ public class diaFragmentCart extends Fragment  {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+    public void moveToDescription(diaProducts item){
+        Bundle bundle = new Bundle();
+        Intent intent = new Intent(getContext(), ItemDetail.class);
+        bundle.putString("itemName", item.getCartproduct_name());
+        bundle.putString("itemPrice", item.getCartprice().toString());
+        bundle.putString("itemLink", item.getCartlink());
+        bundle.putString("itemPricePerKg", item.getCartpriceperkg());
+        bundle.putString("supermarketType","dia");
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }

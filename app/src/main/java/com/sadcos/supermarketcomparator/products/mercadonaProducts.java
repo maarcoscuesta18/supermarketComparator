@@ -15,11 +15,13 @@ public class mercadonaProducts {
     private String qty;
     private String cartproduct_name;
     private Double cartprice;
+    private String cartlink;
     private double totalprice;
     
-    public mercadonaProducts(String product_name, String price,String qty,String totalprice) {
+    public mercadonaProducts(String product_name,String link, String price,String qty,String totalprice) {
         this.cartproduct_name = product_name;
         this.cartprice = Double.parseDouble(price);
+        this.cartlink=link;
         this.qty=qty;
         this.totalprice = Double.parseDouble(totalprice);
     }
@@ -63,4 +65,7 @@ public class mercadonaProducts {
         this.totalprice = totalprice;
     }
 
+    public String getCartlink() {
+        return cartlink;
+    }
 }

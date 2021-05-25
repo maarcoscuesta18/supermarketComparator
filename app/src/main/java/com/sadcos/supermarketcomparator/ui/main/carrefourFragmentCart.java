@@ -2,6 +2,7 @@ package com.sadcos.supermarketcomparator.ui.main;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,11 +17,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.sadcos.supermarketcomparator.ItemDetail;
 import com.sadcos.supermarketcomparator.R;
 import com.sadcos.supermarketcomparator.adapters.AdapterCarrefour;
 import com.sadcos.supermarketcomparator.adapters.AdapterMercadona;
 import com.sadcos.supermarketcomparator.adapters.carrefourCartAdapter;
+import com.sadcos.supermarketcomparator.adapters.diaCartAdapter;
 import com.sadcos.supermarketcomparator.products.carrefourProducts;
+import com.sadcos.supermarketcomparator.products.diaProducts;
 import com.sadcos.supermarketcomparator.products.mercadonaProducts;
 
 import java.util.ArrayList;
@@ -81,7 +85,12 @@ public class carrefourFragmentCart extends Fragment  {
         listCartCarrefour=new ArrayList<>();
         recyclerCartCarrefour= (RecyclerView) vista.findViewById(R.id.recyclerId);
         recyclerCartCarrefour.setLayoutManager(new LinearLayoutManager(getContext()));
-        carrefourCartAdapter adapter=new carrefourCartAdapter(AdapterCarrefour.carrefourCartProducts);
+        carrefourCartAdapter adapter=new carrefourCartAdapter(AdapterCarrefour.carrefourCartProducts,new carrefourCartAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(carrefourProducts item) {
+                moveToDescription(item);
+            }
+        });
         recyclerCartCarrefour.setAdapter(adapter);
 
         //set cart totalprice
@@ -186,5 +195,16 @@ public class carrefourFragmentCart extends Fragment  {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+    public void moveToDescription(carrefourProducts item){
+        Bundle bundle = new Bundle();
+        Intent intent = new Intent(getContext(), ItemDetail.class);
+        bundle.putString("itemName", item.getCartproduct_name());
+        bundle.putString("itemPrice", item.getCartprice().toString());
+        bundle.putString("itemLink", item.getCartlink());
+        bundle.putString("itemPricePerKg", item.getCartpriceperkg());
+        bundle.putString("supermarketType","carrefour");
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }
