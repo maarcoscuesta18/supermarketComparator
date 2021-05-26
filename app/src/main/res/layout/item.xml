@@ -54,41 +54,44 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <Button android:id="@+id/qtyless"
+        <ImageView android:id="@+id/qtyless"
+            android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/samsungsharpsansbold"
-            android:text="-"
-            android:minHeight="25dp"
-            android:minWidth="20dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="5dp"
-            android:textColor="@color/white" />
-
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_round_remove_24"
+            android:layout_marginLeft="10dp"
+            android:minWidth="35dp"
+            android:minHeight="35dp"
+            android:clickable="true"/>
         <TextView
             android:id="@+id/qty"
             android:layout_width="65dp"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="20dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
             android:text="1"
-            android:textSize="20dp" />
-        <Button android:id="@+id/qtyplus"
+            android:textSize="22dp" />
+        <ImageView android:id="@+id/qtyplus"
+            android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/samsungsharpsansbold"
-            android:text="+"
-            android:layout_marginEnd="50dp"
-            android:minHeight="25dp"
-            android:minWidth="20dp"
-            android:textColor="@color/white" />
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_round_add_24"
+            android:minWidth="35dp"
+            android:minHeight="35dp"
+            android:clickable="true"/>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/addtocart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/samsungsharpsansbold"
+                android:layout_alignParentEnd="true"
+                android:layout_marginHorizontal="10dp"
+                android:text="Añadir al carrito"
+                android:textColor="@color/white" />
+        </RelativeLayout>
 
-        <Button
-            android:id="@+id/addtocart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/samsungsharpsansbold"
-            android:text="Añadir al carrito"
-            android:textColor="@color/white" />
     </LinearLayout>
     <View
         android:layout_width="match_parent"

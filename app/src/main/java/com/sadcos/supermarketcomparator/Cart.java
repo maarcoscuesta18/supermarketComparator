@@ -11,6 +11,7 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
+import android.widget.ImageView;
 
 import com.sadcos.supermarketcomparator.ui.main.SectionsPagerAdapter;
 import com.sadcos.supermarketcomparator.ui.main.carrefourFragmentCart;
@@ -28,11 +29,11 @@ public class Cart extends AppCompatActivity implements mercadonaFragmentCart.OnF
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
-        FloatingActionButton fab = findViewById(R.id.fab);
 
-        fab.setOnClickListener(new View.OnClickListener() {
+        ImageView goBack = findViewById(R.id.goback);
+        goBack.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 onBackPressed();
             }
         });

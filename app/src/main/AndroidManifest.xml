@@ -12,12 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SupermarketComparator"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ItemDetail"></activity>
-        <activity
-            android:name=".Cart"
-            android:label="@string/title_activity_cart"
-            android:theme="@style/Theme.SupermarketComparator.NoActionBar" />
-        <activity android:name=".login.LogoutActivity" />
+
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
@@ -49,6 +44,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ItemDetail"
+            android:label="Detalles Del Producto"
+            android:parentActivityName=".Cart"
+            android:theme="@style/Theme.SupermarketComparator.NoActionBar"/>
+        <activity
+            android:name=".Cart"
+            android:label="@string/title_activity_cart"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/Theme.SupermarketComparator.NoActionBar"/>
+        <activity android:name=".login.LogoutActivity" />
     </application>
 
 </manifest>

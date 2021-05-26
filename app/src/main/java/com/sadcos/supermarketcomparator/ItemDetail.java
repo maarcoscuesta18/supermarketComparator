@@ -1,13 +1,17 @@
 package com.sadcos.supermarketcomparator;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -22,9 +26,12 @@ import com.sadcos.supermarketcomparator.products.carrefourProducts;
 import com.sadcos.supermarketcomparator.products.diaProducts;
 import com.sadcos.supermarketcomparator.products.mercadonaProducts;
 
+import java.util.Objects;
+
 public class ItemDetail extends AppCompatActivity {
     TextView product_name,price,price_per_kg,qty;
-    Button addtocart,addqty,lessqty;
+    Button addtocart;
+    ImageView addqty,lessqty;
     String link;
     ImageView imglink;
     boolean isInCart;
@@ -33,7 +40,6 @@ public class ItemDetail extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_itemdetail);
-
         product_name = findViewById(R.id.product_name);
         price = findViewById(R.id.price);
         price_per_kg = findViewById(R.id.priceperkg);
@@ -50,6 +56,14 @@ public class ItemDetail extends AppCompatActivity {
         price.setText(bundle.getString("itemPrice")+" €");
         price_per_kg.setText(bundle.getString("itemPricePerKg"));
         link = bundle.getString("itemLink");
+
+        ImageView goBack = findViewById(R.id.goback);
+        goBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         imglink.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -184,8 +198,6 @@ public class ItemDetail extends AppCompatActivity {
         qty.setText("1");
         Toast.makeText(v.getContext(),"Producto añadido correctamente",Toast.LENGTH_SHORT).show();
     }
-
-
     public void saveCartCarrefour(View v){
         SharedPreferences cartPreferences=v.getContext().getSharedPreferences("cartPreferences", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = cartPreferences.edit();

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -97,16 +98,16 @@ public class mercadonaCartAdapter extends RecyclerView.Adapter<mercadonaCartAdap
 
     public class PersonajeViewHolder extends RecyclerView.ViewHolder {
         TextView product_name,price,txtqty;
-        Button remove,buttonInc,buttonDec;
+        ImageView remove,buttonInc,buttonDec;
 
         public PersonajeViewHolder(View itemView) {
             super(itemView);
             product_name = itemView.findViewById(R.id.product_name);
             price = itemView.findViewById(R.id.price);
             txtqty =(TextView) itemView.findViewById(R.id.qty);
-            buttonInc= (Button) itemView.findViewById(R.id.qtyplus);
-            buttonDec= (Button) itemView.findViewById(R.id.qtyless);
-            remove = (Button) itemView.findViewById(R.id.removefromcart);
+            buttonInc= (ImageView) itemView.findViewById(R.id.qtyplus);
+            buttonDec= (ImageView) itemView.findViewById(R.id.qtyless);
+            remove = (ImageView) itemView.findViewById(R.id.removefromcart);
         }
     }
     public void saveCart(View v){

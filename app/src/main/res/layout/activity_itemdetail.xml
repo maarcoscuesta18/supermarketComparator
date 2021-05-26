@@ -4,9 +4,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/Theme.SupermarketComparator.AppBarOverlay">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize">
+            <ImageView
+                android:id="@+id/goback"
+                android:layout_width="wrap_content"
+                android:layout_height="?actionBarSize"
+                android:layout_centerVertical="true"
+                android:padding="15dp"
+                android:src="@drawable/ic_arrow_back_black_24dp"
+                android:clickable="true"/>
+            <TextView
+                android:layout_toEndOf="@+id/goback"
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="?actionBarSize"
+                android:gravity="center"
+                android:padding="15dp"
+                android:text="Detalles Del Producto"
+                android:textColor="@color/white"
+                android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
+        </RelativeLayout>
+    </com.google.android.material.appbar.AppBarLayout>
     <TextView
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:textSize="20sp"
         android:id="@+id/product_name"
         android:text="Product Name"
@@ -24,7 +51,7 @@
         android:autoLink="web"
         android:clickable="true" />
     <TextView
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:layout_marginBottom="10dp"
         android:id="@+id/price"
         android:text="Price"
@@ -59,33 +86,31 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="center"
-        android:layout_marginTop="15dp">
+        android:layout_marginTop="5dp">
 
-        <Button android:id="@+id/qtyless"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/samsungsharpsansbold"
-            android:text="-"
-            android:minHeight="25dp"
-            android:minWidth="20dp"
-            android:layout_marginEnd="5dp"
-            android:textColor="@color/white" />
-
+        <ImageView android:id="@+id/qtyless"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_round_remove_24"
+            android:minWidth="55dp"
+            android:minHeight="50dp"
+            android:clickable="true"/>
         <TextView
             android:id="@+id/qty"
             android:layout_width="65dp"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="20dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
             android:text="1"
-            android:textSize="20dp" />
-        <Button android:id="@+id/qtyplus"
+            android:textSize="22dp" />
+        <ImageView android:id="@+id/qtyplus"
+            android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/samsungsharpsansbold"
-            android:text="+"
-            android:minHeight="25dp"
-            android:minWidth="20dp"
-            android:textColor="@color/white" />
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_round_add_24"
+            android:minWidth="55dp"
+            android:minHeight="50dp"
+            android:clickable="true"/>
     </LinearLayout>
 
     <RelativeLayout

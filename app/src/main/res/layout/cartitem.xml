@@ -36,45 +36,49 @@
         android:layout_height="wrap_content" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:orientation="horizontal">
 
-        <Button android:id="@+id/qtyless"
+        <ImageView android:id="@+id/qtyless"
+            android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/samsungsharpsansbold"
-            android:text="-"
-            android:minHeight="20dp"
-            android:minWidth="20dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="5dp"
-            android:textColor="@color/white" />
-
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_round_remove_24"
+            android:minWidth="60dp"
+            android:minHeight="50dp"
+            android:clickable="true"/>
         <TextView
             android:id="@+id/qty"
             android:layout_width="65dp"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="20dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
             android:text="1"
-            android:textSize="20dp" />
-        <Button android:id="@+id/qtyplus"
+            android:textSize="22dp" />
+        <ImageView android:id="@+id/qtyplus"
+            android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/samsungsharpsansbold"
-            android:text="+"
-            android:layout_marginEnd="140dp"
-            android:minHeight="20dp"
-            android:minWidth="20dp"
-            android:textColor="@color/white" />
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_round_add_24"
+            android:minWidth="60dp"
+            android:minHeight="50dp"
+            android:clickable="true"/>
 
-        <Button
-            android:id="@+id/removefromcart"
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/samsungsharpsansbold"
-            android:text="Eliminar"
-            android:textColor="@color/white" />
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/removefromcart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:minWidth="50dp"
+                android:minHeight="50dp"
+                android:layout_marginHorizontal="20dp"
+                android:src="@drawable/ic_twotone_delete_outline_24"
+                android:clickable="true"/>
+        </RelativeLayout>
     </LinearLayout>
     <View
         android:layout_width="match_parent"

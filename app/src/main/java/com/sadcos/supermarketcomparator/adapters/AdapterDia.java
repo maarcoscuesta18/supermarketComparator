@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -68,8 +69,8 @@ public class AdapterDia extends RecyclerView.Adapter<AdapterDia.MyViewHolder> {
             Button addtocart = itemView.findViewById(R.id.addtocart);
             final int[] count = {1};
             TextView txtCount =(TextView) itemView.findViewById(R.id.qty);
-            Button buttonInc= (Button) itemView.findViewById(R.id.qtyplus);
-            Button buttonDec= (Button) itemView.findViewById(R.id.qtyless);
+            ImageView buttonInc= (ImageView) itemView.findViewById(R.id.qtyplus);
+            ImageView buttonDec= (ImageView) itemView.findViewById(R.id.qtyless);
             buttonInc.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
