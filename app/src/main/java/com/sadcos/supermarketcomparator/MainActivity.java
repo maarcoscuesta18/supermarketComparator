@@ -82,13 +82,17 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
+        Intent intent;
         switch (item.getItemId()) {
-            case R.id.action_cart: {
-                Intent intent = new Intent(MainActivity.this,Cart.class);
+            case R.id.action_cart:
+                intent = new Intent(MainActivity.this,Cart.class);
                 startActivity(intent);
                 return true;
-            }
+            case R.id.action_settings:
+                intent = new Intent(MainActivity.this,Settings.class);
+                startActivity(intent);
+                return true;
+
         }
         return super.onOptionsItemSelected(item);
     }

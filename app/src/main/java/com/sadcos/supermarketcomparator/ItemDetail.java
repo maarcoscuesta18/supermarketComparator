@@ -25,6 +25,7 @@ import com.sadcos.supermarketcomparator.adapters.AdapterMercadona;
 import com.sadcos.supermarketcomparator.products.carrefourProducts;
 import com.sadcos.supermarketcomparator.products.diaProducts;
 import com.sadcos.supermarketcomparator.products.mercadonaProducts;
+import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
 
@@ -58,6 +59,8 @@ public class ItemDetail extends AppCompatActivity {
         link = bundle.getString("itemLink");
 
         ImageView goBack = findViewById(R.id.goback);
+        ImageView linkimg = findViewById(R.id.imglink);
+
         goBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
