@@ -1,11 +1,10 @@
-package com.sadcos.supermarketcomparator.adapters;
+package com.sadcos.supermarketcomparator.adapters.cartAdapters;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.sadcos.supermarketcomparator.R;
+import com.sadcos.supermarketcomparator.adapters.AdapterMercadona;
 import com.sadcos.supermarketcomparator.products.mercadonaProducts;
-import com.sadcos.supermarketcomparator.ui.main.mercadonaFragmentCart;
 
 import java.util.ArrayList;
 

@@ -17,6 +17,7 @@ import com.sadcos.supermarketcomparator.R;
 import com.sadcos.supermarketcomparator.products.CategoryItem;
 import com.sadcos.supermarketcomparator.products.mercadonaProducts;
 
+import java.util.Collections;
 import java.util.List;
 
 public class CategoryItemRecyclerAdapter extends RecyclerView.Adapter<CategoryItemRecyclerAdapter.CategoryItemViewHolder> {
@@ -32,12 +33,12 @@ public class CategoryItemRecyclerAdapter extends RecyclerView.Adapter<CategoryIt
     @NonNull
     @Override
     public CategoryItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        Collections.shuffle(categoryItemList);
         return new CategoryItemViewHolder(LayoutInflater.from(context).inflate(R.layout.suggesteditem, parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull CategoryItemViewHolder holder, int position) {
-
         holder.product_name.setText(categoryItemList.get(position).getProduct_name());
         holder.price.setText("Precio: "+String.valueOf(categoryItemList.get(position).getPrice()+" €"));
         holder.price_per_kg.setText(categoryItemList.get(position).getPrice_per_kg());

@@ -9,23 +9,30 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-import com.sadcos.supermarketcomparator.adapters.AdapterCarrefour;
-import com.sadcos.supermarketcomparator.adapters.AdapterDia;
-import com.sadcos.supermarketcomparator.adapters.AdapterMercadona;
-import com.sadcos.supermarketcomparator.adapters.MainRecyclerAdapter;
-import com.sadcos.supermarketcomparator.products.AllCategory;
-import com.sadcos.supermarketcomparator.products.CategoryItem;
-import com.sadcos.supermarketcomparator.products.carrefourProducts;
-import com.sadcos.supermarketcomparator.products.diaProducts;
-import com.sadcos.supermarketcomparator.products.mercadonaProducts;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.sadcos.supermarketcomparator.adapters.*;
+import com.sadcos.supermarketcomparator.apis.ApiClient;
+import com.sadcos.supermarketcomparator.apis.ApiInterfaceMercadona;
+import com.sadcos.supermarketcomparator.products.*;
+import com.sadcos.supermarketcomparator.searchers.searchCarrefourProducts;
+import com.sadcos.supermarketcomparator.searchers.searchDiaProducts;
+import com.sadcos.supermarketcomparator.searchers.searchMercadonaProducts;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class HomeFragment extends Fragment {
     RecyclerView mainCategoryRecycler;
     MainRecyclerAdapter mainRecyclerAdapter;
+
 
     List<CategoryItem> categoryItemListMercadona = new ArrayList<>();
     List<CategoryItem> categoryItemListDia = new ArrayList<>();
@@ -35,31 +42,27 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        RecyclerView recyclerViewRecommendedProducts = (RecyclerView) view.findViewById(R.id.recyclerView);
 
         generateData();
-
         mainCategoryRecycler = view.findViewById(R.id.main_recycler);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mainCategoryRecycler.setLayoutManager(layoutManager);
         mainRecyclerAdapter = new MainRecyclerAdapter(getActivity(), allCategoryList);
         mainCategoryRecycler.setAdapter(mainRecyclerAdapter);
-
         return view;
     }
     private void generateData(){
-        for(mercadonaProducts product : AdapterMercadona.mercadonaCartProducts){
-            categoryItemListMercadona.add(new CategoryItem(product.getCartproduct_name(), product.getCartlink(),product.getCartprice(),"Price Per kg/l/unit: No Data","Mercadona"));
+        for(mercadonaProducts product : searchMercadonaProducts.mercadonaProducts){
+            categoryItemListMercadona.add(new CategoryItem(product.getProduct_name(),product.getLink(),product.getPrice(),"Price Per kg/l/unit: No Data","Mercadona"));
         }
-        for(diaProducts product : AdapterDia.diaCartProducts){
-            categoryItemListDia.add(new CategoryItem(product.getCartproduct_name(), product.getCartlink(),product.getCartprice(),product.getCartpriceperkg(),"Dia"));
+        for(diaProducts product : searchDiaProducts.diaProducts){
+            categoryItemListDia.add(new CategoryItem(product.getProduct_name(),product.getLink(),Double.parseDouble(product.getPrice()),"Price Per kg/l/unit: "+product.getPrice_per_kg(),"Dia"));
         }
-        for(carrefourProducts product : AdapterCarrefour.carrefourCartProducts){
-            categoryItemListCarrefour.add(new CategoryItem(product.getCartproduct_name(), product.getCartlink(),product.getCartprice(),product.getCartpriceperkg(),"Carrefour"));
+        for(carrefourProducts product : searchCarrefourProducts.carrefourProducts){
+            categoryItemListCarrefour.add(new CategoryItem(product.getProduct_name(),product.getLink(),Double.parseDouble(product.getPrice()),"Price Per kg/l/unit: "+ product.getPrice_per_kg(),"Carrefour"));
         }
         allCategoryList.add(new AllCategory("Recomendaciones Mercadona",categoryItemListMercadona));
         allCategoryList.add(new AllCategory("Recomendaciones Dia",categoryItemListDia));
         allCategoryList.add(new AllCategory("Recomendaciones Carrefour",categoryItemListCarrefour));
     }
-
 }

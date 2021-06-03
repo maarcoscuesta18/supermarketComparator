@@ -30,6 +30,7 @@ import com.sadcos.supermarketcomparator.R;
 import com.sadcos.supermarketcomparator.products.carrefourProducts;
 import com.sadcos.supermarketcomparator.products.diaProducts;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -40,7 +41,7 @@ public class searchDiaProducts extends Fragment {
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    private List<com.sadcos.supermarketcomparator.products.diaProducts> diaProducts;
+    public static List<diaProducts> diaProducts = new ArrayList<>();
     private AdapterDia adapterDia;
     private ApiInterfaceDia apiInterfaceDia;
     ProgressBar progressBar;

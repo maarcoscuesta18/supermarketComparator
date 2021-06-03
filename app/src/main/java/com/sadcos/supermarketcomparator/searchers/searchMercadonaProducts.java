@@ -49,7 +49,7 @@ public class searchMercadonaProducts extends Fragment {
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    private List<com.sadcos.supermarketcomparator.products.mercadonaProducts> mercadonaProducts;
+    public static List<mercadonaProducts> mercadonaProducts = new ArrayList<>();
     private AdapterMercadona adapterMercadona;
     private ApiInterfaceMercadona apiInterfaceMercadona;
     ProgressBar progressBar;

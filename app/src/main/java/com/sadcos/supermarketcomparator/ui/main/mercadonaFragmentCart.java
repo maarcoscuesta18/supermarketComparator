@@ -20,7 +20,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.sadcos.supermarketcomparator.ItemDetail;
 import com.sadcos.supermarketcomparator.R;
 import com.sadcos.supermarketcomparator.adapters.AdapterMercadona;
-import com.sadcos.supermarketcomparator.adapters.mercadonaCartAdapter;
+import com.sadcos.supermarketcomparator.adapters.cartAdapters.mercadonaCartAdapter;
 import com.sadcos.supermarketcomparator.products.mercadonaProducts;
 
 import java.util.ArrayList;

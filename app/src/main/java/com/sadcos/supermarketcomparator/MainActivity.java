@@ -7,18 +7,13 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.sadcos.supermarketcomparator.adapters.AdapterCarrefour;
 import com.sadcos.supermarketcomparator.adapters.AdapterDia;
 import com.sadcos.supermarketcomparator.adapters.AdapterMercadona;
-import com.sadcos.supermarketcomparator.products.mercadonaProducts;
+import com.sadcos.supermarketcomparator.settings.Settings;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -28,8 +23,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
+
 
 public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
@@ -89,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             case R.id.action_settings:
-                intent = new Intent(MainActivity.this,Settings.class);
+                intent = new Intent(MainActivity.this, Settings.class);
                 startActivity(intent);
                 return true;
 

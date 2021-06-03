@@ -12,7 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SupermarketComparator"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Settings"></activity>
+        <activity
+            android:name=".settings.Settings"
+            android:label="@string/title_activity_settings"
+            android:theme="@style/Theme.SupermarketComparator.NoActionBar"></activity>
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"

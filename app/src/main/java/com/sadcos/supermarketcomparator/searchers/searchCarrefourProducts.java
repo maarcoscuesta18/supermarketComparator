@@ -26,6 +26,7 @@ import com.sadcos.supermarketcomparator.apis.ApiInterfaceCarrefour;
 import com.sadcos.supermarketcomparator.R;
 import com.sadcos.supermarketcomparator.products.carrefourProducts;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -36,7 +37,7 @@ public class searchCarrefourProducts extends Fragment {
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    private List<com.sadcos.supermarketcomparator.products.carrefourProducts> carrefourProducts;
+    public static List<carrefourProducts> carrefourProducts = new ArrayList<>();
     private AdapterCarrefour adapterCarrefour;
     private ApiInterfaceCarrefour apiInterfaceCarrefour;
     ProgressBar progressBar;
