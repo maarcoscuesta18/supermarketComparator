@@ -2,6 +2,7 @@ package com.sadcos.supermarketcomparator.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
 import com.sadcos.supermarketcomparator.ItemDetail;
 import com.sadcos.supermarketcomparator.R;
 import com.sadcos.supermarketcomparator.products.CategoryItem;
@@ -83,5 +85,13 @@ public class CategoryItemRecyclerAdapter extends RecyclerView.Adapter<CategoryIt
             price = itemView.findViewById(R.id.price);
             price_per_kg = itemView.findViewById(R.id.priceperkg);
         }
+    }
+    public void saveCart(View v){
+        SharedPreferences cartPreferences=v.getContext().getSharedPreferences("cartPreferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = cartPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(AdapterMercadona.mercadonaCartProducts);
+        editor.putString("cartMercadona", json);
+        editor.apply();
     }
 }

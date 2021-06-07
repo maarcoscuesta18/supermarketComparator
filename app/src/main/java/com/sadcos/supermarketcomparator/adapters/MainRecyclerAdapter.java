@@ -78,6 +78,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
     private void setCatItemRecycler(RecyclerView recyclerView, List<CategoryItem> categoryItemList){
         CategoryItemRecyclerAdapter itemRecyclerAdapter = new CategoryItemRecyclerAdapter(context, categoryItemList);
         recyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
+        recyclerView.setHorizontalScrollBarEnabled(true);
         recyclerView.setAdapter(itemRecyclerAdapter);
     }
 }

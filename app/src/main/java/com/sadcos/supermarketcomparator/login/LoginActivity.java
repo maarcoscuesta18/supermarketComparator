@@ -24,6 +24,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.sadcos.supermarketcomparator.MainActivity;
 import com.sadcos.supermarketcomparator.R;
+import com.sadcos.supermarketcomparator.sliderintro.IntroActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -86,7 +87,7 @@ public class LoginActivity extends AppCompatActivity {
                     if(checkBox.isChecked()){
                         saveLogin();
                     }
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, IntroActivity.class);
                     pdDialog.dismiss();
                     startActivity(intent);
                     finish();

@@ -1,5 +1,7 @@
 package com.sadcos.supermarketcomparator;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,6 +16,7 @@ import android.widget.Toast;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 import com.sadcos.supermarketcomparator.adapters.*;
 import com.sadcos.supermarketcomparator.apis.ApiClient;
 import com.sadcos.supermarketcomparator.apis.ApiInterfaceMercadona;
@@ -34,11 +37,11 @@ public class HomeFragment extends Fragment {
     MainRecyclerAdapter mainRecyclerAdapter;
 
 
-    List<CategoryItem> categoryItemListMercadona = new ArrayList<>();
-    List<CategoryItem> categoryItemListDia = new ArrayList<>();
-    List<CategoryItem> categoryItemListCarrefour = new ArrayList<>();
-    List<CategoryItem> categoryItemListAllSupermarkets = new ArrayList<>();
-    List<AllCategory> allCategoryList = new ArrayList<>();
+    public static List<CategoryItem> categoryItemListMercadona = new ArrayList<>();
+    public static List<CategoryItem> categoryItemListDia = new ArrayList<>();
+    public static List<CategoryItem> categoryItemListCarrefour = new ArrayList<>();
+    public List<CategoryItem> categoryItemListAllSupermarkets = new ArrayList<>();
+    public List<AllCategory> allCategoryList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,6 +49,7 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         generateData();
+        saveCart(view);
         mainCategoryRecycler = view.findViewById(R.id.main_recycler);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mainCategoryRecycler.setLayoutManager(layoutManager);
@@ -55,14 +59,20 @@ public class HomeFragment extends Fragment {
     }
 
     private void generateData(){
-        for(mercadonaProducts product : searchMercadonaProducts.mercadonaProducts){
-            categoryItemListMercadona.add(new CategoryItem(product.getProduct_name(),product.getLink(),product.getPrice(),"Price Per kg/l/unit: No Data","Mercadona"));
+        if(categoryItemListMercadona.isEmpty()){
+            for(mercadonaProducts product : searchMercadonaProducts.mercadonaProducts){
+                categoryItemListMercadona.add(new CategoryItem(product.getProduct_name(),product.getLink(),product.getPrice(),"Price Per kg/l/unit: No Data","Mercadona"));
+            }
         }
-        for(diaProducts product : searchDiaProducts.diaProducts){
-            categoryItemListDia.add(new CategoryItem(product.getProduct_name(),product.getLink(),Double.parseDouble(product.getPrice()),"Price Per kg/l/unit: "+product.getPrice_per_kg(),"Dia"));
+        if(categoryItemListDia.isEmpty()){
+            for(diaProducts product : searchDiaProducts.diaProducts){
+                categoryItemListDia.add(new CategoryItem(product.getProduct_name(),product.getLink(),Double.parseDouble(product.getPrice()),"Price Per kg/l/unit: "+product.getPrice_per_kg(),"Dia"));
+            }
         }
-        for(carrefourProducts product : searchCarrefourProducts.carrefourProducts){
-            categoryItemListCarrefour.add(new CategoryItem(product.getProduct_name(),product.getLink(),Double.parseDouble(product.getPrice()),"Price Per kg/l/unit: "+ product.getPrice_per_kg(),"Carrefour"));
+        if(categoryItemListCarrefour.isEmpty()){
+            for(carrefourProducts product : searchCarrefourProducts.carrefourProducts){
+                categoryItemListCarrefour.add(new CategoryItem(product.getProduct_name(),product.getLink(),Double.parseDouble(product.getPrice()),"Price Per kg/l/unit: "+ product.getPrice_per_kg(),"Carrefour"));
+            }
         }
         categoryItemListAllSupermarkets.addAll(categoryItemListMercadona);
         categoryItemListAllSupermarkets.addAll(categoryItemListDia);
@@ -71,5 +81,19 @@ public class HomeFragment extends Fragment {
         allCategoryList.add(new AllCategory("Recomendaciones Mercadona",categoryItemListMercadona));
         allCategoryList.add(new AllCategory("Recomendaciones Dia",categoryItemListDia));
         allCategoryList.add(new AllCategory("Recomendaciones Carrefour",categoryItemListCarrefour));
+    }
+    public void saveCart(View v){
+        SharedPreferences cartPreferences=v.getContext().getSharedPreferences("cartPreferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = cartPreferences.edit();
+        Gson gson = new Gson();
+        String jsonMercadona = gson.toJson(categoryItemListMercadona);
+        String jsonDia = gson.toJson(categoryItemListDia);
+        String jsonCarrefour = gson.toJson(categoryItemListCarrefour);
+        String jsonSupermarkets = gson.toJson(categoryItemListAllSupermarkets);
+        editor.putString("cartMercadonaRecommended", jsonMercadona);
+        editor.putString("cartDiaRecommended", jsonDia);
+        editor.putString("cartCarrefourRecommended", jsonCarrefour);
+        editor.putString("cartSupermarketsRecommended", jsonSupermarkets);
+        editor.apply();
     }
 }
