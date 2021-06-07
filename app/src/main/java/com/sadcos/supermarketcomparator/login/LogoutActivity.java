@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import com.sadcos.supermarketcomparator.MainActivity;
+
 public class LogoutActivity extends AppCompatActivity {
 
     @Override
@@ -32,7 +34,14 @@ public class LogoutActivity extends AppCompatActivity {
                 finish();
             }
         });
-        builder.setNegativeButton("Cancelar", null);
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(LogoutActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         AlertDialog dialog = builder.create();
         dialog.show();
     }

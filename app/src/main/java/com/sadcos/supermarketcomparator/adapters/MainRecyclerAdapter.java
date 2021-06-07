@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextClock;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,13 +24,19 @@ import com.sadcos.supermarketcomparator.searchers.searchCarrefourProducts;
 import com.sadcos.supermarketcomparator.searchers.searchDiaProducts;
 import com.sadcos.supermarketcomparator.searchers.searchMercadonaProducts;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapter.MainViewHolder> {
 
     private Context context;
     private List<AllCategory> allCategoryList;
-
+    private String date;
+    private Calendar calendar;
+    private SimpleDateFormat dateFormat;
     public MainRecyclerAdapter(Context context, List<AllCategory> allCategoryList) {
         this.context = context;
         this.allCategoryList = allCategoryList;
@@ -45,17 +52,10 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
     public void onBindViewHolder(@NonNull MainViewHolder holder, int position) {
         holder.categoryTitle.setText(allCategoryList.get(position).getCategoryTitle());
         setCatItemRecycler(holder.itemRecycler, allCategoryList.get(position).getCategoryItemList());
-        holder.more.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (allCategoryList.get(position).getCategoryTitle().equals("Recomendaciones Mercadona")){
-                }
-                if (allCategoryList.get(position).getCategoryTitle().equals("Recomendaciones Dia")){
-                }
-                if (allCategoryList.get(position).getCategoryTitle().equals("Recomendaciones Carrefour")){
-                }
-            }
-        });
+        calendar = Calendar.getInstance();
+        dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        date = dateFormat.format(calendar.getTime());
+        holder.more.setText(date);
     }
 
     @Override
@@ -65,9 +65,8 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
 
     public static final class MainViewHolder extends RecyclerView.ViewHolder{
 
-        TextView categoryTitle;
+        TextView categoryTitle,more;
         RecyclerView itemRecycler;
-        Button more;
         public MainViewHolder(@NonNull View itemView) {
             super(itemView);
             categoryTitle = itemView.findViewById(R.id.itemTitle);

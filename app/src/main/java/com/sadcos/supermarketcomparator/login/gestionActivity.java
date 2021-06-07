@@ -1,6 +1,7 @@
 package com.sadcos.supermarketcomparator.login;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Context;
 import android.content.Intent;
@@ -59,7 +60,13 @@ public class gestionActivity extends AppCompatActivity {
         String jsonCarrefour = cartPreferences.getString("cartCarrefour",null);
         String jsonDia = cartPreferences.getString("cartDia",null);
         String jsonMercadona = cartPreferences.getString("cartMercadona",null);
+        Boolean nightmode = cartPreferences.getBoolean("nightmode",false);
 
+        if(nightmode){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }else{
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
         Type typeCarrefour = new TypeToken<ArrayList<carrefourProducts>>() {}.getType();
         Type typeDia = new TypeToken<ArrayList<diaProducts>>() {}.getType();
         Type typeMercadona = new TypeToken<ArrayList<mercadonaProducts>>() {}.getType();

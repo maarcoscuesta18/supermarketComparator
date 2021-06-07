@@ -2,6 +2,7 @@ package com.sadcos.supermarketcomparator.settings;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
@@ -19,7 +20,9 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
 
+import com.google.gson.Gson;
 import com.sadcos.supermarketcomparator.R;
+import com.sadcos.supermarketcomparator.adapters.AdapterDia;
 
 import java.util.Objects;
 import java.util.prefs.Preferences;
@@ -48,7 +51,6 @@ public class Settings extends AppCompatActivity {
             }
         });
     }
-
     public static class SettingsFragment extends PreferenceFragmentCompat  {
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -64,11 +66,17 @@ public class Settings extends AppCompatActivity {
             darkmode.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    boolean darkmodeOn = (Boolean)newValue;
-                    if (darkmodeOn) {
+                    boolean darkmodeOn = (Boolean) newValue;
+                    SharedPreferences cartPreferences= getActivity().getSharedPreferences("cartPreferences", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = cartPreferences.edit();
+                    if(darkmodeOn) {
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                        editor.putBoolean("nightmode", darkmodeOn);
+                        editor.apply();
                     }else{
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                        editor.putBoolean("nightmode", darkmodeOn);
+                        editor.apply();
                     }
                     return true;
                 }
@@ -78,18 +86,17 @@ public class Settings extends AppCompatActivity {
                     sendFeedback(requireActivity());
                     return true;
                 case "Privacy Policy":
-                    intent=new Intent(Intent.ACTION_VIEW, Uri.parse("https://supermarketcomparator.000webhostapp.com/"));
+                    intent=new Intent(Intent.ACTION_VIEW, Uri.parse("https://supermarketcomparator.000webhostapp.com/htmls/privacypolicy.html"));
                     startActivity(intent);
                     return true;
                 case "Terms And Conditions":
-                    intent=new Intent(Intent.ACTION_VIEW, Uri.parse("https://supermarketcomparator.000webhostapp.com/"));
+                    intent=new Intent(Intent.ACTION_VIEW, Uri.parse("https://supermarketcomparator.000webhostapp.com/htmls/termsandconditions.html"));
                     startActivity(intent);
                     return true;
                 case "FAQ":
-                    intent=new Intent(Intent.ACTION_VIEW, Uri.parse("https://supermarketcomparator.000webhostapp.com/"));
+                    intent=new Intent(Intent.ACTION_VIEW, Uri.parse("https://supermarketcomparator.000webhostapp.com/htmls/faq.html"));
                     startActivity(intent);
                     return true;
-
                 //codes
             }
             return false;
@@ -107,5 +114,4 @@ public class Settings extends AppCompatActivity {
         intent.putExtra(Intent.EXTRA_SUBJECT, "Query from android app");
         intent.putExtra(Intent.EXTRA_TEXT, body);
         context.startActivity(Intent.createChooser(intent, context.getString(R.string.choose_email_client)));
-
     }}

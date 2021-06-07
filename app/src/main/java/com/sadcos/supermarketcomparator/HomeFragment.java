@@ -37,7 +37,9 @@ public class HomeFragment extends Fragment {
     List<CategoryItem> categoryItemListMercadona = new ArrayList<>();
     List<CategoryItem> categoryItemListDia = new ArrayList<>();
     List<CategoryItem> categoryItemListCarrefour = new ArrayList<>();
+    List<CategoryItem> categoryItemListAllSupermarkets = new ArrayList<>();
     List<AllCategory> allCategoryList = new ArrayList<>();
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -51,6 +53,7 @@ public class HomeFragment extends Fragment {
         mainCategoryRecycler.setAdapter(mainRecyclerAdapter);
         return view;
     }
+
     private void generateData(){
         for(mercadonaProducts product : searchMercadonaProducts.mercadonaProducts){
             categoryItemListMercadona.add(new CategoryItem(product.getProduct_name(),product.getLink(),product.getPrice(),"Price Per kg/l/unit: No Data","Mercadona"));
@@ -61,6 +64,10 @@ public class HomeFragment extends Fragment {
         for(carrefourProducts product : searchCarrefourProducts.carrefourProducts){
             categoryItemListCarrefour.add(new CategoryItem(product.getProduct_name(),product.getLink(),Double.parseDouble(product.getPrice()),"Price Per kg/l/unit: "+ product.getPrice_per_kg(),"Carrefour"));
         }
+        categoryItemListAllSupermarkets.addAll(categoryItemListMercadona);
+        categoryItemListAllSupermarkets.addAll(categoryItemListDia);
+        categoryItemListAllSupermarkets.addAll(categoryItemListCarrefour);
+        allCategoryList.add(new AllCategory("Productos que te gustarán",categoryItemListAllSupermarkets));
         allCategoryList.add(new AllCategory("Recomendaciones Mercadona",categoryItemListMercadona));
         allCategoryList.add(new AllCategory("Recomendaciones Dia",categoryItemListDia));
         allCategoryList.add(new AllCategory("Recomendaciones Carrefour",categoryItemListCarrefour));
