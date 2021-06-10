@@ -11,7 +11,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +33,7 @@ import com.sadcos.supermarketcomparator.products.carrefourProducts;
 import com.sadcos.supermarketcomparator.products.diaProducts;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -45,8 +48,7 @@ public class searchDiaProducts extends Fragment {
     private AdapterDia adapterDia;
     private ApiInterfaceDia apiInterfaceDia;
     ProgressBar progressBar;
-    TextView search;
-    String[] item;
+    Spinner filter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -83,6 +85,38 @@ public class searchDiaProducts extends Fragment {
                 });
                 recyclerView.setAdapter(adapterDia);
                 adapterDia.notifyDataSetChanged();
+                filter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        switch (position){
+                            case 0:
+                                Collections.shuffle(diaProducts);
+                                adapterDia.notifyDataSetChanged();
+                                break;
+                            case 1:
+                                Collections.sort(diaProducts, com.sadcos.supermarketcomparator.products.diaProducts.ProductPriceDownCommparator);
+                                adapterDia.notifyDataSetChanged();
+                                break;
+                            case 2:
+                                Collections.sort(diaProducts, com.sadcos.supermarketcomparator.products.diaProducts.ProductPriceUpCommparator);
+                                adapterDia.notifyDataSetChanged();
+                                break;
+                            case 3:
+                                Collections.sort(diaProducts, com.sadcos.supermarketcomparator.products.diaProducts.ProductNameZACommparator);
+                                adapterDia.notifyDataSetChanged();
+                                break;
+                            case 4:
+                                Collections.sort(diaProducts, com.sadcos.supermarketcomparator.products.diaProducts.ProductNameAZCommparator);
+                                adapterDia.notifyDataSetChanged();
+                                break;
+                        }
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
             }
 
             @Override

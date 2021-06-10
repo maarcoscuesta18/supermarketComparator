@@ -2,6 +2,8 @@ package com.sadcos.supermarketcomparator.products;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Comparator;
+
 public class carrefourProducts {
     @SerializedName("id") private int id;
     @SerializedName("product_name") private String product_name;
@@ -23,6 +25,33 @@ public class carrefourProducts {
         this.qty=qty;
         this.totalprice = Double.parseDouble(totalprice);
     }
+
+    public static Comparator<carrefourProducts> ProductNameAZCommparator = new Comparator<carrefourProducts>() {
+        @Override
+        public int compare(carrefourProducts o1, carrefourProducts o2) {
+            return o1.getProduct_name().compareTo(o2.getProduct_name());
+        }
+    };
+    public static Comparator<carrefourProducts> ProductNameZACommparator = new Comparator<carrefourProducts>() {
+        @Override
+        public int compare(carrefourProducts o1, carrefourProducts o2) {
+            return o2.getProduct_name().compareTo(o1.getProduct_name());
+        }
+    };
+    public static Comparator<carrefourProducts> ProductPriceUpCommparator = new Comparator<carrefourProducts>() {
+        @Override
+        public int compare(carrefourProducts o1, carrefourProducts o2) {
+            return Double.compare(Double.parseDouble(o1.getPrice()),Double.parseDouble(o2.getPrice()));
+        }
+    };
+    public static Comparator<carrefourProducts> ProductPriceDownCommparator = new Comparator<carrefourProducts>() {
+        @Override
+        public int compare(carrefourProducts o1, carrefourProducts o2) {
+            return Double.compare(Double.parseDouble(o2.getPrice()),Double.parseDouble(o1.getPrice()));
+        }
+    };
+
+
     public int getId() {
         return id;
     }

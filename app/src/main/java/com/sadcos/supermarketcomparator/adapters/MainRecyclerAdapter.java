@@ -5,9 +5,12 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextClock;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,9 +27,13 @@ import com.sadcos.supermarketcomparator.searchers.searchCarrefourProducts;
 import com.sadcos.supermarketcomparator.searchers.searchDiaProducts;
 import com.sadcos.supermarketcomparator.searchers.searchMercadonaProducts;
 
+import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -34,9 +41,6 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
 
     private Context context;
     private List<AllCategory> allCategoryList;
-    private String date;
-    private Calendar calendar;
-    private SimpleDateFormat dateFormat;
     public MainRecyclerAdapter(Context context, List<AllCategory> allCategoryList) {
         this.context = context;
         this.allCategoryList = allCategoryList;
@@ -49,13 +53,41 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MainViewHolder holder, int position) {
-        holder.categoryTitle.setText(allCategoryList.get(position).getCategoryTitle());
-        setCatItemRecycler(holder.itemRecycler, allCategoryList.get(position).getCategoryItemList());
-        calendar = Calendar.getInstance();
-        dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        date = dateFormat.format(calendar.getTime());
-        holder.more.setText(date);
+    public void onBindViewHolder(@NonNull MainViewHolder holder, int position2) {
+        holder.categoryTitle.setText(allCategoryList.get(position2).getCategoryTitle());
+        setCatItemRecycler(holder.itemRecycler, allCategoryList.get(position2).getCategoryItemList());
+        holder.filter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position){
+                    case 0:
+                        Collections.shuffle(allCategoryList.get(position2).getCategoryItemList());
+                        notifyItemChanged(position2);
+                        break;
+                    case 1:
+                        Collections.sort(allCategoryList.get(position2).getCategoryItemList(),CategoryItem.ProductPriceDownCommparator);
+                        notifyItemChanged(position2);
+                        break;
+                    case 2:
+                        Collections.sort(allCategoryList.get(position2).getCategoryItemList(),CategoryItem.ProductPriceUpCommparator);
+                        notifyItemChanged(position2);
+                        break;
+                    case 3:
+                        Collections.sort(allCategoryList.get(position2).getCategoryItemList(),CategoryItem.ProductNameZACommparator);
+                        notifyItemChanged(position2);
+                        break;
+                    case 4:
+                        Collections.sort(allCategoryList.get(position2).getCategoryItemList(),CategoryItem.ProductNameAZCommparator);
+                        notifyItemChanged(position2);
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     @Override
@@ -65,13 +97,14 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
 
     public static final class MainViewHolder extends RecyclerView.ViewHolder{
 
-        TextView categoryTitle,more;
+        TextView categoryTitle;
         RecyclerView itemRecycler;
+        Spinner filter;
         public MainViewHolder(@NonNull View itemView) {
             super(itemView);
             categoryTitle = itemView.findViewById(R.id.itemTitle);
             itemRecycler = itemView.findViewById(R.id.item_recycler);
-            more = itemView.findViewById(R.id.btnMore);
+            filter = itemView.findViewById(R.id.filter);
         }
     }
 

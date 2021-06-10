@@ -16,8 +16,17 @@
         android:layout_alignParentBottom="false"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:textSize="25sp"/>
+    <Spinner
+        android:id="@+id/filter"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical"
+        android:entries="@array/filter_types"
+        android:layout_below="@id/title"/>
     <ProgressBar
         android:id="@+id/prograss"
         android:layout_centerInParent="true"
@@ -28,6 +37,7 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/title">
+        android:scrollbars="vertical"
+        android:layout_below="@id/filter">
     </androidx.recyclerview.widget.RecyclerView>
 </RelativeLayout>

@@ -9,7 +9,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +29,7 @@ import com.sadcos.supermarketcomparator.R;
 import com.sadcos.supermarketcomparator.products.carrefourProducts;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -41,8 +44,7 @@ public class searchCarrefourProducts extends Fragment {
     private AdapterCarrefour adapterCarrefour;
     private ApiInterfaceCarrefour apiInterfaceCarrefour;
     ProgressBar progressBar;
-    TextView search;
-    String[] item;
+    Spinner filter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,6 +56,7 @@ public class searchCarrefourProducts extends Fragment {
         View vista=inflater.inflate(R.layout.activity_search_products, container, false);
         progressBar = vista.findViewById(R.id.prograss);
         recyclerView = vista.findViewById(R.id.recyclerView);
+        filter = vista.findViewById(R.id.filter);
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
@@ -78,7 +81,38 @@ public class searchCarrefourProducts extends Fragment {
                 });
                 recyclerView.setAdapter(adapterCarrefour);
                 adapterCarrefour.notifyDataSetChanged();
+                filter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        switch (position){
+                            case 0:
+                                Collections.shuffle(carrefourProducts);
+                                adapterCarrefour.notifyDataSetChanged();
+                                break;
+                            case 1:
+                                Collections.sort(carrefourProducts, com.sadcos.supermarketcomparator.products.carrefourProducts.ProductPriceDownCommparator);
+                                adapterCarrefour.notifyDataSetChanged();
+                                break;
+                            case 2:
+                                Collections.sort(carrefourProducts, com.sadcos.supermarketcomparator.products.carrefourProducts.ProductPriceUpCommparator);
+                                adapterCarrefour.notifyDataSetChanged();
+                                break;
+                            case 3:
+                                Collections.sort(carrefourProducts, com.sadcos.supermarketcomparator.products.carrefourProducts.ProductNameZACommparator);
+                                adapterCarrefour.notifyDataSetChanged();
+                                break;
+                            case 4:
+                                Collections.sort(carrefourProducts, com.sadcos.supermarketcomparator.products.carrefourProducts.ProductNameAZCommparator);
+                                adapterCarrefour.notifyDataSetChanged();
+                                break;
+                        }
+                    }
 
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
             }
 
             @Override

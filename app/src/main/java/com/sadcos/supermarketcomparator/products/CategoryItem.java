@@ -1,5 +1,7 @@
 package com.sadcos.supermarketcomparator.products;
 
+import java.util.Comparator;
+
 public class CategoryItem {
     private String product_name;
     private double price;
@@ -13,6 +15,31 @@ public class CategoryItem {
         this.link = link;
         this.supermarket = supermarket;
     }
+
+    public static Comparator<CategoryItem> ProductNameAZCommparator = new Comparator<CategoryItem>() {
+        @Override
+        public int compare(CategoryItem o1, CategoryItem o2) {
+            return o1.getProduct_name().compareTo(o2.getProduct_name());
+        }
+    };
+    public static Comparator<CategoryItem> ProductNameZACommparator = new Comparator<CategoryItem>() {
+        @Override
+        public int compare(CategoryItem o1, CategoryItem o2) {
+            return o2.getProduct_name().compareTo(o1.getProduct_name());
+        }
+    };
+    public static Comparator<CategoryItem> ProductPriceUpCommparator = new Comparator<CategoryItem>() {
+        @Override
+        public int compare(CategoryItem o1, CategoryItem o2) {
+            return Double.compare(o1.getPrice(), o2.getPrice());
+        }
+    };
+    public static Comparator<CategoryItem> ProductPriceDownCommparator = new Comparator<CategoryItem>() {
+        @Override
+        public int compare(CategoryItem o1, CategoryItem o2) {
+            return Double.compare(o2.getPrice(), o1.getPrice());
+        }
+    };
 
     public String getProduct_name() {
         return product_name;

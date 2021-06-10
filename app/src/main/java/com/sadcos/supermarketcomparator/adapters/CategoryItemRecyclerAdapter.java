@@ -35,7 +35,6 @@ public class CategoryItemRecyclerAdapter extends RecyclerView.Adapter<CategoryIt
     @NonNull
     @Override
     public CategoryItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Collections.shuffle(categoryItemList);
         return new CategoryItemViewHolder(LayoutInflater.from(context).inflate(R.layout.suggesteditem, parent, false));
     }
 

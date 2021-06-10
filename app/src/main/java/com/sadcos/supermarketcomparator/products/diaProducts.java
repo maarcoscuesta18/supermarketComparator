@@ -2,6 +2,8 @@ package com.sadcos.supermarketcomparator.products;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Comparator;
+
 public class diaProducts {
     @SerializedName("id") private int id;
     @SerializedName("product_name") private String product_name;
@@ -24,6 +26,32 @@ public class diaProducts {
         this.qty=qty;
         this.totalprice = Double.parseDouble(totalprice);
     }
+    public static Comparator<diaProducts> ProductNameAZCommparator = new Comparator<diaProducts>() {
+        @Override
+        public int compare(diaProducts o1, diaProducts o2) {
+            return o1.getProduct_name().compareTo(o2.getProduct_name());
+        }
+    };
+    public static Comparator<diaProducts> ProductNameZACommparator = new Comparator<diaProducts>() {
+        @Override
+        public int compare(diaProducts o1, diaProducts o2) {
+            return o2.getProduct_name().compareTo(o1.getProduct_name());
+        }
+    };
+    public static Comparator<diaProducts> ProductPriceUpCommparator = new Comparator<diaProducts>() {
+        @Override
+        public int compare(diaProducts o1, diaProducts o2) {
+            return Double.compare(Double.parseDouble(o1.getPrice()),Double.parseDouble(o2.getPrice()));
+        }
+    };
+    public static Comparator<diaProducts> ProductPriceDownCommparator = new Comparator<diaProducts>() {
+        @Override
+        public int compare(diaProducts o1, diaProducts o2) {
+            return Double.compare(Double.parseDouble(o2.getPrice()),Double.parseDouble(o1.getPrice()));
+        }
+    };
+
+
     public int getId() {
         return id;
     }

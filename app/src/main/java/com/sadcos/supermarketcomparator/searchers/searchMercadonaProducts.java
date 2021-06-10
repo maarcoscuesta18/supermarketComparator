@@ -13,7 +13,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +33,7 @@ import com.sadcos.supermarketcomparator.adapters.AdapterMercadona;
 import com.sadcos.supermarketcomparator.apis.ApiClient;
 import com.sadcos.supermarketcomparator.apis.ApiInterfaceMercadona;
 import com.sadcos.supermarketcomparator.R;
+import com.sadcos.supermarketcomparator.products.CategoryItem;
 import com.sadcos.supermarketcomparator.products.carrefourProducts;
 import com.sadcos.supermarketcomparator.products.diaProducts;
 import com.sadcos.supermarketcomparator.products.mercadonaProducts;
@@ -39,6 +42,7 @@ import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -53,8 +57,7 @@ public class searchMercadonaProducts extends Fragment {
     private AdapterMercadona adapterMercadona;
     private ApiInterfaceMercadona apiInterfaceMercadona;
     ProgressBar progressBar;
-    TextView search;
-    String[] item;
+    Spinner filter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,10 +69,12 @@ public class searchMercadonaProducts extends Fragment {
         View vista=inflater.inflate(R.layout.activity_search_products, container, false);
         progressBar = vista.findViewById(R.id.prograss);
         recyclerView = vista.findViewById(R.id.recyclerView);
-        layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setHasFixedSize(true);
+        filter = vista.findViewById(R.id.filter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
+        recyclerView.setVerticalScrollBarEnabled(true);
+
         fetchContact("mercadona_products", "");
+
         return vista;
     }
     public void fetchContact(String type, String key){
@@ -90,6 +95,38 @@ public class searchMercadonaProducts extends Fragment {
                 });
                 recyclerView.setAdapter(adapterMercadona);
                 adapterMercadona.notifyDataSetChanged();
+                filter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        switch (position){
+                            case 0:
+                                Collections.shuffle(mercadonaProducts);
+                                adapterMercadona.notifyDataSetChanged();
+                                break;
+                            case 1:
+                                Collections.sort(mercadonaProducts, com.sadcos.supermarketcomparator.products.mercadonaProducts.ProductPriceDownCommparator);
+                                adapterMercadona.notifyDataSetChanged();
+                                break;
+                            case 2:
+                                Collections.sort(mercadonaProducts, com.sadcos.supermarketcomparator.products.mercadonaProducts.ProductPriceUpCommparator);
+                                adapterMercadona.notifyDataSetChanged();
+                                break;
+                            case 3:
+                                Collections.sort(mercadonaProducts, com.sadcos.supermarketcomparator.products.mercadonaProducts.ProductNameZACommparator);
+                                adapterMercadona.notifyDataSetChanged();
+                                break;
+                            case 4:
+                                Collections.sort(mercadonaProducts, com.sadcos.supermarketcomparator.products.mercadonaProducts.ProductNameAZCommparator);
+                                adapterMercadona.notifyDataSetChanged();
+                                break;
+                        }
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
             }
 
             @Override

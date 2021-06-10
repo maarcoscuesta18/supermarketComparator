@@ -19,9 +19,16 @@
         <item>Reply</item>
         <item>Reply to all</item>
     </string-array>
-
     <string-array name="reply_values">
         <item>reply</item>
         <item>reply_all</item>
+    </string-array>
+
+    <string-array name="filter_types">
+        <item>Filter Default</item>
+        <item> ➘ Precio (desc.)</item>
+        <item> ➚ Precio (asc.)</item>
+        <item> ➘ Nombre (desc.)</item>
+        <item> ➚ Nombre (asc.)</item>
     </string-array>
 </resources>

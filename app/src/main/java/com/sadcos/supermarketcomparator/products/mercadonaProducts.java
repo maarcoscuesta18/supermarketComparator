@@ -7,6 +7,8 @@ import androidx.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Comparator;
+
 public class mercadonaProducts {
     @SerializedName("id") private int id;
     @SerializedName("product_name") private String product_name;
@@ -25,6 +27,31 @@ public class mercadonaProducts {
         this.qty=qty;
         this.totalprice = Double.parseDouble(totalprice);
     }
+
+    public static Comparator<mercadonaProducts> ProductNameAZCommparator = new Comparator<mercadonaProducts>() {
+        @Override
+        public int compare(mercadonaProducts o1, mercadonaProducts o2) {
+            return o1.getProduct_name().compareTo(o2.getProduct_name());
+        }
+    };
+    public static Comparator<mercadonaProducts> ProductNameZACommparator = new Comparator<mercadonaProducts>() {
+        @Override
+        public int compare(mercadonaProducts o1, mercadonaProducts o2) {
+            return o2.getProduct_name().compareTo(o1.getProduct_name());
+        }
+    };
+    public static Comparator<mercadonaProducts> ProductPriceUpCommparator = new Comparator<mercadonaProducts>() {
+        @Override
+        public int compare(mercadonaProducts o1, mercadonaProducts o2) {
+            return Double.compare(o1.getPrice(), o2.getPrice());
+        }
+    };
+    public static Comparator<mercadonaProducts> ProductPriceDownCommparator = new Comparator<mercadonaProducts>() {
+        @Override
+        public int compare(mercadonaProducts o1, mercadonaProducts o2) {
+            return Double.compare(o2.getPrice(), o1.getPrice());
+        }
+    };
     public int getId() {
         return id;
     }
