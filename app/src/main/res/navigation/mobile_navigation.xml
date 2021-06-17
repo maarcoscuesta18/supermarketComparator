@@ -22,6 +22,11 @@
         android:label="@string/productos_dia"
         tools:layout="@layout/activity_search_products" />
     <fragment
+        android:id="@+id/nav_alcampo"
+        android:name="com.sadcos.supermarketcomparator.searchers.searchAlcampoProducts"
+        android:label="@string/productos_alcampo"
+        tools:layout="@layout/activity_search_products" />
+    <fragment
         android:id="@+id/nav_carrefour"
         android:name="com.sadcos.supermarketcomparator.searchers.searchCarrefourProducts"
         android:label="@string/productos_carrefour"

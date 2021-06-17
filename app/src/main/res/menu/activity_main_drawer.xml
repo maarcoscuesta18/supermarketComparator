@@ -18,6 +18,10 @@
                 android:icon="@android:drawable/ic_menu_search"
                 android:title="@string/productos_dia" />
             <item
+                android:id="@+id/nav_alcampo"
+                android:icon="@android:drawable/ic_menu_search"
+                android:title="@string/productos_alcampo" />
+            <item
                 android:id="@+id/nav_carrefour"
                 android:icon="@android:drawable/ic_menu_search"
                 android:title="@string/productos_carrefour" />

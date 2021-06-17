@@ -21,7 +21,7 @@ import com.sadcos.supermarketcomparator.ItemDetail;
 import com.sadcos.supermarketcomparator.R;
 import com.sadcos.supermarketcomparator.adapters.AdapterCarrefour;
 import com.sadcos.supermarketcomparator.adapters.cartAdapters.carrefourCartAdapter;
-import com.sadcos.supermarketcomparator.products.carrefourProducts;
+import com.sadcos.supermarketcomparator.products.stringPriceProducts;
 
 import java.util.ArrayList;
 
@@ -39,7 +39,7 @@ public class carrefourFragmentCart extends Fragment  {
     private OnFragmentInteractionListener mListener;
 
     RecyclerView recyclerCartCarrefour;
-    public static ArrayList<carrefourProducts> listCartCarrefour;
+    public static ArrayList<stringPriceProducts> listCartCarrefour;
     TextView totalprice,cartempty;
     double cartprice=0;
     public SwipeRefreshLayout swipeRefreshLayout;
@@ -83,7 +83,7 @@ public class carrefourFragmentCart extends Fragment  {
         recyclerCartCarrefour.setLayoutManager(new LinearLayoutManager(getContext()));
         carrefourCartAdapter adapter=new carrefourCartAdapter(AdapterCarrefour.carrefourCartProducts,new carrefourCartAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(carrefourProducts item) {
+            public void onItemClick(stringPriceProducts item) {
                 moveToDescription(item);
             }
         });
@@ -96,7 +96,7 @@ public class carrefourFragmentCart extends Fragment  {
         try{
             if(!AdapterCarrefour.carrefourCartProducts.isEmpty()){
                 cartempty.setVisibility(View.INVISIBLE);
-                for(carrefourProducts product : AdapterCarrefour.carrefourCartProducts){
+                for(stringPriceProducts product : AdapterCarrefour.carrefourCartProducts){
                     cartprice+=product.getTotalprice();
                 }
                 totalprice.setText(String.format("Precio Total: %.2f €",cartprice));
@@ -139,7 +139,7 @@ public class carrefourFragmentCart extends Fragment  {
             try{
                 if(!AdapterCarrefour.carrefourCartProducts.isEmpty()){
                     cartempty.setVisibility(View.INVISIBLE);
-                    for(carrefourProducts product : AdapterCarrefour.carrefourCartProducts){
+                    for(stringPriceProducts product : AdapterCarrefour.carrefourCartProducts){
                         cartprice+=product.getTotalprice();
                     }
                     totalprice.setText(String.format("Precio Total: %.2f €",cartprice));
@@ -192,7 +192,7 @@ public class carrefourFragmentCart extends Fragment  {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-    public void moveToDescription(carrefourProducts item){
+    public void moveToDescription(stringPriceProducts item){
         Bundle bundle = new Bundle();
         Intent intent = new Intent(getContext(), ItemDetail.class);
         bundle.putString("itemName", item.getCartproduct_name());

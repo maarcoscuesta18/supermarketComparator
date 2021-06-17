@@ -1,17 +1,12 @@
 package com.sadcos.supermarketcomparator;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.Html;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -19,15 +14,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.sadcos.supermarketcomparator.adapters.AdapterAlcampo;
 import com.sadcos.supermarketcomparator.adapters.AdapterCarrefour;
 import com.sadcos.supermarketcomparator.adapters.AdapterDia;
 import com.sadcos.supermarketcomparator.adapters.AdapterMercadona;
-import com.sadcos.supermarketcomparator.products.carrefourProducts;
-import com.sadcos.supermarketcomparator.products.diaProducts;
+import com.sadcos.supermarketcomparator.products.stringPriceProducts;
 import com.sadcos.supermarketcomparator.products.mercadonaProducts;
-import com.squareup.picasso.Picasso;
-
-import java.util.Objects;
 
 public class ItemDetail extends AppCompatActivity {
     TextView product_name,price,price_per_kg,qty;
@@ -53,13 +45,26 @@ public class ItemDetail extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         String supermarketType = bundle.getString("supermarketType");
+        switch (supermarketType){
+            case "mercadona":
+                imglink.setImageResource(R.drawable.mercadona);
+                break;
+            case "dia":
+                imglink.setImageResource(R.drawable.dia);
+                break;
+            case "carrefour":
+                imglink.setImageResource(R.drawable.carrefour);
+                break;
+            case "alcampo":
+                imglink.setImageResource(R.drawable.alcampo);
+                break;
+        }
         product_name.setText(bundle.getString("itemName"));
         price.setText(bundle.getString("itemPrice")+" €");
         price_per_kg.setText(bundle.getString("itemPricePerKg"));
         link = bundle.getString("itemLink");
 
         ImageView goBack = findViewById(R.id.goback);
-        ImageView linkimg = findViewById(R.id.imglink);
 
         goBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,6 +99,9 @@ public class ItemDetail extends AppCompatActivity {
                     case "dia":
                         addDia(v,count);
                         break;
+                    case "alcampo":
+                        addAlcampo(v,count);
+                        break;
                 }
             }
         });
@@ -118,7 +126,7 @@ public class ItemDetail extends AppCompatActivity {
         });
     }
     public void addcarrefour(View v,int[] count){
-        carrefourProducts newproduct = new carrefourProducts(product_name.getText().toString(),link,price.getText().toString().replace("€","").trim(),price_per_kg.getText().toString(),String.valueOf(count[0]),String.valueOf(Double.parseDouble(price.getText().toString().replace("€","").trim())*count[0]));
+        stringPriceProducts newproduct = new stringPriceProducts(product_name.getText().toString(),link,price.getText().toString().replace("€","").trim(),price_per_kg.getText().toString(),String.valueOf(count[0]),String.valueOf(Double.parseDouble(price.getText().toString().replace("€","").trim())*count[0]));
         for(int i=0;i<AdapterCarrefour.carrefourCartProducts.size();i++){
             if(newproduct.getCartproduct_name().equals(AdapterCarrefour.carrefourCartProducts.get(i).getCartproduct_name())){
                 isInCart=true;
@@ -129,7 +137,7 @@ public class ItemDetail extends AppCompatActivity {
             saveCartCarrefour(v);
         }else{
             if(isInCart){
-                for (carrefourProducts product : AdapterCarrefour.carrefourCartProducts){
+                for (stringPriceProducts product : AdapterCarrefour.carrefourCartProducts){
                     if(product.getCartproduct_name().equals(newproduct.getCartproduct_name())){
                         product.setQty(String.valueOf(Integer.parseInt(product.getQty())+Integer.parseInt(newproduct.getQty())));
                         product.setTotalprice(Double.parseDouble(String.valueOf(product.getTotalprice()+newproduct.getTotalprice())));
@@ -145,8 +153,36 @@ public class ItemDetail extends AppCompatActivity {
         qty.setText("1");
         Toast.makeText(v.getContext(),"Producto añadido correctamente",Toast.LENGTH_SHORT).show();
     }
+    public void addAlcampo(View v,int[] count){
+        stringPriceProducts newproduct = new stringPriceProducts(product_name.getText().toString(),link,price.getText().toString().replace("€","").trim(),price_per_kg.getText().toString(),String.valueOf(count[0]),String.valueOf(Double.parseDouble(price.getText().toString().replace("€","").trim())*count[0]));
+        for(int i=0;i<AdapterAlcampo.alcampoCartProducts.size();i++){
+            if(newproduct.getCartproduct_name().equals(AdapterAlcampo.alcampoCartProducts.get(i).getCartproduct_name())){
+                isInCart=true;
+            }
+        }
+        if(AdapterAlcampo.alcampoCartProducts.isEmpty()){
+            AdapterAlcampo.alcampoCartProducts.add(newproduct);
+            saveCartAlcampo(v);
+        }else{
+            if(isInCart){
+                for (stringPriceProducts product : AdapterAlcampo.alcampoCartProducts){
+                    if(product.getCartproduct_name().equals(newproduct.getCartproduct_name())){
+                        product.setQty(String.valueOf(Integer.parseInt(product.getQty())+Integer.parseInt(newproduct.getQty())));
+                        product.setTotalprice(Double.parseDouble(String.valueOf(product.getTotalprice()+newproduct.getTotalprice())));
+                        saveCartAlcampo(v);
+                    }
+                }
+            }else{
+                AdapterAlcampo.alcampoCartProducts.add(newproduct);
+                saveCartAlcampo(v);
+            }
+        }
+        count[0]=1;
+        qty.setText("1");
+        Toast.makeText(v.getContext(),"Producto añadido correctamente",Toast.LENGTH_SHORT).show();
+    }
     public void addDia(View v,int[] count){
-        diaProducts newproduct = new diaProducts(product_name.getText().toString(),link,price.getText().toString().replace("€","").trim(),price_per_kg.getText().toString(),String.valueOf(count[0]),String.valueOf(Double.parseDouble(price.getText().toString().replace("€","").trim())*count[0]));
+        stringPriceProducts newproduct = new stringPriceProducts(product_name.getText().toString(),link,price.getText().toString().replace("€","").trim(),price_per_kg.getText().toString(),String.valueOf(count[0]),String.valueOf(Double.parseDouble(price.getText().toString().replace("€","").trim())*count[0]));
         for(int i=0;i<AdapterDia.diaCartProducts.size();i++){
             if(newproduct.getCartproduct_name().equals(AdapterDia.diaCartProducts.get(i).getCartproduct_name())){
                 isInCart=true;
@@ -157,7 +193,7 @@ public class ItemDetail extends AppCompatActivity {
             saveCartDia(v);
         }else{
             if(isInCart){
-                for (diaProducts product : AdapterDia.diaCartProducts){
+                for (stringPriceProducts product : AdapterDia.diaCartProducts){
                     if(product.getCartproduct_name().equals(newproduct.getCartproduct_name())){
                         product.setQty(String.valueOf(Integer.parseInt(product.getQty())+Integer.parseInt(newproduct.getQty())));
                         product.setTotalprice(Double.parseDouble(String.valueOf(product.getTotalprice()+newproduct.getTotalprice())));
@@ -200,6 +236,15 @@ public class ItemDetail extends AppCompatActivity {
         count[0]=1;
         qty.setText("1");
         Toast.makeText(v.getContext(),"Producto añadido correctamente",Toast.LENGTH_SHORT).show();
+    }
+
+    public void saveCartAlcampo(View v){
+        SharedPreferences cartPreferences=v.getContext().getSharedPreferences("cartPreferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = cartPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(AdapterAlcampo.alcampoCartProducts);
+        editor.putString("cartAlcampo", json);
+        editor.apply();
     }
     public void saveCartCarrefour(View v){
         SharedPreferences cartPreferences=v.getContext().getSharedPreferences("cartPreferences", Context.MODE_PRIVATE);

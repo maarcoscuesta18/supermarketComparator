@@ -15,11 +15,13 @@
     <string name="productos_mercadona">Productos Mercadona</string>
     <string name="productos_dia">Productos Dia</string>
     <string name="productos_carrefour">Productos Carrefour</string>
+    <string name="productos_alcampo">Productos Alcampo</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="title_activity_cart">Carrito De Compra</string>
     <string name="tab_text_1">Mercadona</string>
     <string name="tab_text_2">Carrefour</string>
     <string name="tab_text_3">Dia</string>
+    <string name="tab_text_4">Alcampo</string>
     <string name="nav_header_desc">Navigation header</string>
 
 

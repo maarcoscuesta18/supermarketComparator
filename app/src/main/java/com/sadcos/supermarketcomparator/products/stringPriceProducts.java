@@ -4,13 +4,12 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Comparator;
 
-public class diaProducts {
+public class stringPriceProducts {
     @SerializedName("id") private int id;
     @SerializedName("product_name") private String product_name;
     @SerializedName("link") private String link;
     @SerializedName("price") private String price;
     @SerializedName("price_per_kg") private String price_per_kg;
-
     private String qty;
     private String cartproduct_name;
     private String cartpriceperkg;
@@ -18,7 +17,7 @@ public class diaProducts {
     private Double totalprice;
     private String cartlink;
 
-    public diaProducts(String product_name, String link,String price,String price_per_kg,String qty,String totalprice) {
+    public stringPriceProducts(String product_name, String link, String price, String price_per_kg, String qty, String totalprice) {
         this.cartproduct_name = product_name;
         this.cartprice = Double.parseDouble(price);
         this.cartlink=link;
@@ -26,27 +25,27 @@ public class diaProducts {
         this.qty=qty;
         this.totalprice = Double.parseDouble(totalprice);
     }
-    public static Comparator<diaProducts> ProductNameAZCommparator = new Comparator<diaProducts>() {
+    public static Comparator<stringPriceProducts> ProductNameAZCommparator = new Comparator<stringPriceProducts>() {
         @Override
-        public int compare(diaProducts o1, diaProducts o2) {
+        public int compare(stringPriceProducts o1, stringPriceProducts o2) {
             return o1.getProduct_name().compareTo(o2.getProduct_name());
         }
     };
-    public static Comparator<diaProducts> ProductNameZACommparator = new Comparator<diaProducts>() {
+    public static Comparator<stringPriceProducts> ProductNameZACommparator = new Comparator<stringPriceProducts>() {
         @Override
-        public int compare(diaProducts o1, diaProducts o2) {
+        public int compare(stringPriceProducts o1, stringPriceProducts o2) {
             return o2.getProduct_name().compareTo(o1.getProduct_name());
         }
     };
-    public static Comparator<diaProducts> ProductPriceUpCommparator = new Comparator<diaProducts>() {
+    public static Comparator<stringPriceProducts> ProductPriceUpCommparator = new Comparator<stringPriceProducts>() {
         @Override
-        public int compare(diaProducts o1, diaProducts o2) {
+        public int compare(stringPriceProducts o1, stringPriceProducts o2) {
             return Double.compare(Double.parseDouble(o1.getPrice()),Double.parseDouble(o2.getPrice()));
         }
     };
-    public static Comparator<diaProducts> ProductPriceDownCommparator = new Comparator<diaProducts>() {
+    public static Comparator<stringPriceProducts> ProductPriceDownCommparator = new Comparator<stringPriceProducts>() {
         @Override
-        public int compare(diaProducts o1, diaProducts o2) {
+        public int compare(stringPriceProducts o1, stringPriceProducts o2) {
             return Double.compare(Double.parseDouble(o2.getPrice()),Double.parseDouble(o1.getPrice()));
         }
     };

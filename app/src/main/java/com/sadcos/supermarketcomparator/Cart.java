@@ -14,12 +14,14 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.sadcos.supermarketcomparator.ui.main.SectionsPagerAdapter;
+import com.sadcos.supermarketcomparator.ui.main.alcampoFragmentCart;
 import com.sadcos.supermarketcomparator.ui.main.carrefourFragmentCart;
 import com.sadcos.supermarketcomparator.ui.main.diaFragmentCart;
 import com.sadcos.supermarketcomparator.ui.main.mercadonaFragmentCart;
 
 public class Cart extends AppCompatActivity implements mercadonaFragmentCart.OnFragmentInteractionListener,
-        diaFragmentCart.OnFragmentInteractionListener, carrefourFragmentCart.OnFragmentInteractionListener{
+        diaFragmentCart.OnFragmentInteractionListener, carrefourFragmentCart.OnFragmentInteractionListener,
+        alcampoFragmentCart.OnFragmentInteractionListener{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

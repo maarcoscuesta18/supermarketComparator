@@ -7,6 +7,27 @@
     android:orientation="vertical"
     android:id="@+id/fragment_home">
 
+    <TextView
+        android:id="@+id/itemComparatorTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:fontFamily="@font/samsungone700"
+        android:text="Comparador de productos"
+        android:textSize="20dp"
+        android:padding="10dp"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="2dp">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/item_ComparatorRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:scrollbars="vertical"
+            android:orientation="horizontal" />
+    </RelativeLayout>
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/main_recycler"
             android:layout_width="match_parent"

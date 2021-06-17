@@ -12,19 +12,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.sadcos.supermarketcomparator.R;
+import com.sadcos.supermarketcomparator.adapters.AdapterAlcampo;
 import com.sadcos.supermarketcomparator.adapters.AdapterCarrefour;
 import com.sadcos.supermarketcomparator.products.stringPriceProducts;
 
 import java.util.ArrayList;
 
-public class carrefourCartAdapter extends RecyclerView.Adapter<carrefourCartAdapter.PersonajeViewHolder>{
-    public static ArrayList<stringPriceProducts> listCartCarrefour;
-    public static carrefourCartAdapter.OnItemClickListener listener;
+public class alcampoCartAdapter extends RecyclerView.Adapter<alcampoCartAdapter.PersonajeViewHolder>{
+    public static ArrayList<stringPriceProducts> listCartAlcampo;
+    public static alcampoCartAdapter.OnItemClickListener listener;
     public interface OnItemClickListener{
         void onItemClick(stringPriceProducts item);
     }
-    public carrefourCartAdapter(ArrayList<stringPriceProducts> listCartCarrefour,carrefourCartAdapter.OnItemClickListener listener) {
-        carrefourCartAdapter.listCartCarrefour =listCartCarrefour;
+    public alcampoCartAdapter(ArrayList<stringPriceProducts> listCartAlcampo, alcampoCartAdapter.OnItemClickListener listener) {
+        alcampoCartAdapter.listCartAlcampo =listCartAlcampo;
         this.listener = listener;
     }
 
@@ -36,17 +37,17 @@ public class carrefourCartAdapter extends RecyclerView.Adapter<carrefourCartAdap
 
     @Override
     public void onBindViewHolder(PersonajeViewHolder holder, int position) {
-        holder.product_name.setText(AdapterCarrefour.carrefourCartProducts.get(position).getCartproduct_name());
-        holder.price.setText("Price: "+AdapterCarrefour.carrefourCartProducts.get(position).getCartprice()+" €");
-        holder.price_per_kg.setText("Price per kg/l/unit: "+AdapterCarrefour.carrefourCartProducts.get(position).getPrice_per_kg());
-        holder.txtqty.setText(AdapterCarrefour.carrefourCartProducts.get(position).getQty());
-        final int[] count = {Integer.parseInt(AdapterCarrefour.carrefourCartProducts.get(position).getQty())};
+        holder.product_name.setText(AdapterAlcampo.alcampoCartProducts.get(position).getCartproduct_name());
+        holder.price.setText("Price: "+AdapterAlcampo.alcampoCartProducts.get(position).getCartprice()+" €");
+        holder.price_per_kg.setText("Price per kg/l/unit: "+AdapterAlcampo.alcampoCartProducts.get(position).getPrice_per_kg());
+        holder.txtqty.setText(AdapterAlcampo.alcampoCartProducts.get(position).getQty());
+        final int[] count = {Integer.parseInt(AdapterAlcampo.alcampoCartProducts.get(position).getQty())};
         holder.buttonInc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 count[0]++;
-                AdapterCarrefour.carrefourCartProducts.get(position).setQty(String.valueOf(count[0]));
-                AdapterCarrefour.carrefourCartProducts.get(position).setTotalprice(AdapterCarrefour.carrefourCartProducts.get(position).getCartprice()*count[0]);
+                AdapterAlcampo.alcampoCartProducts.get(position).setQty(String.valueOf(count[0]));
+                AdapterAlcampo.alcampoCartProducts.get(position).setTotalprice(AdapterAlcampo.alcampoCartProducts.get(position).getCartprice()*count[0]);
                 notifyItemChanged(position);
                 notifyDataSetChanged();
                 saveCart(v);
@@ -57,15 +58,15 @@ public class carrefourCartAdapter extends RecyclerView.Adapter<carrefourCartAdap
             public void onClick(View v) {
                 if(count[0] == 1){
                     count[0] = 1;
-                    AdapterCarrefour.carrefourCartProducts.get(position).setQty(String.valueOf(count[0]));
-                    AdapterCarrefour.carrefourCartProducts.get(position).setTotalprice(AdapterCarrefour.carrefourCartProducts.get(position).getCartprice()*count[0]);
+                    AdapterAlcampo.alcampoCartProducts.get(position).setQty(String.valueOf(count[0]));
+                    AdapterAlcampo.alcampoCartProducts.get(position).setTotalprice(AdapterAlcampo.alcampoCartProducts.get(position).getCartprice()*count[0]);
                     notifyDataSetChanged();
                     notifyItemChanged(position);
                     saveCart(v);
                 } else{
                     count[0]--;
-                    AdapterCarrefour.carrefourCartProducts.get(position).setQty(String.valueOf(count[0]));
-                    AdapterCarrefour.carrefourCartProducts.get(position).setTotalprice(AdapterCarrefour.carrefourCartProducts.get(position).getCartprice()*count[0]);
+                    AdapterAlcampo.alcampoCartProducts.get(position).setQty(String.valueOf(count[0]));
+                    AdapterAlcampo.alcampoCartProducts.get(position).setTotalprice(AdapterAlcampo.alcampoCartProducts.get(position).getCartprice()*count[0]);
                     notifyDataSetChanged();
                     notifyItemChanged(position);
                     saveCart(v);
@@ -75,8 +76,8 @@ public class carrefourCartAdapter extends RecyclerView.Adapter<carrefourCartAdap
         holder.remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(AdapterCarrefour.carrefourCartProducts.get(position).getCartproduct_name() == holder.product_name.getText().toString()){
-                    AdapterCarrefour.carrefourCartProducts.remove(position);
+                if(AdapterAlcampo.alcampoCartProducts.get(position).getCartproduct_name() == holder.product_name.getText().toString()){
+                    AdapterAlcampo.alcampoCartProducts.remove(position);
                     notifyItemRemoved(position);
                     notifyDataSetChanged();
                     saveCart(v);
@@ -86,7 +87,7 @@ public class carrefourCartAdapter extends RecyclerView.Adapter<carrefourCartAdap
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onItemClick(new stringPriceProducts(holder.product_name.getText().toString(),AdapterCarrefour.carrefourCartProducts.get(position).getCartlink(),holder.price.getText().toString().substring(7,11),holder.price_per_kg.getText().toString(),String.valueOf(count[0]),String.valueOf(Double.parseDouble(holder.price.getText().toString().substring(7,11))*count[0])));
+                listener.onItemClick(new stringPriceProducts(holder.product_name.getText().toString(),AdapterAlcampo.alcampoCartProducts.get(position).getCartlink(),holder.price.getText().toString().substring(7,11),holder.price_per_kg.getText().toString(),String.valueOf(count[0]),String.valueOf(Double.parseDouble(holder.price.getText().toString().substring(7,11))*count[0])));
             }
         });
     }
@@ -94,7 +95,7 @@ public class carrefourCartAdapter extends RecyclerView.Adapter<carrefourCartAdap
     @Override
     public int getItemCount() {
         try{
-            return listCartCarrefour.size();
+            return listCartAlcampo.size();
         }catch (Exception e){
            return 0;
         }
@@ -121,7 +122,7 @@ public class carrefourCartAdapter extends RecyclerView.Adapter<carrefourCartAdap
         SharedPreferences.Editor editor = cartPreferences.edit();
         Gson gson = new Gson();
         String json = gson.toJson(AdapterCarrefour.carrefourCartProducts);
-        editor.putString("cartCarrefour", json);
+        editor.putString("cartAlcampo", json);
         editor.apply();
     }
 }

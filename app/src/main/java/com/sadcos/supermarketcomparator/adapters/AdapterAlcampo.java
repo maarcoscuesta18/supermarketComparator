@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.sadcos.supermarketcomparator.R;
-import com.sadcos.supermarketcomparator.products.mercadonaProducts;
+import com.sadcos.supermarketcomparator.products.stringPriceProducts;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,16 +24,16 @@ import java.util.List;
  * Created by haerul on 17/03/18.
  */
 
-public class AdapterMercadona extends RecyclerView.Adapter<AdapterMercadona.MyViewHolder> {
-    public static ArrayList<mercadonaProducts> mercadonaCartProducts = new ArrayList<>();
-    private List<mercadonaProducts> product;
+public class AdapterAlcampo extends RecyclerView.Adapter<AdapterAlcampo.MyViewHolder> {
+    public static ArrayList<stringPriceProducts> alcampoCartProducts = new ArrayList<>();
+    private List<stringPriceProducts> product;
     private Context context;
     public static int[] count = {1};
-    public static AdapterMercadona.OnItemClickListener listener;
+    public static AdapterAlcampo.OnItemClickListener listener;
     public interface OnItemClickListener{
-        void onItemClick(mercadonaProducts item);
+        void onItemClick(stringPriceProducts item);
     }
-    public AdapterMercadona(List<mercadonaProducts> products, Context context,AdapterMercadona.OnItemClickListener listener) {
+    public AdapterAlcampo(List<stringPriceProducts> products, Context context, AdapterAlcampo.OnItemClickListener listener) {
         this.product = products;
         this.context = context;
         this.listener = listener;
@@ -50,20 +50,23 @@ public class AdapterMercadona extends RecyclerView.Adapter<AdapterMercadona.MyVi
         holder.product_name.setText(product.get(position).getProduct_name());
         holder.link.setText(product.get(position).getLink());
         holder.price.setText("Price: "+product.get(position).getPrice()+" €");
+        holder.price_per_kg.setText("Price per kg/l/unit: "+product.get(position).getPrice_per_kg());
     }
     @Override
     public int getItemCount() {
         return product.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView product_name,link,price;
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
+        TextView product_name,link,price,price_per_kg;
         public MyViewHolder(View itemView) {
             super(itemView);
             product_name = itemView.findViewById(R.id.product_name);
             link = itemView.findViewById(R.id.link);
             price = itemView.findViewById(R.id.price);
+            price_per_kg = itemView.findViewById(R.id.priceperkg);
             Button addtocart = itemView.findViewById(R.id.addtocart);
+            count[0] = 1;
             TextView txtCount =(TextView) itemView.findViewById(R.id.qty);
             ImageView buttonInc= (ImageView) itemView.findViewById(R.id.qtyplus);
             ImageView buttonDec= (ImageView) itemView.findViewById(R.id.qtyless);
@@ -90,13 +93,13 @@ public class AdapterMercadona extends RecyclerView.Adapter<AdapterMercadona.MyVi
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(v.getContext(),"Producto añadido correctamente",Toast.LENGTH_SHORT).show();
-                    mercadonaProducts newproduct = new mercadonaProducts(product_name.getText().toString(),link.getText().toString(),price.getText().toString().substring(7,11),String.valueOf(count[0]),String.valueOf(Double.parseDouble(price.getText().toString().substring(7,11))*count[0]));
-                    if(mercadonaCartProducts.isEmpty()){
-                        mercadonaCartProducts.add(newproduct);
+                    stringPriceProducts newproduct = new stringPriceProducts(product_name.getText().toString(),link.getText().toString(),price.getText().toString().substring(7,11),price_per_kg.getText().toString(),String.valueOf(count[0]),String.valueOf(Double.parseDouble(price.getText().toString().substring(7,11))*count[0]));
+                    if(alcampoCartProducts.isEmpty()){
+                        alcampoCartProducts.add(newproduct);
                         saveCart(v);
                     }else{
                         if(isAlreadyInCart(newproduct)){
-                            for (mercadonaProducts product : mercadonaCartProducts){
+                            for (stringPriceProducts product : alcampoCartProducts){
                                 if(product.getCartproduct_name().equals(newproduct.getCartproduct_name())){
                                     product.setQty(String.valueOf(Integer.parseInt(product.getQty())+Integer.parseInt(newproduct.getQty())));
                                     product.setTotalprice(Double.parseDouble(String.valueOf(product.getTotalprice()+newproduct.getTotalprice())));
@@ -104,7 +107,7 @@ public class AdapterMercadona extends RecyclerView.Adapter<AdapterMercadona.MyVi
                                 }
                             }
                         }else{
-                            mercadonaCartProducts.add(newproduct);
+                            alcampoCartProducts.add(newproduct);
                             saveCart(v);
                         }
                     }
@@ -115,7 +118,7 @@ public class AdapterMercadona extends RecyclerView.Adapter<AdapterMercadona.MyVi
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onItemClick(new mercadonaProducts(product_name.getText().toString(),link.getText().toString(),price.getText().toString().substring(7,11),String.valueOf(count[0]),String.valueOf(Double.parseDouble(price.getText().toString().substring(7,11))*count[0])));
+                    listener.onItemClick(new stringPriceProducts(product_name.getText().toString(),link.getText().toString(),price.getText().toString().substring(7,11),price_per_kg.getText().toString(),String.valueOf(count[0]),String.valueOf(Double.parseDouble(price.getText().toString().substring(7,11))*count[0])));
                 }
             });
         }
@@ -123,14 +126,14 @@ public class AdapterMercadona extends RecyclerView.Adapter<AdapterMercadona.MyVi
             SharedPreferences cartPreferences=v.getContext().getSharedPreferences("cartPreferences", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = cartPreferences.edit();
             Gson gson = new Gson();
-            String json = gson.toJson(AdapterMercadona.mercadonaCartProducts);
-            editor.putString("cartMercadona", json);
+            String json = gson.toJson(AdapterAlcampo.alcampoCartProducts);
+            editor.putString("cartAlcampo", json);
             editor.apply();
         }
-        public boolean isAlreadyInCart(mercadonaProducts product){
+        public boolean isAlreadyInCart(stringPriceProducts product){
             boolean isInCart=false;
-            for(int i=0;i<mercadonaCartProducts.size();i++){
-                if(product.getCartproduct_name().equals(mercadonaCartProducts.get(i).getCartproduct_name())){
+            for(int i=0;i<alcampoCartProducts.size();i++){
+                if(product.getCartproduct_name().equals(alcampoCartProducts.get(i).getCartproduct_name())){
                     isInCart=true;
                     break;
                 }

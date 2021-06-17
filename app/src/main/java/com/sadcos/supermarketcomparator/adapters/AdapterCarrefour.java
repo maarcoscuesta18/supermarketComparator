@@ -1,25 +1,20 @@
 package com.sadcos.supermarketcomparator.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
-import com.sadcos.supermarketcomparator.ItemDetail;
 import com.sadcos.supermarketcomparator.R;
-import com.sadcos.supermarketcomparator.products.carrefourProducts;
-import com.sadcos.supermarketcomparator.products.diaProducts;
-import com.sadcos.supermarketcomparator.products.mercadonaProducts;
+import com.sadcos.supermarketcomparator.products.stringPriceProducts;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,15 +24,15 @@ import java.util.List;
  */
 
 public class AdapterCarrefour extends RecyclerView.Adapter<AdapterCarrefour.MyViewHolder> {
-    public static ArrayList<carrefourProducts> carrefourCartProducts = new ArrayList<>();
-    private List<carrefourProducts> product;
+    public static ArrayList<stringPriceProducts> carrefourCartProducts = new ArrayList<>();
+    private List<stringPriceProducts> product;
     private Context context;
     public static int[] count = {1};
     public static AdapterCarrefour.OnItemClickListener listener;
     public interface OnItemClickListener{
-        void onItemClick(carrefourProducts item);
+        void onItemClick(stringPriceProducts item);
     }
-    public AdapterCarrefour(List<carrefourProducts> products, Context context, AdapterCarrefour.OnItemClickListener listener) {
+    public AdapterCarrefour(List<stringPriceProducts> products, Context context, AdapterCarrefour.OnItemClickListener listener) {
         this.product = products;
         this.context = context;
         this.listener = listener;
@@ -97,13 +92,13 @@ public class AdapterCarrefour extends RecyclerView.Adapter<AdapterCarrefour.MyVi
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(v.getContext(),"Producto añadido correctamente",Toast.LENGTH_SHORT).show();
-                    carrefourProducts newproduct = new carrefourProducts(product_name.getText().toString(),link.getText().toString(),price.getText().toString().substring(7,11),price_per_kg.getText().toString(),String.valueOf(count[0]),String.valueOf(Double.parseDouble(price.getText().toString().substring(7,11))*count[0]));
+                    stringPriceProducts newproduct = new stringPriceProducts(product_name.getText().toString(),link.getText().toString(),price.getText().toString().substring(7,11),price_per_kg.getText().toString(),String.valueOf(count[0]),String.valueOf(Double.parseDouble(price.getText().toString().substring(7,11))*count[0]));
                     if(carrefourCartProducts.isEmpty()){
                         carrefourCartProducts.add(newproduct);
                         saveCart(v);
                     }else{
                         if(isAlreadyInCart(newproduct)){
-                            for (carrefourProducts product : carrefourCartProducts){
+                            for (stringPriceProducts product : carrefourCartProducts){
                                 if(product.getCartproduct_name().equals(newproduct.getCartproduct_name())){
                                     product.setQty(String.valueOf(Integer.parseInt(product.getQty())+Integer.parseInt(newproduct.getQty())));
                                     product.setTotalprice(Double.parseDouble(String.valueOf(product.getTotalprice()+newproduct.getTotalprice())));
@@ -122,7 +117,7 @@ public class AdapterCarrefour extends RecyclerView.Adapter<AdapterCarrefour.MyVi
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onItemClick(new carrefourProducts(product_name.getText().toString(),link.getText().toString(),price.getText().toString().substring(7,11),price_per_kg.getText().toString(),String.valueOf(count[0]),String.valueOf(Double.parseDouble(price.getText().toString().substring(7,11))*count[0])));
+                    listener.onItemClick(new stringPriceProducts(product_name.getText().toString(),link.getText().toString(),price.getText().toString().substring(7,11),price_per_kg.getText().toString(),String.valueOf(count[0]),String.valueOf(Double.parseDouble(price.getText().toString().substring(7,11))*count[0])));
                 }
             });
         }
@@ -134,7 +129,7 @@ public class AdapterCarrefour extends RecyclerView.Adapter<AdapterCarrefour.MyVi
             editor.putString("cartCarrefour", json);
             editor.apply();
         }
-        public boolean isAlreadyInCart(carrefourProducts product){
+        public boolean isAlreadyInCart(stringPriceProducts product){
             boolean isInCart=false;
             for(int i=0;i<carrefourCartProducts.size();i++){
                 if(product.getCartproduct_name().equals(carrefourCartProducts.get(i).getCartproduct_name())){

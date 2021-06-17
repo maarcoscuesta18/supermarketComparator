@@ -19,8 +19,10 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.sadcos.supermarketcomparator.ItemDetail;
 import com.sadcos.supermarketcomparator.R;
-import com.sadcos.supermarketcomparator.adapters.AdapterDia;
-import com.sadcos.supermarketcomparator.adapters.cartAdapters.diaCartAdapter;
+import com.sadcos.supermarketcomparator.adapters.AdapterAlcampo;
+import com.sadcos.supermarketcomparator.adapters.AdapterCarrefour;
+import com.sadcos.supermarketcomparator.adapters.cartAdapters.alcampoCartAdapter;
+import com.sadcos.supermarketcomparator.adapters.cartAdapters.carrefourCartAdapter;
 import com.sadcos.supermarketcomparator.products.stringPriceProducts;
 
 import java.util.ArrayList;
@@ -28,7 +30,7 @@ import java.util.ArrayList;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class diaFragmentCart extends Fragment  {
+public class alcampoFragmentCart extends Fragment  {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -38,13 +40,13 @@ public class diaFragmentCart extends Fragment  {
     private String mParam2;
     private OnFragmentInteractionListener mListener;
 
-    RecyclerView recyclerCartDia;
-    public static ArrayList<stringPriceProducts> listCartDia;
+    RecyclerView recyclerCartAlcampo;
+    public static ArrayList<stringPriceProducts> listCartAlcampo;
     TextView totalprice,cartempty;
     double cartprice=0;
     public SwipeRefreshLayout swipeRefreshLayout;
 
-    public diaFragmentCart() {
+    public alcampoFragmentCart() {
         // Required empty public constructor
     }
 
@@ -57,8 +59,8 @@ public class diaFragmentCart extends Fragment  {
      * @return A new instance of fragment ListaPersonajesFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static diaFragmentCart newInstance(String param1, String param2) {
-        diaFragmentCart fragment = new diaFragmentCart();
+    public static alcampoFragmentCart newInstance(String param1, String param2) {
+        alcampoFragmentCart fragment = new alcampoFragmentCart();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -78,29 +80,28 @@ public class diaFragmentCart extends Fragment  {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         View vista=inflater.inflate(R.layout.fragment_cart, container, false);
-        listCartDia=new ArrayList<>();
-        recyclerCartDia= (RecyclerView) vista.findViewById(R.id.recyclerId);
-        recyclerCartDia.setLayoutManager(new LinearLayoutManager(getContext()));
-        diaCartAdapter adapter=new diaCartAdapter(AdapterDia.diaCartProducts,new diaCartAdapter.OnItemClickListener() {
+        listCartAlcampo=new ArrayList<>();
+        recyclerCartAlcampo= (RecyclerView) vista.findViewById(R.id.recyclerId);
+        recyclerCartAlcampo.setLayoutManager(new LinearLayoutManager(getContext()));
+        alcampoCartAdapter adapter=new alcampoCartAdapter(AdapterAlcampo.alcampoCartProducts,new alcampoCartAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(stringPriceProducts item) {
                 moveToDescription(item);
             }
         });
-        recyclerCartDia.setAdapter(adapter);
+        recyclerCartAlcampo.setAdapter(adapter);
 
         //set cart totalprice
         totalprice =vista.findViewById(R.id.totalprice);
         cartprice=0;
         cartempty = vista.findViewById(R.id.cartempty);
         try{
-            if(!AdapterDia.diaCartProducts.isEmpty()){
+            if(!AdapterAlcampo.alcampoCartProducts.isEmpty()){
                 cartempty.setVisibility(View.INVISIBLE);
-                for(stringPriceProducts product : AdapterDia.diaCartProducts){
+                for(stringPriceProducts product : AdapterAlcampo.alcampoCartProducts){
                     cartprice+=product.getTotalprice();
                 }
                 totalprice.setText(String.format("Precio Total: %.2f €",cartprice));
-
             }else{
                 cartempty.setVisibility(View.VISIBLE);
                 totalprice.setText(String.format("Precio Total: %.2f €",cartprice));
@@ -108,8 +109,6 @@ public class diaFragmentCart extends Fragment  {
         }catch (Exception e){
 
         }
-
-
         //refresh the cart price
         swipeRefreshLayout = vista.findViewById(R.id.fragmentLayout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -137,15 +136,19 @@ public class diaFragmentCart extends Fragment  {
             super.onPostExecute(aVoid);
             swipeRefreshLayout.setRefreshing(false);
             cartprice=0;
-            if(!AdapterDia.diaCartProducts.isEmpty()){
-                cartempty.setVisibility(View.INVISIBLE);
-                for(stringPriceProducts product : AdapterDia.diaCartProducts){
-                    cartprice+=product.getTotalprice();
+            try{
+                if(!AdapterAlcampo.alcampoCartProducts.isEmpty()){
+                    cartempty.setVisibility(View.INVISIBLE);
+                    for(stringPriceProducts product : AdapterAlcampo.alcampoCartProducts){
+                        cartprice+=product.getTotalprice();
+                    }
+                    totalprice.setText(String.format("Precio Total: %.2f €",cartprice));
+                }else{
+                    cartempty.setVisibility(View.VISIBLE);
+                    totalprice.setText(String.format("Precio Total: %.2f €",cartprice));
                 }
-                totalprice.setText(String.format("Precio Total: %.2f €",cartprice));
-            }else{
-                cartempty.setVisibility(View.VISIBLE);
-                totalprice.setText(String.format("Precio Total: %.2f €",cartprice));
+            }catch (Exception e){
+
             }
             Toast.makeText(getContext(),"Carrito de Compra Acutalizado",Toast.LENGTH_SHORT).show();
         }
@@ -167,7 +170,6 @@ public class diaFragmentCart extends Fragment  {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
-
     }
 
     @Override
@@ -197,7 +199,7 @@ public class diaFragmentCart extends Fragment  {
         bundle.putString("itemPrice", item.getCartprice().toString());
         bundle.putString("itemLink", item.getCartlink());
         bundle.putString("itemPricePerKg", item.getCartpriceperkg());
-        bundle.putString("supermarketType","dia");
+        bundle.putString("supermarketType","alcampo");
         intent.putExtras(bundle);
         startActivity(intent);
     }

@@ -20,10 +20,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sadcos.supermarketcomparator.ItemDetail;
-import com.sadcos.supermarketcomparator.adapters.AdapterCarrefour;
-import com.sadcos.supermarketcomparator.apis.ApiClient;
-import com.sadcos.supermarketcomparator.apis.ApiInterfaceCarrefour;
 import com.sadcos.supermarketcomparator.R;
+import com.sadcos.supermarketcomparator.adapters.AdapterAlcampo;
+import com.sadcos.supermarketcomparator.adapters.AdapterCarrefour;
+import com.sadcos.supermarketcomparator.adapters.AdapterMercadona;
+import com.sadcos.supermarketcomparator.apis.ApiClient;
+import com.sadcos.supermarketcomparator.apis.ApiInterfaceAlcampo;
+import com.sadcos.supermarketcomparator.apis.ApiInterfaceCarrefour;
+import com.sadcos.supermarketcomparator.apis.ApiInterfaceMercadona;
+import com.sadcos.supermarketcomparator.products.mercadonaProducts;
 import com.sadcos.supermarketcomparator.products.stringPriceProducts;
 
 import java.util.ArrayList;
@@ -34,13 +39,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class searchCarrefourProducts extends Fragment {
+public class searchAlcampoProducts extends Fragment {
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    public static List<stringPriceProducts> carrefourProducts = new ArrayList<>();
-    private AdapterCarrefour adapterCarrefour;
-    private ApiInterfaceCarrefour apiInterfaceCarrefour;
+    public static List<stringPriceProducts> alcampoProducts = new ArrayList<>();
+    private AdapterAlcampo adapterAlcampo;
+    private ApiInterfaceAlcampo apiInterfaceAlcampo;
     ProgressBar progressBar;
     Spinner filter;
 
@@ -55,53 +60,54 @@ public class searchCarrefourProducts extends Fragment {
         progressBar = vista.findViewById(R.id.prograss);
         recyclerView = vista.findViewById(R.id.recyclerView);
         filter = vista.findViewById(R.id.filter);
-        layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setHasFixedSize(true);
-        fetchContact("carrefour_products", "");
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
+        recyclerView.setVerticalScrollBarEnabled(true);
+
+        fetchContact("alcampo_products", "");
+
         return vista;
     }
     public void fetchContact(String type, String key){
 
-        apiInterfaceCarrefour = ApiClient.getApiClient().create(ApiInterfaceCarrefour.class);
+        apiInterfaceAlcampo = ApiClient.getApiClient().create(ApiInterfaceAlcampo.class);
 
-        Call<List<stringPriceProducts>> call = apiInterfaceCarrefour.getProduct(type, key);
+        Call<List<stringPriceProducts>> call = apiInterfaceAlcampo.getProduct(type, key);
         call.enqueue(new Callback<List<stringPriceProducts>>() {
             @Override
             public void onResponse(Call<List<stringPriceProducts>> call, Response<List<stringPriceProducts>> response) {
                 progressBar.setVisibility(View.GONE);
-                carrefourProducts = response.body();
-                adapterCarrefour = new AdapterCarrefour(carrefourProducts, getContext(), new AdapterCarrefour.OnItemClickListener() {
+                alcampoProducts = response.body();
+                adapterAlcampo = new AdapterAlcampo(alcampoProducts, getContext(),new AdapterAlcampo.OnItemClickListener() {
                     @Override
                     public void onItemClick(stringPriceProducts item) {
                         moveToDescription(item);
                     }
                 });
-                recyclerView.setAdapter(adapterCarrefour);
-                adapterCarrefour.notifyDataSetChanged();
+                recyclerView.setAdapter(adapterAlcampo);
+                adapterAlcampo.notifyDataSetChanged();
                 filter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         switch (position){
                             case 0:
-                                Collections.shuffle(carrefourProducts);
-                                adapterCarrefour.notifyDataSetChanged();
+                                Collections.shuffle(alcampoProducts);
+                                adapterAlcampo.notifyDataSetChanged();
                                 break;
                             case 1:
-                                Collections.sort(carrefourProducts, com.sadcos.supermarketcomparator.products.stringPriceProducts.ProductPriceDownCommparator);
-                                adapterCarrefour.notifyDataSetChanged();
+                                Collections.sort(alcampoProducts, com.sadcos.supermarketcomparator.products.stringPriceProducts.ProductPriceDownCommparator);
+                                adapterAlcampo.notifyDataSetChanged();
                                 break;
                             case 2:
-                                Collections.sort(carrefourProducts, com.sadcos.supermarketcomparator.products.stringPriceProducts.ProductPriceUpCommparator);
-                                adapterCarrefour.notifyDataSetChanged();
+                                Collections.sort(alcampoProducts, com.sadcos.supermarketcomparator.products.stringPriceProducts.ProductPriceUpCommparator);
+                                adapterAlcampo.notifyDataSetChanged();
                                 break;
                             case 3:
-                                Collections.sort(carrefourProducts, com.sadcos.supermarketcomparator.products.stringPriceProducts.ProductNameZACommparator);
-                                adapterCarrefour.notifyDataSetChanged();
+                                Collections.sort(alcampoProducts, com.sadcos.supermarketcomparator.products.stringPriceProducts.ProductNameZACommparator);
+                                adapterAlcampo.notifyDataSetChanged();
                                 break;
                             case 4:
-                                Collections.sort(carrefourProducts, com.sadcos.supermarketcomparator.products.stringPriceProducts.ProductNameAZCommparator);
-                                adapterCarrefour.notifyDataSetChanged();
+                                Collections.sort(alcampoProducts, com.sadcos.supermarketcomparator.products.stringPriceProducts.ProductNameAZCommparator);
+                                adapterAlcampo.notifyDataSetChanged();
                                 break;
                         }
                     }
@@ -132,13 +138,13 @@ public class searchCarrefourProducts extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                fetchContact("carrefour_products", query);
+                fetchContact("alcampo_products", query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                fetchContact("carrefour_products", newText);
+                fetchContact("alcampo_products", newText);
                 return false;
             }
         });
@@ -151,7 +157,7 @@ public class searchCarrefourProducts extends Fragment {
         bundle.putString("itemPrice", item.getCartprice().toString());
         bundle.putString("itemLink", item.getCartlink());
         bundle.putString("itemPricePerKg", item.getCartpriceperkg());
-        bundle.putString("supermarketType","carrefour");
+        bundle.putString("supermarketType","alcampo");
         intent.putExtras(bundle);
         startActivity(intent);
     }

@@ -8,6 +8,7 @@ public class CategoryItem {
     private String price_per_kg;
     private String link;
     private String supermarket;
+
     public CategoryItem(String product_name,String link, double price, String price_per_kg,String supermarket) {
         this.product_name = product_name;
         this.price = price;

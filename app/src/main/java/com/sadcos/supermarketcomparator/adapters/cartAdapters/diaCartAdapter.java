@@ -13,17 +13,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.gson.Gson;
 import com.sadcos.supermarketcomparator.R;
 import com.sadcos.supermarketcomparator.adapters.AdapterDia;
-import com.sadcos.supermarketcomparator.products.diaProducts;
+import com.sadcos.supermarketcomparator.products.stringPriceProducts;
 
 import java.util.ArrayList;
 
 public class diaCartAdapter extends RecyclerView.Adapter<diaCartAdapter.PersonajeViewHolder>{
-    public static ArrayList<diaProducts> listCartDia;
+    public static ArrayList<stringPriceProducts> listCartDia;
     public static diaCartAdapter.OnItemClickListener listener;
     public interface OnItemClickListener{
-        void onItemClick(diaProducts item);
+        void onItemClick(stringPriceProducts item);
     }
-    public diaCartAdapter(ArrayList<diaProducts> listCartDia,diaCartAdapter.OnItemClickListener listener) {
+    public diaCartAdapter(ArrayList<stringPriceProducts> listCartDia, diaCartAdapter.OnItemClickListener listener) {
         diaCartAdapter.listCartDia =listCartDia;
         this.listener = listener;
     }
@@ -86,7 +86,7 @@ public class diaCartAdapter extends RecyclerView.Adapter<diaCartAdapter.Personaj
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onItemClick(new diaProducts(holder.product_name.getText().toString(),AdapterDia.diaCartProducts.get(position).getCartlink(),holder.price.getText().toString().substring(7,11),holder.price_per_kg.getText().toString(),String.valueOf(count[0]),String.valueOf(Double.parseDouble(holder.price.getText().toString().substring(7,11))*count[0])));
+                listener.onItemClick(new stringPriceProducts(holder.product_name.getText().toString(),AdapterDia.diaCartProducts.get(position).getCartlink(),holder.price.getText().toString().substring(7,11),holder.price_per_kg.getText().toString(),String.valueOf(count[0]),String.valueOf(Double.parseDouble(holder.price.getText().toString().substring(7,11))*count[0])));
             }
         });
     }

@@ -8,8 +8,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+import com.sadcos.supermarketcomparator.adapters.AdapterAlcampo;
 import com.sadcos.supermarketcomparator.adapters.AdapterCarrefour;
 import com.sadcos.supermarketcomparator.adapters.AdapterDia;
 import com.sadcos.supermarketcomparator.adapters.AdapterMercadona;
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_mercadona,R.id.nav_dia, R.id.nav_carrefour)
+                R.id.nav_home, R.id.nav_mercadona,R.id.nav_dia, R.id.nav_carrefour,R.id.nav_alcampo)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -74,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         });
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
@@ -92,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
     }
     private void setupBadge() {
         try{
-            mCartItemCount= AdapterMercadona.mercadonaCartProducts.size()+ AdapterCarrefour.carrefourCartProducts.size()+ AdapterDia.diaCartProducts.size();
+            mCartItemCount= AdapterMercadona.mercadonaCartProducts.size()+ AdapterCarrefour.carrefourCartProducts.size()+ AdapterDia.diaCartProducts.size()+ AdapterAlcampo.alcampoCartProducts.size();
             if (textCartItemCount != null) {
                 if (mCartItemCount == 0) {
                     if (textCartItemCount.getVisibility() != View.GONE) {
@@ -114,5 +117,9 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(this, "Utiliza la navegacion de la aplicacion. Gracias", Toast.LENGTH_SHORT).show();
     }
 }

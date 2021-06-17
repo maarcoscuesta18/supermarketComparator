@@ -14,23 +14,19 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sadcos.supermarketcomparator.ItemDetail;
-import com.sadcos.supermarketcomparator.adapters.AdapterCarrefour;
 import com.sadcos.supermarketcomparator.adapters.AdapterDia;
 import com.sadcos.supermarketcomparator.apis.ApiClient;
 import com.sadcos.supermarketcomparator.apis.ApiInterfaceDia;
 import com.sadcos.supermarketcomparator.R;
-import com.sadcos.supermarketcomparator.products.carrefourProducts;
-import com.sadcos.supermarketcomparator.products.diaProducts;
+import com.sadcos.supermarketcomparator.products.stringPriceProducts;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -44,7 +40,7 @@ public class searchDiaProducts extends Fragment {
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    public static List<diaProducts> diaProducts = new ArrayList<>();
+    public static List<stringPriceProducts> diaProducts = new ArrayList<>();
     private AdapterDia adapterDia;
     private ApiInterfaceDia apiInterfaceDia;
     ProgressBar progressBar;
@@ -60,6 +56,7 @@ public class searchDiaProducts extends Fragment {
         View vista=inflater.inflate(R.layout.activity_search_products, container, false);
         progressBar = vista.findViewById(R.id.prograss);
         recyclerView = vista.findViewById(R.id.recyclerView);
+        filter = vista.findViewById(R.id.filter);
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
@@ -71,15 +68,15 @@ public class searchDiaProducts extends Fragment {
 
         apiInterfaceDia = ApiClient.getApiClient().create(ApiInterfaceDia.class);
 
-        Call<List<diaProducts>> call = apiInterfaceDia.getProduct(type, key);
-        call.enqueue(new Callback<List<diaProducts>>() {
+        Call<List<stringPriceProducts>> call = apiInterfaceDia.getProduct(type, key);
+        call.enqueue(new Callback<List<stringPriceProducts>>() {
             @Override
-            public void onResponse(Call<List<diaProducts>> call, Response<List<diaProducts>> response) {
+            public void onResponse(Call<List<stringPriceProducts>> call, Response<List<stringPriceProducts>> response) {
                 progressBar.setVisibility(View.GONE);
                 diaProducts = response.body();
                 adapterDia = new AdapterDia(diaProducts, getContext(),new AdapterDia.OnItemClickListener() {
                     @Override
-                    public void onItemClick(diaProducts item) {
+                    public void onItemClick(stringPriceProducts item) {
                         moveToDescription(item);
                     }
                 });
@@ -94,24 +91,23 @@ public class searchDiaProducts extends Fragment {
                                 adapterDia.notifyDataSetChanged();
                                 break;
                             case 1:
-                                Collections.sort(diaProducts, com.sadcos.supermarketcomparator.products.diaProducts.ProductPriceDownCommparator);
+                                Collections.sort(diaProducts, com.sadcos.supermarketcomparator.products.stringPriceProducts.ProductPriceDownCommparator);
                                 adapterDia.notifyDataSetChanged();
                                 break;
                             case 2:
-                                Collections.sort(diaProducts, com.sadcos.supermarketcomparator.products.diaProducts.ProductPriceUpCommparator);
+                                Collections.sort(diaProducts, com.sadcos.supermarketcomparator.products.stringPriceProducts.ProductPriceUpCommparator);
                                 adapterDia.notifyDataSetChanged();
                                 break;
                             case 3:
-                                Collections.sort(diaProducts, com.sadcos.supermarketcomparator.products.diaProducts.ProductNameZACommparator);
+                                Collections.sort(diaProducts, com.sadcos.supermarketcomparator.products.stringPriceProducts.ProductNameZACommparator);
                                 adapterDia.notifyDataSetChanged();
                                 break;
                             case 4:
-                                Collections.sort(diaProducts, com.sadcos.supermarketcomparator.products.diaProducts.ProductNameAZCommparator);
+                                Collections.sort(diaProducts, com.sadcos.supermarketcomparator.products.stringPriceProducts.ProductNameAZCommparator);
                                 adapterDia.notifyDataSetChanged();
                                 break;
                         }
                     }
-
                     @Override
                     public void onNothingSelected(AdapterView<?> parent) {
 
@@ -120,7 +116,7 @@ public class searchDiaProducts extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<List<diaProducts>> call, Throwable t) {
+            public void onFailure(Call<List<stringPriceProducts>> call, Throwable t) {
                 progressBar.setVisibility(View.GONE);
                 Toast.makeText(getContext(), "Error\n"+t.toString(), Toast.LENGTH_LONG).show();
             }
@@ -150,7 +146,7 @@ public class searchDiaProducts extends Fragment {
         });
         super.onCreateOptionsMenu(menu,inflater);
     }
-    public void moveToDescription(diaProducts item){
+    public void moveToDescription(stringPriceProducts item){
         Bundle bundle = new Bundle();
         Intent intent = new Intent(getContext(), ItemDetail.class);
         bundle.putString("itemName", item.getCartproduct_name());

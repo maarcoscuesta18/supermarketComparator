@@ -13,37 +13,26 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sadcos.supermarketcomparator.R;
 import com.sadcos.supermarketcomparator.products.AllCategory;
 import com.sadcos.supermarketcomparator.products.CategoryItem;
-import com.sadcos.supermarketcomparator.searchers.searchCarrefourProducts;
-import com.sadcos.supermarketcomparator.searchers.searchDiaProducts;
-import com.sadcos.supermarketcomparator.searchers.searchMercadonaProducts;
-
-import java.lang.reflect.Array;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
+
 import java.util.List;
 
 public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapter.MainViewHolder> {
 
     private Context context;
     private List<AllCategory> allCategoryList;
+
     public MainRecyclerAdapter(Context context, List<AllCategory> allCategoryList) {
         this.context = context;
         this.allCategoryList = allCategoryList;
+
     }
 
     @NonNull
