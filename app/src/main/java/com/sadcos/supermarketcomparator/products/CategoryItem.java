@@ -80,4 +80,15 @@ public class CategoryItem {
     public void setSupermarket(String supermarket) {
         this.supermarket = supermarket;
     }
+
+    @Override
+    public String toString() {
+        return "CategoryItem{" +
+                "product_name='" + product_name + '\'' +
+                ", price=" + price +
+                ", price_per_kg='" + price_per_kg + '\'' +
+                ", link='" + link + '\'' +
+                ", supermarket='" + supermarket + '\'' +
+                '}';
+    }
 }

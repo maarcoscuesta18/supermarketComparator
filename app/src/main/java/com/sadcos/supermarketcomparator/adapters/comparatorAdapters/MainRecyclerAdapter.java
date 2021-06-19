@@ -1,16 +1,12 @@
-package com.sadcos.supermarketcomparator.adapters;
+package com.sadcos.supermarketcomparator.adapters.comparatorAdapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.TextClock;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -28,23 +24,27 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
 
     private Context context;
     private List<AllCategory> allCategoryList;
-
-    public MainRecyclerAdapter(Context context, List<AllCategory> allCategoryList) {
+    private boolean goCompare;
+    public MainRecyclerAdapter(Context context, List<AllCategory> allCategoryList,boolean goCompare) {
         this.context = context;
         this.allCategoryList = allCategoryList;
-
+        this.goCompare = goCompare;
     }
 
     @NonNull
     @Override
     public MainViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MainViewHolder(LayoutInflater.from(context).inflate(R.layout.main_recycler_row_item, parent, false));
+        if(goCompare){
+            return new MainViewHolder(LayoutInflater.from(context).inflate(R.layout.main_comparator_recycler_row_item, parent, false));
+        }else {
+            return new MainViewHolder(LayoutInflater.from(context).inflate(R.layout.main_recycler_row_item, parent, false));
+        }
     }
 
     @Override
     public void onBindViewHolder(@NonNull MainViewHolder holder, int position2) {
         holder.categoryTitle.setText(allCategoryList.get(position2).getCategoryTitle());
-        setCatItemRecycler(holder.itemRecycler, allCategoryList.get(position2).getCategoryItemList());
+        setCatItemRecycler(holder.itemRecycler, allCategoryList.get(position2).getCategoryItemList(),goCompare);
         holder.filter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -97,8 +97,8 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
         }
     }
 
-    private void setCatItemRecycler(RecyclerView recyclerView, List<CategoryItem> categoryItemList){
-        CategoryItemRecyclerAdapter itemRecyclerAdapter = new CategoryItemRecyclerAdapter(context, categoryItemList);
+    private void setCatItemRecycler(RecyclerView recyclerView, List<CategoryItem> categoryItemList,boolean goCompare){
+        CategoryItemRecyclerAdapter itemRecyclerAdapter = new CategoryItemRecyclerAdapter(context, categoryItemList,goCompare);
         recyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
         recyclerView.setHorizontalScrollBarEnabled(true);
         recyclerView.setAdapter(itemRecyclerAdapter);

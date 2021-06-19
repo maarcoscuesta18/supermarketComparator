@@ -1,4 +1,4 @@
-package com.sadcos.supermarketcomparator.ui.main;
+package com.sadcos.supermarketcomparator.ui.main.fragmentsCart;
 
 
 import android.content.Context;

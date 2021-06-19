@@ -73,6 +73,13 @@
                 android:layout_marginBottom="15dp"
                 android:paddingHorizontal="5dp"
                 android:text="Supermercado: ------" />
+            <Button android:id="@+id/update"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginHorizontal="5dp"
+                android:text="UPDATE"
+                android:textColor="@color/white"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>

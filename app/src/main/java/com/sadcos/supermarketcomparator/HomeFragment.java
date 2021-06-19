@@ -13,8 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.gson.Gson;
-import com.sadcos.supermarketcomparator.adapters.*;
 import com.sadcos.supermarketcomparator.adapters.comparatorAdapters.ItemComparatorRecyclerAdapter;
+import com.sadcos.supermarketcomparator.adapters.comparatorAdapters.MainRecyclerAdapter;
 import com.sadcos.supermarketcomparator.products.*;
 import com.sadcos.supermarketcomparator.searchers.searchAlcampoProducts;
 import com.sadcos.supermarketcomparator.searchers.searchCarrefourProducts;
@@ -59,7 +59,7 @@ public class HomeFragment extends Fragment {
         mainCategoryRecycler = view.findViewById(R.id.main_recycler);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mainCategoryRecycler.setLayoutManager(layoutManager);
-        mainRecyclerAdapter = new MainRecyclerAdapter(getActivity(), allCategoryList);
+        mainRecyclerAdapter = new MainRecyclerAdapter(getActivity(), allCategoryList,false);
         mainCategoryRecycler.setAdapter(mainRecyclerAdapter);
         return view;
     }

@@ -1,10 +1,8 @@
 package com.sadcos.supermarketcomparator;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.viewpager.widget.ViewPager;
@@ -14,10 +12,10 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.sadcos.supermarketcomparator.ui.main.SectionsPagerAdapter;
-import com.sadcos.supermarketcomparator.ui.main.alcampoFragmentCart;
-import com.sadcos.supermarketcomparator.ui.main.carrefourFragmentCart;
-import com.sadcos.supermarketcomparator.ui.main.diaFragmentCart;
-import com.sadcos.supermarketcomparator.ui.main.mercadonaFragmentCart;
+import com.sadcos.supermarketcomparator.ui.main.fragmentsCart.alcampoFragmentCart;
+import com.sadcos.supermarketcomparator.ui.main.fragmentsCart.carrefourFragmentCart;
+import com.sadcos.supermarketcomparator.ui.main.fragmentsCart.diaFragmentCart;
+import com.sadcos.supermarketcomparator.ui.main.fragmentsCart.mercadonaFragmentCart;
 
 public class Cart extends AppCompatActivity implements mercadonaFragmentCart.OnFragmentInteractionListener,
         diaFragmentCart.OnFragmentInteractionListener, carrefourFragmentCart.OnFragmentInteractionListener,

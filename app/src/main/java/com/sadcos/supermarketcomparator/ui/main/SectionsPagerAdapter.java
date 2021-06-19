@@ -10,6 +10,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.sadcos.supermarketcomparator.R;
+import com.sadcos.supermarketcomparator.ui.main.fragmentsCart.alcampoFragmentCart;
+import com.sadcos.supermarketcomparator.ui.main.fragmentsCart.carrefourFragmentCart;
+import com.sadcos.supermarketcomparator.ui.main.fragmentsCart.diaFragmentCart;
+import com.sadcos.supermarketcomparator.ui.main.fragmentsCart.mercadonaFragmentCart;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
