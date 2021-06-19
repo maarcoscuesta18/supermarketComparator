@@ -1,4 +1,4 @@
-package com.sadcos.supermarketcomparator.adapters;
+package com.sadcos.supermarketcomparator.adapters.supermercadosAdapters;
 
 import android.content.Context;
 import android.content.SharedPreferences;

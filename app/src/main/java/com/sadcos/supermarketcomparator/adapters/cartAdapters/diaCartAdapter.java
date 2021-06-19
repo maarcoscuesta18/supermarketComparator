@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.sadcos.supermarketcomparator.R;
-import com.sadcos.supermarketcomparator.adapters.AdapterDia;
+import com.sadcos.supermarketcomparator.adapters.supermercadosAdapters.AdapterDia;
 import com.sadcos.supermarketcomparator.products.stringPriceProducts;
 
 import java.util.ArrayList;

@@ -16,10 +16,10 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.sadcos.supermarketcomparator.HomeFragment;
 import com.sadcos.supermarketcomparator.R;
-import com.sadcos.supermarketcomparator.adapters.AdapterAlcampo;
-import com.sadcos.supermarketcomparator.adapters.AdapterCarrefour;
-import com.sadcos.supermarketcomparator.adapters.AdapterDia;
-import com.sadcos.supermarketcomparator.adapters.AdapterMercadona;
+import com.sadcos.supermarketcomparator.adapters.supermercadosAdapters.AdapterAlcampo;
+import com.sadcos.supermarketcomparator.adapters.supermercadosAdapters.AdapterCarrefour;
+import com.sadcos.supermarketcomparator.adapters.supermercadosAdapters.AdapterDia;
+import com.sadcos.supermarketcomparator.adapters.supermercadosAdapters.AdapterMercadona;
 import com.sadcos.supermarketcomparator.products.CategoryItem;
 import com.sadcos.supermarketcomparator.products.stringPriceProducts;
 import com.sadcos.supermarketcomparator.products.mercadonaProducts;
@@ -27,10 +27,12 @@ import com.sadcos.supermarketcomparator.sliderintro.IntroActivity;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 public class gestionActivity extends AppCompatActivity {
     ProgressBar progressBar;
     TextView usernameTemp;
+    public static List<CategoryItem> comparatorProducts = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +47,8 @@ public class gestionActivity extends AppCompatActivity {
                 boolean session=preferences.getBoolean("session",false);
                 if(session){
                     getCart();
+                    comparatorProducts.add(0,new CategoryItem("Añade el producto 1","www.google.com", 0,"------------","Mercadona"));
+                    comparatorProducts.add(1,new CategoryItem("Añade el producto 2","www.google.com", 0,"------------","Alcampo"));
                     Intent intent = new Intent(gestionActivity.this, IntroActivity.class);
                     startActivity(intent);
                     finish();

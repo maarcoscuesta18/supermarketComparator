@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,10 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.gson.Gson;
 import com.sadcos.supermarketcomparator.ItemDetail;
 import com.sadcos.supermarketcomparator.R;
+import com.sadcos.supermarketcomparator.adapters.supermercadosAdapters.AdapterMercadona;
 import com.sadcos.supermarketcomparator.products.CategoryItem;
-import com.sadcos.supermarketcomparator.products.mercadonaProducts;
 
-import java.util.Collections;
 import java.util.List;
 
 public class CategoryItemRecyclerAdapter extends RecyclerView.Adapter<CategoryItemRecyclerAdapter.CategoryItemViewHolder> {

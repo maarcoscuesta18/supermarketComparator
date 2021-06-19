@@ -19,7 +19,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.sadcos.supermarketcomparator.ItemDetail;
 import com.sadcos.supermarketcomparator.R;
-import com.sadcos.supermarketcomparator.adapters.AdapterCarrefour;
+import com.sadcos.supermarketcomparator.adapters.supermercadosAdapters.AdapterCarrefour;
 import com.sadcos.supermarketcomparator.adapters.cartAdapters.carrefourCartAdapter;
 import com.sadcos.supermarketcomparator.products.stringPriceProducts;
 

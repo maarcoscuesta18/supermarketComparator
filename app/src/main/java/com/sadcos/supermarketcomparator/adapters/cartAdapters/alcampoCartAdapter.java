@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.sadcos.supermarketcomparator.R;
-import com.sadcos.supermarketcomparator.adapters.AdapterAlcampo;
-import com.sadcos.supermarketcomparator.adapters.AdapterCarrefour;
+import com.sadcos.supermarketcomparator.adapters.supermercadosAdapters.AdapterAlcampo;
+import com.sadcos.supermarketcomparator.adapters.supermercadosAdapters.AdapterCarrefour;
 import com.sadcos.supermarketcomparator.products.stringPriceProducts;
 
 import java.util.ArrayList;

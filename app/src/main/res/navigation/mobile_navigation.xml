@@ -33,6 +33,10 @@
         tools:layout="@layout/activity_search_products" />
 
     <activity
+        android:id="@+id/nav_account"
+        app:action="android.intent.action.VIEW"
+        app:data="https://supermarketcomparator.000webhostapp.com/weblogin.php"/>
+    <activity
         android:id="@+id/nav_logout"
         android:name="com.sadcos.supermarketcomparator.login.LogoutActivity"
         android:label="Logout" />

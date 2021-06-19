@@ -11,10 +11,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
-import com.sadcos.supermarketcomparator.adapters.AdapterAlcampo;
-import com.sadcos.supermarketcomparator.adapters.AdapterCarrefour;
-import com.sadcos.supermarketcomparator.adapters.AdapterDia;
-import com.sadcos.supermarketcomparator.adapters.AdapterMercadona;
+import com.sadcos.supermarketcomparator.adapters.supermercadosAdapters.AdapterAlcampo;
+import com.sadcos.supermarketcomparator.adapters.supermercadosAdapters.AdapterCarrefour;
+import com.sadcos.supermarketcomparator.adapters.supermercadosAdapters.AdapterDia;
+import com.sadcos.supermarketcomparator.adapters.supermercadosAdapters.AdapterMercadona;
 import com.sadcos.supermarketcomparator.settings.Settings;
 
 import androidx.navigation.NavController;

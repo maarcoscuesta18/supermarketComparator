@@ -6,8 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
-import com.sadcos.supermarketcomparator.adapters.AdapterMercadona;
-import com.sadcos.supermarketcomparator.products.mercadonaProducts;
+import com.sadcos.supermarketcomparator.adapters.supermercadosAdapters.AdapterMercadona;
 
 public class PageViewModel extends ViewModel {
 

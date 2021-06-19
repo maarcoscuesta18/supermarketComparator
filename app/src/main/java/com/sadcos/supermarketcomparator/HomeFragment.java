@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.google.gson.Gson;
 import com.sadcos.supermarketcomparator.adapters.*;
+import com.sadcos.supermarketcomparator.adapters.comparatorAdapters.ItemComparatorRecyclerAdapter;
 import com.sadcos.supermarketcomparator.products.*;
 import com.sadcos.supermarketcomparator.searchers.searchAlcampoProducts;
 import com.sadcos.supermarketcomparator.searchers.searchCarrefourProducts;
@@ -23,13 +24,15 @@ import com.sadcos.supermarketcomparator.searchers.searchMercadonaProducts;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.sadcos.supermarketcomparator.login.gestionActivity.comparatorProducts;
+
 public class HomeFragment extends Fragment {
     RecyclerView mainCategoryRecycler,itemMainComparatorRecyclerAdapter;
     MainRecyclerAdapter mainRecyclerAdapter;
     ItemComparatorRecyclerAdapter itemComparatorRecyclerAdapter;
 
 
-    public static List<CategoryItem> comparatorProducts = new ArrayList<>();
+
     public static List<CategoryItem> categoryItemListMercadona = new ArrayList<>();
     public static List<CategoryItem> categoryItemListDia = new ArrayList<>();
     public static List<CategoryItem> categoryItemListCarrefour = new ArrayList<>();
@@ -45,7 +48,6 @@ public class HomeFragment extends Fragment {
         generateData();
         saveCart(view);
         //comparator
-        comparatorProducts.add(new CategoryItem("Añade un producto","www.google.com", 0,"------------","dia"));
         itemMainComparatorRecyclerAdapter = view.findViewById(R.id.item_ComparatorRecycler);
         RecyclerView.LayoutManager layoutManagerComparator = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL,false);
         itemMainComparatorRecyclerAdapter.setLayoutManager(layoutManagerComparator);

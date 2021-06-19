@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sadcos.supermarketcomparator.ItemDetail;
-import com.sadcos.supermarketcomparator.adapters.AdapterDia;
+import com.sadcos.supermarketcomparator.adapters.supermercadosAdapters.AdapterDia;
 import com.sadcos.supermarketcomparator.apis.ApiClient;
 import com.sadcos.supermarketcomparator.apis.ApiInterfaceDia;
 import com.sadcos.supermarketcomparator.R;

@@ -21,14 +21,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sadcos.supermarketcomparator.ItemDetail;
 import com.sadcos.supermarketcomparator.R;
-import com.sadcos.supermarketcomparator.adapters.AdapterAlcampo;
-import com.sadcos.supermarketcomparator.adapters.AdapterCarrefour;
-import com.sadcos.supermarketcomparator.adapters.AdapterMercadona;
+import com.sadcos.supermarketcomparator.adapters.supermercadosAdapters.AdapterAlcampo;
 import com.sadcos.supermarketcomparator.apis.ApiClient;
 import com.sadcos.supermarketcomparator.apis.ApiInterfaceAlcampo;
-import com.sadcos.supermarketcomparator.apis.ApiInterfaceCarrefour;
-import com.sadcos.supermarketcomparator.apis.ApiInterfaceMercadona;
-import com.sadcos.supermarketcomparator.products.mercadonaProducts;
 import com.sadcos.supermarketcomparator.products.stringPriceProducts;
 
 import java.util.ArrayList;

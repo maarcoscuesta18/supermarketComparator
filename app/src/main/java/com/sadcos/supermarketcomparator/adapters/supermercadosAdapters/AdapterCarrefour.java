@@ -1,4 +1,4 @@
-package com.sadcos.supermarketcomparator.adapters;
+package com.sadcos.supermarketcomparator.adapters.supermercadosAdapters;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -23,15 +23,16 @@ import java.util.List;
  * Created by haerul on 17/03/18.
  */
 
-public class AdapterDia extends RecyclerView.Adapter<AdapterDia.MyViewHolder> {
-    public static ArrayList<stringPriceProducts> diaCartProducts = new ArrayList<>();
+public class AdapterCarrefour extends RecyclerView.Adapter<AdapterCarrefour.MyViewHolder> {
+    public static ArrayList<stringPriceProducts> carrefourCartProducts = new ArrayList<>();
     private List<stringPriceProducts> product;
     private Context context;
-    public static AdapterDia.OnItemClickListener listener;
+    public static int[] count = {1};
+    public static AdapterCarrefour.OnItemClickListener listener;
     public interface OnItemClickListener{
         void onItemClick(stringPriceProducts item);
     }
-    public AdapterDia(List<stringPriceProducts> products, Context context, AdapterDia.OnItemClickListener listener) {
+    public AdapterCarrefour(List<stringPriceProducts> products, Context context, AdapterCarrefour.OnItemClickListener listener) {
         this.product = products;
         this.context = context;
         this.listener = listener;
@@ -49,14 +50,13 @@ public class AdapterDia extends RecyclerView.Adapter<AdapterDia.MyViewHolder> {
         holder.link.setText(product.get(position).getLink());
         holder.price.setText("Price: "+product.get(position).getPrice()+" €");
         holder.price_per_kg.setText("Price per kg/l/unit: "+product.get(position).getPrice_per_kg());
-
     }
     @Override
     public int getItemCount() {
         return product.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView product_name,link,price,price_per_kg;
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -65,7 +65,7 @@ public class AdapterDia extends RecyclerView.Adapter<AdapterDia.MyViewHolder> {
             price = itemView.findViewById(R.id.price);
             price_per_kg = itemView.findViewById(R.id.priceperkg);
             Button addtocart = itemView.findViewById(R.id.addtocart);
-            final int[] count = {1};
+            count[0] = 1;
             TextView txtCount =(TextView) itemView.findViewById(R.id.qty);
             ImageView buttonInc= (ImageView) itemView.findViewById(R.id.qtyplus);
             ImageView buttonDec= (ImageView) itemView.findViewById(R.id.qtyless);
@@ -93,12 +93,12 @@ public class AdapterDia extends RecyclerView.Adapter<AdapterDia.MyViewHolder> {
                 public void onClick(View v) {
                     Toast.makeText(v.getContext(),"Producto añadido correctamente",Toast.LENGTH_SHORT).show();
                     stringPriceProducts newproduct = new stringPriceProducts(product_name.getText().toString(),link.getText().toString(),price.getText().toString().substring(7,11),price_per_kg.getText().toString(),String.valueOf(count[0]),String.valueOf(Double.parseDouble(price.getText().toString().substring(7,11))*count[0]));
-                    if(diaCartProducts.isEmpty()){
-                        diaCartProducts.add(newproduct);
+                    if(carrefourCartProducts.isEmpty()){
+                        carrefourCartProducts.add(newproduct);
                         saveCart(v);
                     }else{
                         if(isAlreadyInCart(newproduct)){
-                            for (stringPriceProducts product : diaCartProducts){
+                            for (stringPriceProducts product : carrefourCartProducts){
                                 if(product.getCartproduct_name().equals(newproduct.getCartproduct_name())){
                                     product.setQty(String.valueOf(Integer.parseInt(product.getQty())+Integer.parseInt(newproduct.getQty())));
                                     product.setTotalprice(Double.parseDouble(String.valueOf(product.getTotalprice()+newproduct.getTotalprice())));
@@ -106,7 +106,7 @@ public class AdapterDia extends RecyclerView.Adapter<AdapterDia.MyViewHolder> {
                                 }
                             }
                         }else{
-                            diaCartProducts.add(newproduct);
+                            carrefourCartProducts.add(newproduct);
                             saveCart(v);
                         }
                     }
@@ -125,14 +125,14 @@ public class AdapterDia extends RecyclerView.Adapter<AdapterDia.MyViewHolder> {
             SharedPreferences cartPreferences=v.getContext().getSharedPreferences("cartPreferences", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = cartPreferences.edit();
             Gson gson = new Gson();
-            String json = gson.toJson(AdapterDia.diaCartProducts);
-            editor.putString("cartDia", json);
+            String json = gson.toJson(AdapterCarrefour.carrefourCartProducts);
+            editor.putString("cartCarrefour", json);
             editor.apply();
         }
         public boolean isAlreadyInCart(stringPriceProducts product){
             boolean isInCart=false;
-            for(int i=0;i<diaCartProducts.size();i++){
-                if(product.getCartproduct_name().equals(diaCartProducts.get(i).getCartproduct_name())){
+            for(int i=0;i<carrefourCartProducts.size();i++){
+                if(product.getCartproduct_name().equals(carrefourCartProducts.get(i).getCartproduct_name())){
                     isInCart=true;
                     break;
                 }
