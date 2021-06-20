@@ -1,15 +1,23 @@
 package com.sadcos.supermarketcomparator.comparator;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.sadcos.supermarketcomparator.R;
+import com.sadcos.supermarketcomparator.adapters.comparatorAdapters.CategoryItemRecyclerAdapter;
 
 
 public class ItemComparator extends AppCompatActivity {
+    CategoryItemRecyclerAdapter categoryItemRecyclerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +31,6 @@ public class ItemComparator extends AppCompatActivity {
                 onBackPressed();
             }
         });
-        getSupportFragmentManager().beginTransaction().replace(R.id.itemComparatorActivity,new ItemComparatorFragment()).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.itemComparatorActivity,new ItemComparatorFragment()).commit();
     }
 }

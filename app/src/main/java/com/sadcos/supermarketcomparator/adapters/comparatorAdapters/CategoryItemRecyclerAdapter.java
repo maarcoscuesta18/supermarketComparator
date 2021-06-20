@@ -2,15 +2,22 @@ package com.sadcos.supermarketcomparator.adapters.comparatorAdapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sadcos.supermarketcomparator.ItemDetail;
@@ -18,9 +25,12 @@ import com.sadcos.supermarketcomparator.R;
 import com.sadcos.supermarketcomparator.login.gestionActivity;
 import com.sadcos.supermarketcomparator.products.CategoryItem;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class CategoryItemRecyclerAdapter extends RecyclerView.Adapter<CategoryItemRecyclerAdapter.CategoryItemViewHolder> {
+public class CategoryItemRecyclerAdapter extends RecyclerView.Adapter<CategoryItemRecyclerAdapter.CategoryItemViewHolder>{
 
     private Context context;
     private List<CategoryItem> categoryItemList;
@@ -111,6 +121,7 @@ public class CategoryItemRecyclerAdapter extends RecyclerView.Adapter<CategoryIt
         TextView product_name,price,link,price_per_kg;
         ImageView imglink;
         Button addtocompare;
+
         public CategoryItemViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -122,4 +133,5 @@ public class CategoryItemRecyclerAdapter extends RecyclerView.Adapter<CategoryIt
             addtocompare = itemView.findViewById(R.id.compare);
         }
     }
+
 }

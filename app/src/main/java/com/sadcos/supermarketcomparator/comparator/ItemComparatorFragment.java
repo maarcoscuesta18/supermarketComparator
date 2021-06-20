@@ -1,26 +1,33 @@
 package com.sadcos.supermarketcomparator.comparator;
 
+
+import android.app.SearchManager;
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.sadcos.supermarketcomparator.HomeFragment;
 import com.sadcos.supermarketcomparator.R;
+import com.sadcos.supermarketcomparator.adapters.comparatorAdapters.CategoryItemRecyclerAdapter;
 import com.sadcos.supermarketcomparator.adapters.comparatorAdapters.MainRecyclerAdapter;
 import com.sadcos.supermarketcomparator.products.AllCategory;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemComparatorFragment extends Fragment {
+public class ItemComparatorFragment extends Fragment{
     RecyclerView mainCategoryRecycler;
     MainRecyclerAdapter mainRecyclerAdapter;
+    CategoryItemRecyclerAdapter categoryItemRecyclerAdapter;
     public List<AllCategory> allCategoryList = new ArrayList<>();
 
     @Override

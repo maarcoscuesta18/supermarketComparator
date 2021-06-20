@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="?android:selectableItemBackground"
     android:orientation="vertical"
     android:padding="5dp">
@@ -21,7 +22,6 @@
             android:fontFamily="@font/samsungone700"
             android:text="Sample title"
             android:textSize="18sp" />
-
         <Spinner
             android:id="@+id/filter"
             android:layout_width="160dp"
@@ -31,7 +31,23 @@
             android:gravity="center_vertical"
             android:entries="@array/filter_types" />
     </RelativeLayout>
-
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchProduct"
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            app:iconifiedByDefault="false"
+            app:defaultQueryHint="Search" />
+        <Button
+            android:id="@+id/resetButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reset Search"
+            android:textColor="@color/white"
+            android:layout_toRightOf="@id/searchProduct" />
+    </RelativeLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/item_recycler"
         android:layout_width="match_parent"

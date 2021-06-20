@@ -1,20 +1,29 @@
 package com.sadcos.supermarketcomparator;
 
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.sadcos.supermarketcomparator.adapters.comparatorAdapters.CategoryItemRecyclerAdapter;
 import com.sadcos.supermarketcomparator.adapters.comparatorAdapters.ItemComparatorRecyclerAdapter;
 import com.sadcos.supermarketcomparator.adapters.comparatorAdapters.MainRecyclerAdapter;
+import com.sadcos.supermarketcomparator.adapters.supermercadosAdapters.AdapterAlcampo;
+import com.sadcos.supermarketcomparator.apis.ApiClient;
+import com.sadcos.supermarketcomparator.apis.ApiInterfaceAlcampo;
 import com.sadcos.supermarketcomparator.products.*;
 import com.sadcos.supermarketcomparator.searchers.searchAlcampoProducts;
 import com.sadcos.supermarketcomparator.searchers.searchCarrefourProducts;
@@ -24,6 +33,10 @@ import com.sadcos.supermarketcomparator.searchers.searchMercadonaProducts;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 import static com.sadcos.supermarketcomparator.login.gestionActivity.comparatorProducts;
 
 public class HomeFragment extends Fragment {
@@ -31,7 +44,9 @@ public class HomeFragment extends Fragment {
     MainRecyclerAdapter mainRecyclerAdapter;
     ItemComparatorRecyclerAdapter itemComparatorRecyclerAdapter;
 
-
+    private List<stringPriceProducts> alcampoProducts = new ArrayList<>();
+    private CategoryItemRecyclerAdapter adapterAlcampo;
+    private ApiInterfaceAlcampo apiInterfaceAlcampo;
 
     public static List<CategoryItem> categoryItemListMercadona = new ArrayList<>();
     public static List<CategoryItem> categoryItemListDia = new ArrayList<>();
@@ -78,7 +93,6 @@ public class HomeFragment extends Fragment {
         if(categoryItemListCarrefour.isEmpty()){
             for(stringPriceProducts product : searchCarrefourProducts.carrefourProducts){
                 categoryItemListCarrefour.add(new CategoryItem(product.getProduct_name(),product.getLink(),Double.parseDouble(product.getPrice()),"Price Per kg/l/unit: "+ product.getPrice_per_kg(),"Carrefour"));
-                System.out.println("carrefour");
             }
         }
         if(categoryItemListAlcampo.isEmpty()){
@@ -112,5 +126,4 @@ public class HomeFragment extends Fragment {
         editor.putString("cartSupermarketsRecommended", jsonSupermarkets);
         editor.apply();
     }
-
 }

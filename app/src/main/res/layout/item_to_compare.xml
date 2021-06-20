@@ -42,8 +42,7 @@
                 android:layout_height="wrap_content"
                 android:autoLink="web"
                 android:ellipsize="end"
-                android:maxLines="1"
-                android:scaleType="fitXY"/>
+                android:maxLines="1" />
 
             <TextView
                 android:paddingTop="5dp"

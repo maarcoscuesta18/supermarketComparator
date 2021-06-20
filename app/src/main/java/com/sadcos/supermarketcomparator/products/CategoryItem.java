@@ -16,7 +16,6 @@ public class CategoryItem {
         this.link = link;
         this.supermarket = supermarket;
     }
-
     public static Comparator<CategoryItem> ProductNameAZCommparator = new Comparator<CategoryItem>() {
         @Override
         public int compare(CategoryItem o1, CategoryItem o2) {
