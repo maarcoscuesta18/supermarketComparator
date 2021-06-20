@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -73,6 +74,9 @@ public class Settings extends AppCompatActivity {
                 }
             });
             switch (key) {
+                case "Version":
+                    Toast.makeText(getContext(), "Version 0.90.5 (Alpha)", Toast.LENGTH_SHORT).show();
+                    return true;
                 case "Send Feedback":
                     sendFeedback(requireActivity());
                     return true;

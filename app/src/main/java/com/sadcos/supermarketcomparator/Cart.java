@@ -11,11 +11,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.sadcos.supermarketcomparator.adapters.supermercadosAdapters.AdapterAlcampo;
+import com.sadcos.supermarketcomparator.adapters.supermercadosAdapters.AdapterCarrefour;
+import com.sadcos.supermarketcomparator.adapters.supermercadosAdapters.AdapterDia;
+import com.sadcos.supermarketcomparator.adapters.supermercadosAdapters.AdapterMercadona;
 import com.sadcos.supermarketcomparator.ui.main.SectionsPagerAdapter;
 import com.sadcos.supermarketcomparator.ui.main.fragmentsCart.alcampoFragmentCart;
 import com.sadcos.supermarketcomparator.ui.main.fragmentsCart.carrefourFragmentCart;
 import com.sadcos.supermarketcomparator.ui.main.fragmentsCart.diaFragmentCart;
 import com.sadcos.supermarketcomparator.ui.main.fragmentsCart.mercadonaFragmentCart;
+
+import static com.sadcos.supermarketcomparator.MainActivity.mCartItemCount;
+import static com.sadcos.supermarketcomparator.MainActivity.setupBadge;
+import static com.sadcos.supermarketcomparator.MainActivity.textCartItemCount;
 
 public class Cart extends AppCompatActivity implements mercadonaFragmentCart.OnFragmentInteractionListener,
         diaFragmentCart.OnFragmentInteractionListener, carrefourFragmentCart.OnFragmentInteractionListener,
@@ -30,6 +38,7 @@ public class Cart extends AppCompatActivity implements mercadonaFragmentCart.OnF
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
 
+        setupBadge();
         ImageView goBack = findViewById(R.id.goback);
         goBack.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -29,7 +29,7 @@ import androidx.appcompat.widget.Toolbar;
 
 public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
-    TextView textCartItemCount;
+    public static TextView textCartItemCount;
     public static int mCartItemCount =0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
-
+        setupBadge();
         SharedPreferences preferences=getSharedPreferences("loginPreferences", Context.MODE_PRIVATE);
         View nav = navigationView.getHeaderView(0);
         TextView Username= (TextView) nav.findViewById(R.id.textViewUsername);
@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
         View actionView = menuItem.getActionView();
         textCartItemCount = (TextView) actionView.findViewById(R.id.cart_badge);
 
-        setupBadge();
 
         actionView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-    private void setupBadge() {
+    public static void setupBadge() {
         try{
             mCartItemCount= AdapterMercadona.mercadonaCartProducts.size()+ AdapterCarrefour.carrefourCartProducts.size()+ AdapterDia.diaCartProducts.size()+ AdapterAlcampo.alcampoCartProducts.size();
             if (textCartItemCount != null) {

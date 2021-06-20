@@ -61,9 +61,13 @@ public class CategoryItemRecyclerAdapter extends RecyclerView.Adapter<CategoryIt
             holder.addtocompare.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    gestionActivity.comparatorProducts.set((int) (Math.random() * 2),new CategoryItem(categoryItemList.get(position).getProduct_name(),categoryItemList.get(position).getLink(),categoryItemList.get(position).getPrice(),categoryItemList.get(position).getPrice_per_kg(),categoryItemList.get(position).getSupermarket()));
-                    System.out.println(gestionActivity.comparatorProducts.get(0).toString());
-                    System.out.println(gestionActivity.comparatorProducts.get(1).toString());
+                    if(gestionActivity.comparatorProducts.get(0).getProduct_name().equals("Añade el producto 1")){
+                        gestionActivity.comparatorProducts.set(0,new CategoryItem(categoryItemList.get(position).getProduct_name(),categoryItemList.get(position).getLink(),categoryItemList.get(position).getPrice(),categoryItemList.get(position).getPrice_per_kg(),categoryItemList.get(position).getSupermarket()));
+                    }else if(gestionActivity.comparatorProducts.get(1).getProduct_name().equals("Añade el producto 2")){
+                        gestionActivity.comparatorProducts.set(1,new CategoryItem(categoryItemList.get(position).getProduct_name(),categoryItemList.get(position).getLink(),categoryItemList.get(position).getPrice(),categoryItemList.get(position).getPrice_per_kg(),categoryItemList.get(position).getSupermarket()));
+                    } else{
+                        gestionActivity.comparatorProducts.set((int) (Math.random() * 2),new CategoryItem(categoryItemList.get(position).getProduct_name(),categoryItemList.get(position).getLink(),categoryItemList.get(position).getPrice(),categoryItemList.get(position).getPrice_per_kg(),categoryItemList.get(position).getSupermarket()));
+                    }
                 }
             });
         }else{

@@ -36,6 +36,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.sadcos.supermarketcomparator.MainActivity.setupBadge;
+
 public class searchDiaProducts extends Fragment {
 
     private RecyclerView recyclerView;
@@ -60,6 +62,7 @@ public class searchDiaProducts extends Fragment {
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
+        setupBadge();
         fetchContact("dia_products", "");
         return vista;
     }

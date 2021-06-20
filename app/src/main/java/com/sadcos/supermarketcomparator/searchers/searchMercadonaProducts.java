@@ -36,6 +36,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.sadcos.supermarketcomparator.MainActivity.setupBadge;
+
 public class searchMercadonaProducts extends Fragment {
 
     private RecyclerView recyclerView;
@@ -59,7 +61,7 @@ public class searchMercadonaProducts extends Fragment {
         filter = vista.findViewById(R.id.filter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         recyclerView.setVerticalScrollBarEnabled(true);
-
+        setupBadge();
         fetchContact("mercadona_products", "");
 
         return vista;

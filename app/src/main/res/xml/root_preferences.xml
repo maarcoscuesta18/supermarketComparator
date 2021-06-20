@@ -42,6 +42,7 @@
             app:summary="@string/summary_about" />
 
         <Preference
+            app:key="@string/title_version"
             app:summary="@string/app_version"
             app:title="@string/title_version" />
 

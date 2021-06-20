@@ -21,6 +21,10 @@ import com.sadcos.supermarketcomparator.adapters.supermercadosAdapters.AdapterMe
 import com.sadcos.supermarketcomparator.products.stringPriceProducts;
 import com.sadcos.supermarketcomparator.products.mercadonaProducts;
 
+import static com.sadcos.supermarketcomparator.MainActivity.mCartItemCount;
+import static com.sadcos.supermarketcomparator.MainActivity.setupBadge;
+import static com.sadcos.supermarketcomparator.MainActivity.textCartItemCount;
+
 public class ItemDetail extends AppCompatActivity {
     TextView product_name,price,price_per_kg,qty;
     Button addtocart;
@@ -41,7 +45,7 @@ public class ItemDetail extends AppCompatActivity {
         lessqty = findViewById(R.id.qtyless);
         qty = findViewById(R.id.qty);
         imglink = findViewById(R.id.imglink);
-
+        setupBadge();
 
         Bundle bundle = getIntent().getExtras();
         String supermarketType = bundle.getString("supermarketType");
@@ -270,4 +274,5 @@ public class ItemDetail extends AppCompatActivity {
         editor.putString("cartMercadona", json);
         editor.apply();
     }
+
 }

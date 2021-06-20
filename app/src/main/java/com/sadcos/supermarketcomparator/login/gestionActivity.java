@@ -53,6 +53,9 @@ public class gestionActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 }else{
+                    getCart();
+                    comparatorProducts.add(0,new CategoryItem("Añade el producto 1","www.google.com", 0,"------------","Mercadona"));
+                    comparatorProducts.add(1,new CategoryItem("Añade el producto 2","www.google.com", 0,"------------","Alcampo"));
                     Intent intent=new Intent(gestionActivity.this,LoginActivity.class);
                     startActivity(intent);
                     finish();

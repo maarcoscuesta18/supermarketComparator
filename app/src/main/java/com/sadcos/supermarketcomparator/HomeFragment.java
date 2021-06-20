@@ -37,6 +37,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.sadcos.supermarketcomparator.MainActivity.setupBadge;
 import static com.sadcos.supermarketcomparator.login.gestionActivity.comparatorProducts;
 
 public class HomeFragment extends Fragment {
@@ -59,7 +60,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-
+        setupBadge();
         generateData();
         saveCart(view);
         //comparator
@@ -126,4 +127,5 @@ public class HomeFragment extends Fragment {
         editor.putString("cartSupermarketsRecommended", jsonSupermarkets);
         editor.apply();
     }
+
 }
