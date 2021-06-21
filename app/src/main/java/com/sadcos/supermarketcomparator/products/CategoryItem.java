@@ -41,6 +41,10 @@ public class CategoryItem {
         }
     };
 
+    public CategoryItem() {
+
+    }
+
     public String getProduct_name() {
         return product_name;
     }

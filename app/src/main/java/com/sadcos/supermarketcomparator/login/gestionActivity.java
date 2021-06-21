@@ -43,19 +43,21 @@ public class gestionActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                comparatorProducts.add(0,new CategoryItem("Añade el producto 1","www.google.com", 0,"------------","Mercadona"));
+                comparatorProducts.add(1,new CategoryItem("Añade el producto 2","www.google.com", 0,"------------","Alcampo"));
                 SharedPreferences preferences = getSharedPreferences("loginPreferences", Context.MODE_PRIVATE);
                 boolean session=preferences.getBoolean("session",false);
                 if(session){
                     getCart();
-                    comparatorProducts.add(0,new CategoryItem("Añade el producto 1","www.google.com", 0,"------------","Mercadona"));
-                    comparatorProducts.add(1,new CategoryItem("Añade el producto 2","www.google.com", 0,"------------","Alcampo"));
+                    comparatorProducts.set(0,new CategoryItem("Añade el producto 1","www.google.com", 0,"------------","Mercadona"));
+                    comparatorProducts.set(1,new CategoryItem("Añade el producto 2","www.google.com", 0,"------------","Alcampo"));
                     Intent intent = new Intent(gestionActivity.this, IntroActivity.class);
                     startActivity(intent);
                     finish();
                 }else{
                     getCart();
-                    comparatorProducts.add(0,new CategoryItem("Añade el producto 1","www.google.com", 0,"------------","Mercadona"));
-                    comparatorProducts.add(1,new CategoryItem("Añade el producto 2","www.google.com", 0,"------------","Alcampo"));
+                    comparatorProducts.set(0,new CategoryItem("Añade el producto 1","www.google.com", 0,"------------","Mercadona"));
+                    comparatorProducts.set(1,new CategoryItem("Añade el producto 2","www.google.com", 0,"------------","Alcampo"));
                     Intent intent=new Intent(gestionActivity.this,LoginActivity.class);
                     startActivity(intent);
                     finish();

@@ -107,4 +107,21 @@ public class stringPriceProducts {
     public void setCartlink(String cartlink) {
         this.cartlink = cartlink;
     }
+
+    @Override
+    public String toString() {
+        return "stringPriceProducts{" +
+                "id=" + id +
+                ", product_name='" + product_name + '\'' +
+                ", link='" + link + '\'' +
+                ", price='" + price + '\'' +
+                ", price_per_kg='" + price_per_kg + '\'' +
+                ", qty='" + qty + '\'' +
+                ", cartproduct_name='" + cartproduct_name + '\'' +
+                ", cartpriceperkg='" + cartpriceperkg + '\'' +
+                ", cartprice=" + cartprice +
+                ", totalprice=" + totalprice +
+                ", cartlink='" + cartlink + '\'' +
+                '}';
+    }
 }

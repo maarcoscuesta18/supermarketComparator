@@ -111,9 +111,9 @@ public class IntroActivity extends AppCompatActivity {
         public void onPageSelected(int position) {
             addBottomDots(position);
             if (position == layouts.length - 1) {
-                tvNext.setText("START");
+                tvNext.setText("SALTAR");
             } else {
-                tvNext.setText("NEXT");
+                tvNext.setText("SIGUIENTE");
             }
         }
 

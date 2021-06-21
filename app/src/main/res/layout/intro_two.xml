@@ -28,7 +28,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add to cart"
+            android:text="Carrito de Compra"
             android:textColor="@android:color/black"
             android:gravity="center"
             android:textSize="25sp"
@@ -37,7 +37,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add to cart button works on product pages. The customizations in this section  compatible with dynamic checkout buttons"
+            android:text="Puedes añadir al carrito de compra tus productos favoritos y asi poder ver en que supermercado te sale mas economico!"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="25sp"
             android:layout_marginTop="15dp"
